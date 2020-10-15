@@ -417,5 +417,7 @@ git push origin HEAD:깃허브의 다른브랜치명
     - 마스터 브랜치가 체크아웃된 상태에서
     - New Pull Request 버튼 클릭(pull requests 버튼을 눌러야 나옴)
     - Compare changes 화면에서 base: test1로 설정 <- compare: master로 설정 후 Create Pull Request 버튼 클릭
-    - 메시지 제목과 내용 입력 후 Create Pull Request 버튼 클릭
-    - 전환된 화면에서 Merge pull request 버튼 클릭 -> Confirm merge 버튼 클릭
+    - 메시지 제목과 내용 입력 후 Create Pull Request 버튼 
+    - 전환된 화면에서 Merge pull request 버튼 클릭 -> Confirm merge 버튼
+    
+    -gest1 브랜치추가. 
