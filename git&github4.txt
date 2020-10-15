@@ -1,0 +1,421 @@
+1. git 다운로드
+   git-scm.com 사이트에 접속 후 다운로드
+
+2. git 설치
+   디폴트 값으로 설치하면 됨(다음 버튼과 완료 버튼만 누름)
+
+3. git 설치 직후 전역 환경 설정
+   git config --global user.name "ca"
+   git config --global user.email "ca1234"
+
+3-1. 환경 설정 내용 확인
+   git config --list(환경설정 내용 확인)
+   
+3-2. 만약 환경설정 중 오타가 발생했을 경우(예: user.name -> usr.name으로 오타 발생 시)
+   - usr.name 삭제: git config --global --unset usr.name "ca"
+   - user.name 생성: git config --global user.name "ca"
+   
+3-3. 윈도위에서 commit과 로그 메시지가 깨지지 않기 위해서 인코딩 설정
+   - git config --global i18n.commitEncoding cp949
+   - git config --global i18n.logOutputEncoding cp949
+
+4. repository(깃 프로젝트 폴더) 용 폴더 생성 
+   cmd 열고
+   gitStudy 라는 폴더를 하나 만듦
+   mkdir gitStudy
+
+cd.. 
+mkdir 
+dir
+
+5. 방금 만든 gitStudy 폴더로 경로 변경
+   cd gitStudy 
+
+6. gitStudy 폴더를 git 저장소 지정
+   git init
+   **현재 경로는 gitStudy 폴더임.
+
+local: client의 pc(단말기)
+원격(remote): 웹 상에 있는  pc
+gitStudy 폴더: 로컬저장소(repository)
+해당 폴더로 path(c:\>)를 이동함(cd 폴더명)
+git init
+github: 원격저장소
+
+7. git 저장소에 노트패드(메모장)를 이용하여 hello.html 파일 생성
+   notepad hello.html
+   그 안에 아무 내용이나 입력.
+   *** hello.html이 없으면, 새로 생성한다는 메시지가 뜸
+   *** hello.html이 있으면, 파일이 열린다.
+
+8. git 저장소의 파일 목록 확인
+   dir
+   
+9. git 저장소 상태 확인
+   git status
+
+10. git 저장소에 hello.html을 추가
+    git add hello.html  
+    ** 추가하고 싶은 파일이 여러 개일 경우에는 git add *
+
+11. git 저장소에 hello.html의 내용을 확정 및 로그 추가
+    git commit  -> vim이 열림. 변경되거나 추가되는 내용을 입력하면 됨.
+                  -> vim은 i를 입력하여 삽입 상태로 감.
+                  -> vim을 빠져나올 때는 esc 키를 누른 후
+                  -> :wq    저장하고 빠져나가기
+    vim 사용이 귀찮아서 commit 시에 다음과 같이 함.
+     git commit -m "수정한 파일에 대한 설명을 적는다. "
+
+12. git 저장소 상태 확인
+    git status
+    
+12-1. git에서 관리하는 파일을 삭제하고 싶을 때
+      git rm test.txt
+   
+12-2. git에서 파일명 변경
+      - git mv old.txt new.txt
+      - add는 생략할 수 있지만, commit은 해야 한다.
+
+13. git commit 로그를 보고 싶다면, 
+    - git log
+    - git log -p(직전 커밋과 비교하고 싶을 때)
+    - git log -2(직전 커밋 2 개만 보고 싶을 때)
+    
+-----
+add 는 작업환경 소스를 stage area로 이동
+commit 은 -> stage area 대상들 버전생성 
+ 포토샵의 레이어생성과 비슷
+파일 이름변경(mv)하면 commit -m 만 하면 됨
+내용 변경(notepad hi3.txt 메모장열림-내용변경-저장)하면 add와 restore(commit하면됨 같은건가?) 하라고 나옴
+->git commit엔터 안됨. 
+->git commit -a으로 vim이 열림.
+or
+->git add 하고 git commit -m 하면 클린
+
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   hi3.txt (빨강)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+C:\gitStudy>git add hi3.txt
+
+
+C:\gitStudy>git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   hi3.txt (초록)
+
+C:\gitStudy>git commit -m "hi3 내용 변경"
+[master 072fc4c] hi3 ³»¿ë º¯°æ
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+C:\gitStudy>git status
+On branch master
+nothing to commit, working tree clean
+-----
+
+->git 환경설정
+이름 생성 : git config --global user.name "NAME" -> 한번더 생성하면 나중 걸로 수정됨
+메일 작성 : git config --global user.email "NAME@NAME.com" -> 한번 더 작성하면 나중 걸로 수정됨
+오타 수정(user->ser) : git config --global --unset ser.name "NAME" -> 다시 이름 생성
+윈도우 commit 인코딩 : git config --global i18n.commitEncodinf.cp949
+윈도우 log 인코딩 : git config --global i18n.logOutputEncoding.cp949
+git 환경설정 내용확인 : git config --list
+-> cmd 열고 
+C path로 이동 : cd.. (체인지디렉토리)
+c\하위 폴더 gitStudy 만듬 : mkdir gitStudy (메이크디렉토리)
+﻿폴더생성확인 : dir(디렉토리)
+gitStudy폴더로 path이동 : cd gitStudy
+gitStudy폴더를 git저장소 지정 : git init (gitStudy에 .git파일생성됨)
+gitStudy에 txt파일 만들기(열기) : notepad name.txt -> 생성 후 git add + git commit -m
+txt파일 내용 수정 : notepad (열어서 수정 닫기) ->git add, git commit -m 
+                       또는 vim열기(git commit -a) i입력esc입력완료:wq저장닫기
+txt파일 이름변경 : git mv oldname.txt newname.txt (mv 무브) -> 이름변경 후 commit -m 
+txt파일 삭제 : 삭제 할 파일은 클린상태여야함(commit후), git rm (리무브)
+git commit 로그 확인 : git log (로그확인), git log -p(직전 commit 비교), git log -2(직전 commit 2개)
+vim name.txt로 vim열기
+-----------------------------------------------------------------------------------------------01
+
+13-1 git에서 원격저장소 등록하고 싶을 때
+     - github에서 myRemoteRepo repository 생성(url 확인)
+     - git remote add myRemoteRepo https://github.com/teacheryo/myLocalRepo.git
+     
+13-2 git의 저장소와 연결된 원격저장소를 확인하고 싶을 때
+     - git remote -v
+안함-------------------------------------------------------------------
+
+14. 특정 commit 전으로 되돌리고 싶을 때, 
+    git log를 이용하여 되돌리고 싶은 곳의 커밋해시코드를 확인함.
+    git reset: 되돌린 커밋 이후의 작업을 삭제하고 싶을 때 사용
+    git revert: 커밋을 되돌리는 것도 하나의 작업으로 간주하고 싶을 때 사용(로그 기록으로 남음)
+    커밋A ->커밋B->커밋C->커밋D->커밋E
+    현재 커밋E인 상태에서 커밋B로 되돌린다면, 
+    git revert 커밋D의 커밋해시
+    ***현재 커밋D인 상태
+    git revert 커밋C의 커밋 해시
+    ***현재 커밋C인 상태
+    git revert 커밋B의 커밋 해시
+    ***현재 커밋B인 상태
+    *** git log를 확인하면, A->B->C->D->E->D->C->B 커밋 순서를 확인할 수 있음.
+    *** 만약 되돌아가고 싶은 커밋이 100 번째에 있다면?
+    git revert --no-commit HEAD~100
+    
+14-1. git checkout -- 파일명
+      - git add 수행 전에 파일의 변경 사항을 되돌리고 싶을 때는
+        git checkout -- 파일명
+        
+14-2. add 후 commit 전 변경 사항 되돌리고 싶을 때
+      - 우선 stage area 입력 작업을 취소하기 위해 다음 작업을 함(변경 사항이 되돌려진 것은 아님)
+        git reset head 파일명
+      - git checkout -- 파일명를 실행하여 변경 사항 되돌림.
+      
+14-3. commit 후 push 전 변경 사항 되돌리고 싶을 때
+      - git reset --hard HEAD~1  (최근 이전 commit 상태로 복구됨)
+      - 이 명령은 commit 된 내용도 사라진다는 점에서 조심해야 함.
+      
+14-3. push 후 변경 사항 되돌리고 싶을 때
+      - git reset --hard HEAD~1  (로컬만 복구됨, 원격은 아직 복구 안 됨.)
+      - 이 상태에서 git push origin master를 입력하면 에러 뜸. 원격의 버전이 로컬의 버전보다 높아서 push가 거절됨.
+      - 이 상태에서 git push -f origin master를 입력해도 에러 뜸(-f:는 강제로라도 적용하라는 옵션). push 전 원격저장소에 변경된 내용을 로컬저장소에 반영하지 않았다는 이유로 거절됨.
+      - 다음 차례대로 작업을 해야 변경됨.
+        ⓐ git reset --hard HEAD~1
+        ⓑ git pull (hub에 있는 내용을 다시 가져옴)
+        ⓒ git push -f origin master
+
+15. 브랜치의 개념
+    - 브랜치 = 사용자
+    *** 작업을 분산 개발을 하고 싶다면, 브랜치 별로 개발하고 나중에 병합(merge)하면 됨.
+//merge = masterbranch + subbranch
+
+16. 현재의 git 저장소에 있는 브랜치를 확인하고 싶다면, 
+    git branch
+    *** git을 설치하면, 기본적으로 master 브랜치가 생성되어 있다. 
+    *** 그리고 브랜치를 변경하지 않았다면, master 브랜치의 앞에 *가 붙어 있음
+    *** '*'는 현재 작업 중인 브랜치의 왼쪽에 붙어 있다.
+
+17. test1이라는 새로운 브랜치를 만들고 싶다면, 
+    git branch test1
+    
+17-1 git에서 github의 새로운 브랜치 test1을 만드는 방법
+     git push origin test1
+
+18. 여러 개의 브랜치 중에서 현재 사용 중인 브랜치를 확인하고 싶다면, 
+   git branch
+    ** 목록 중에 브랜치명 왼쪽에 *가 붙어 있는 브랜치가 현재 작업 중인 브랜치이다. 
+
+19. test1 branch로 작업하고 싶다면, 
+    - git checkout 브랜치명
+      git checkout test1
+
+20. 현재 사용 중인 branch가 test1인지 확인하자.
+    git branch
+    *** test1 브랜치명의 왼쪽에 *가 붙어 있는지 확인
+
+21. test1 브랜치에서 hello.html 파일을 수정해 보자.
+    notepad hello.html
+
+22. 수정된 hello.html 파일을 git 저장소(gitStudy폴더)에 저장
+    git add hello.html
+     ***  파일이 여러 개일 경우에는 git add *
+
+23. 수정된 hello.html 파일을 확정하고 로그 기록 생성
+   git commit -m "test1에서 수정한 것임"
+   *** test1 브랜치에서 커밋을 한 것은 test1 브랜치에서만 수정되고
+   ***master 브랜치가 관리하는 파일에서는 수정되어 있지 않다.
+   ***master 브랜치에 적용하려면, master 브랜치로 작업자를 변경한 후 merge(병합)을 해야 한다.
+
+24. test 브랜치 상태에서 notepad hello.html을 확인하면, 수정된 것을 확인할 수 있다.
+    notepad hello.html
+
+25. master 브랜치로 브랜치 변경해보자.
+    git checkout master
+
+26. master 브랜치 상태에서 botepad hello.html 확인하면, test 브랜치에서 작업한 내용이 수정되지 않은 것을 확인할 수 있다.
+    ***test1 브랜치에서 작업한 내용은 병합 작업 전까지는 master 브랜치의 작업에 반영되지 않음.
+
+
+27. test1 브랜치에서의 작업을 master 브랜치에 적용하려면, 사용자가 master 브랜치인 상태에서 merge
+    git checkout master
+    git merge test1 (branch를 대상으로 txt는 안됨)
+
+28. notepad hello.html을 확인하면, 
+test1에서 작업한 내용이 반영된 것을 확인할 수 있음.
+
+28-2.. git stash [save  | pop]: 
+특정 브랜치에서 작업 중에 완료가 안 된 상태로 마스터 브랜치로 체크아웃하면, 
+특정 브랜치에서 작업한 것 때문에 문제가 생긴다.
+이때, git stash save(생략 가능)하면, 안 보이게 저장된다.
+이 내용을 다시 가져오고 stash를 삭제하고 싶다면, git stash pop하면 된다. 
+가져오되 삭제하고 싶지 않다면 git stash apply
+
+29. test1 브랜치 삭제
+   git branch -d test1
+
+30. 병합 시 문제가 발생하는 상황
+    master 브랜치와 서브 브랜치가 각각 작업을 한 상태에서 병합을 하면 문제가 발생함.
+    master와 서브가 동시에 작업한 파일을 확인하면, 그와 관련된 내용을 확인할 수 있다. 
+git에서 지적해준 부분을     삭제하고 다시 merge하면 문제 없이 병합이 된다.
+   그런 후 add 및 commit을 해주면 됨.
+
+31. git log를 시각적으로 확인하고 싶다면, 
+    gitk
+
+---------------------------------------------------------------------------------------
+git branch NAME -> 서브 브랜치(사용자)추가
+git branch -> 생성 브랜치 목록(* 붙은 브랜치가 현재 작업중)
+git checkout NAME(or master) -> 작업 브랜치 선택(이동)
+git branch -d NAME -> 브랜치 삭제(마스터 브랜치에서만 가능)
+
+git merge NAME -> 마스터 브랜치와 병합(마스터(상위) 브랜치에서만 가능)
+*서브 브랜치는 마스터 브랜치의 버전을 복사해서 가져온다.
+*서브 브랜치 생성 후 마스터 브랜치와 서브 브랜치에서 같은 소스를 각각 업그레이드(수정)하고 병합하면 에러발생
+->이때 중복 수정된 소스(병합시도 후, 중복된 소스의 수정코드가 모두 추가되어있다.)를 열어 수동으로 수정
+예)
+<<<<<<< HEAD
+마스터블랜치로 수정.
+=======
+마스터블랜치로 만듬.
+
+서브 블랜치로 수정
+>>>>>>> sub      ->add와 commit한 후 merge한 sub branch는 삭제해 준다.
+
+*작업 진행 순서(전commit or 무 -Z-> 작업 -A-> add -B-> commit -C- push ...)라면,
+-> A상태 일 때(소스 수정 후, add 전)
+git checkout -- 파일명 -> Z상태로 돌아감
+-> B상태 일 때(add 후, commit 전)
+git reset head 파일명 -> A상태로 돌아감
+(소스 수정을 모두 취소 하려면 이어서 git chekout --)
+-> C상태 일 때(commit 후, push전)
+git reset --hard HEAD~1 (최근 이전 commit 상태 복구), commit된 내용도 사라짐
+
+gitk -> 브랜치작업 log 윈도우창 보기
+---------------------------------------------------------------------------------------------
+
+1.  파일 삭제: git rm  파일명
+2. add  수행 전, 파일 변경 사항을 되돌릴 때: 
+   git chekcout --  파일명 -> B상태로 돌아감
+3. add  수행 후 commit  전, 파일 변경 사항을 되돌릴 때: 
+  git reset head 파일명 -> B상태로 돌아감
+  git checkout -- 파일명 -> A상태로 돌아감
+4. 현재의 git 저장소에 있는 브랜치를 확인하고 싶다면: git branch
+5. 현재 작업  브랜치를 확인하고 싶으면: git branch 후 결과에서 *가 붙은 branch를 찾아라.
+6. 새로운 브랜치를 생성할 때:  git branch 브랜치명
+7. 브랜치를 삭제하고 싶을 때: master 브랜치로 이동 후 git branch -d 브랜치명
+8. 브랜치를 전환하고 싶을 때:  git checkout  브랜치명
+9. 서브 브랜치의 작업 내용을 마스터 브랜치에 병합(merge)하고 싶으면: 마스터 브랜치로 이동 후
+git merge  브랜치명
+만약, 마스터 브랜치의 내용이 서브브랜치가 생성될 때의 내용과 다르면 수동으로  merge 후
+add/commit 
+
+commit 후 push 전 되돌릴 때
+-> git reset --hard HEAD~1 (최근 이전 commit 상태 복구), commit된 내용도 사라짐
+------------------------------------------------------------------------------------------------
+
+32. github 작업
+    github.com에 접속하여 회원 가입..
+jingoon,gmail,용파리골뱅이
+
+33. 회원 가입 후 로그인
+
+34. New를 눌러서 새로운 레포지터리를 생성함.
+    GitHubStudy라는 레포지터리를 만듦. javastudy
+    주의사항: README.md 파일 생성 체크박스를 반드시 체크하자.
+
+35. Clone  버튼을 눌러서 주소를 복사한다.
+https://github.com/jingoon/javastudy.git
+
+36. cmd 창을 열고
+
+37. GitHubStudy라는 폴더를 만듦.
+    mkdir GitHubStudy
+
+38. 깃허브에 있는 레포지터리를 로컬레포지터리로 가져오기.
+    git clone 주소 붙이기 다운로드할로컬폴더명
+C:\>mkdir GithubStudy
+
+C:\>cd GithubStudy
+
+C:\GithubStudy>git clone https://github.com/jingoon/javastudy.git
+git init 없음
+
+--------------------------------------------------------------------------------------02
+
+
+39. 로컬 레포지터리로 경로 이동
+    cd GitHubStudy
+
+40. GitHubStudy 리스트 확인
+    dir
+    *** 깃허브에 있던 파일들이 저장된 것을 확인할 수 있음.
+
+41. notepad README.md를 수정
+    *** 주의사항: 저장 때, 다른 이름으로 저장 후 인코딩을 utf-8로 해야 한글이 안 깨짐.
+
+42. hello.html이라는 새로운 파일도 만듦
+    notepad hello.html
+
+43. git status
+    *** README.md는 수정되었고, hello.html은 새로 생성된 걸 확인할 수 있다.
+
+44. 로컬 레파지토리에 수정 파일과 새로 생성된 파일 추가
+    git add *
+    ***  깃허브에는 반영이 안 되어 있음.
+    *** 반영하고 싶다면, commit 후에 push를 해야 함.
+
+45. 수정되거나 새로 생성된 파일 커밋
+    git commit -m "README.md는 수정, hello.html은 생성하였음"
+    *** 로컬 레포지터리만 커밋이 되었고, 
+    *** 깃허브에는 커밋이 안 되었음.
+
+46. 깃허브에 변경된 내용 커밋하고 싶다면,(깃허브 마스터 브랜치에 푸시)
+    git push
+    *** 이때, 깃허브에서 로그인을 한번 더 요구할 수도 있음
+    *** 깃허브를 확인하면 변경된 내용이 반영된 것을 확인할 수 있음.
+    - 만약 깃허브의 해당 레포지토리에 변화가 생겼다면, pull 작업을 하지 않고 push를 하면 에러가 발생한다.
+    - 이런 에러를 방지하기 위해서
+    - git push -u 레포지터리이름 브랜치명 (예: git push -u myRemoteRepo master)
+
+    
+46-2. 깃허브의 다른 브랜치에 푸시할 때, 
+git push origin HEAD:깃허브의 다른브랜치명
+예) git push origin HEAD:editor
+
+
+47. Pull Request(PR)
+   - clone, push, pull, fetch, fork
+
+48. clone: 권한있는 자의 복사
+
+49. push: 권한 있는 자가 작업한 내용 깃허브에 커밋
+
+50. pull(클론 후 변동사항을 가져오기, Fetch+Merge, 깃허브의 이력과 로컬레파지토리의 이력에 차이가 없음.)
+   - 클론한 후에 깃허브에 변경된 내용을 가져와서 자신의 로컬 레파지토리의 내용을 최신 버전으로 업그레이드.
+   - 주의 사항: fetch + merge 작업의 의미를 갖고 있으므로 자신이 작업하고 있던 내용이 날아감.
+
+51. fetch(클론 후 변동사항을 가져오기. 단, 깃허브의 이력과 로컬레파지토리의 이력에 차이가 있음. 이때 깃허브의 브랜치는 FETCH_HEAD임.)
+    - 클론한 후에 깃허브에 변경된 내용을 가져와서 자신의 로컬 레파지토리의 내용을 최신 버전으로 업그레이드.
+    - 자신이 작업하고 있던 내용이 남아 있다는 점에서 pull과 다름.
+    - 일반적으로 pull부터 fetch를 사용해야 안전함.
+    - fetch 이후의 브랜치는 FETCH_HEAD임.
+    - git merge fetch_head    병합 시, 충돌남. 같은 파일에서 변경이 있을 경에는.
+
+52. fork(레포지터리에 권한이 없는 사람이 모든 권한을 갖고 새로운 작업을 하고 싶을 때, 사용함. 권한이 있는 사람들은 clone을, 권한이 없는 사람은 fork를 사용함)
+    - 권한 있는 자는 clone을
+    - 권한 없는 자는 fork를...
+    - 권한 없는 자가 fork를 하면, 자신의 깃허브에 해당 레포지터리가 복사되어 생성된다.
+    - 그 안에서는 모든 권한을 행사할 수 있다. 
+    - fork 작업을 한 사람은 자신이 마스터로 있는 로컬 영역에서 clone을 한다.
+    - 자신의 깃허브로 push를 한 후
+    - 권한이 있는 자(원래 주인)에게 Pull Request(new Pull Request 버튼)를 한다.
+    - 그러면 권한이 있는 자는 이를 확인하고 괜찮다면, merge를 승인하고
+     이는 그 권한 있는 자의 깃허브의 레포지토리에 반영이 된다.
+     
+53. 깃허브의 마스터 브랜치의 내용을 다른 브랜치(test1)에 merge
+    - 마스터 브랜치가 체크아웃된 상태에서
+    - New Pull Request 버튼 클릭(pull requests 버튼을 눌러야 나옴)
+    - Compare changes 화면에서 base: test1로 설정 <- compare: master로 설정 후 Create Pull Request 버튼 클릭
+    - 메시지 제목과 내용 입력 후 Create Pull Request 버튼 클릭
+    - 전환된 화면에서 Merge pull request 버튼 클릭 -> Confirm merge 버튼 클릭
