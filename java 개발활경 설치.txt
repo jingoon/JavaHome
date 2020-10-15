@@ -30,6 +30,12 @@ class
 첫 글자 대문자, 띄어쓰기하지 않음, 띄어쓰는 단어의 첫 글자 대문자
 main() 메서드 생성 -> main 적은 후 [ctrl + space]
 
+﻿자동완성
+main [ctrl + space]
+-> main 메서드
+sysout [ctrl + space]
+-> System.out.println();
+
 console
 [sysout] 적은 후  [ctrl + space]
 println("hello world");
