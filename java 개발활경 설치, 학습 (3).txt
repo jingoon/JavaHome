@@ -2113,8 +2113,13 @@ https://edu.goorm.io/search?subject=java%20%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9&
 실습코딩 인터넷강좌
 
 === 에러 메세지
-//%-d String.format()에러 확인
-자릿수를 지정하지않고 좌정렬했을 때
+IllegalFormatConversionException: f != java.lang.Integer
+%f에 인트형 변수를 넣었을 때
+MissingFormatArgumentException:
+%c에 변수를 빼먹었을 때.
+
+MissingFormatWidthException:
+%-d, 자릿수를 지정하지않고 좌정렬(-)했을 때
 
 ArrayIndexOutOfBoundsException
 선언한 index의 값을 벗어남 (MAX_index= length-1과 같음)
