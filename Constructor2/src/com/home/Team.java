@@ -46,6 +46,11 @@ public class Team {
 	public void setMember2(Person member2) {
 		this.member2 = member2;
 	}
+
+	public void fight(Team betaTeam) {
+		System.out.println(captain.getName()+"¿Í"+ betaTeam.captain.getName()+"°¡ ½Î¿î´Ù");
+		
+	}
 	
 
 	
