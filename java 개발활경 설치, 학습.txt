@@ -2016,6 +2016,7 @@ superclass의 변수를 지칭 할 때 super.변수명
 - 이유는 자료형이 부모자료형이기 때문
 - 해결방법: instanceof, getclass() 를 사용하여 접근할 수 있다.
 ex)
+// sonata2.only(); 접근불가
 		Sonata s =null;
 		if(sonata2 instanceof Sonata) {
 			s=(Sonata)sonata2;
@@ -2033,12 +2034,168 @@ ex)
 			ss.only();
 		}
 
+20.11.09_018--------------------------------------------------------------------------------------
+
+표준입출력
+Scanner sc = new Scanner(System.in); //키보드 입력{} sc.close(); 곡 닫아 줘야함
+String msg1 = sc.nextLine(); // 문자열 입력받음. 띄어쓰기 조차도 다 입력으로 인식// 끝을 엔터로 구분
+// 그전 입력 받은 sc.nex~~ 의 엔터를 없애줘야함		
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in); //키보드 입력 받기
+		
+		boolean isTrue = true;
+		int a=0;
+		while(isTrue) {
+			System.out.println("a 값을 입력하세요.");
+			a = sc.nextInt();				//정수값 받기
+			sc.nextLine();				//엔터 없애기
+			System.out.println("msg1값을 입력하세요.");
+			String msg1 = sc.nextLine();			//스트링값 받아서  msg1에 넣기
+			System.out.println(msg1);			
+			
+			if(a==4) {
+				break;				//4 입력시 while문 종료
+			}
+			System.out.println(a+ "를 넘겨받았습니다.");
+		}
+		
+		System.out.println("end");
+		
+		sc.close();			//닫기
+	}
+
+ * 추상화
+- 추상 클래스와 추상메서드를 의미함
+**추상 메서드를 갖고 있는 클래스는 반드시 추상 클래스로 선언해야 한다
+**추상 클래스가 추상 메서드를 꼭 가지고 있지는 않음.
+*자식클래스에서 반드시 오버라이딩해야 하는 메서드
+abstract
+**추상 메서드를 갖고 있는 클래스는 반드시 추상 클래스로 선언해야 한다
+추상클래스 선언 방법
+클래스 헤더에 abstract 키워드를 넣어줌
+
+public abstract class ~~{	// 추상클래스
+public void me1(){}
+public void me2(){}
+public abstract me3();	//추상메서드 중괄호가 없음. 
+public void me4(){}
+}
+
+ex)이미지
+자식 클래스에서는 추상메서드를 반드시 오버라이딩.
+
+추상메서드 사용 이유
+자식클래스에서 반드시 오버라이딩 해야하는 메서드가 있을 때
+
+추상클래스 사용 이유
+부모클래스로 객체를 만들 수 없게 강제하기 위해
+추상메서드를 가지고 있는 클래스를 추상클래스로 만들어 준다.
+
+부모클래스가 갖고 있는 추상메서드를 오버라이딩하기 싫을 경우
+추상클래스로 선언하기도 함.
+
+추상메서드는 자식클래스가 반드시 오버라이딩 해야하고 추상클래스로 선언하면 오버라이딩을 안할 수 있다. 
+이 자식클래스를 상속하는 또다른 자식클래스는 추상메서드를 반드시 오버라이딩 해야한다.
+추상메서드는 다음 상속으로 이어지더라도 오버라이딩 해야한다. 하지 않을려면 추상클래스로 선언
+
+final (변경,오버라이딩,상속 안됨)
+1. 변수에 final
+접근제한자 final 변수명;
+- 값을 변경할 수 없음(=상수)
+상수는 대문자_대문자_... 로 작명
+
+2. 메서드에 final
+접근제한자 final 반환자 메서드명(){ }
+- subclass에서 오버라이딩 안됨.
+
+3.클래스에 final
+접근제한자 final class 클래스명(){ }
+상속불가 클래스(자식클래스를 만들수 없음)...a.k.a.심영
+﻿
+final
+public void me1(){}
+public void me2(){}
+public final me3();	//반드시 오버라이딩 하면 안됨
+public void me4(){}
+
+*변수에 final을 붙이면 값을 변경할 수 없음. (상수)
+상수는 변수명을 대문자로 처리함 띄어쓰기는 _를 사용
+
+private final int A_B_C = 3;
+	private static final int C_D_E=44;
+	private final int D_E_F;
+	
+	public Test() {
+		//A_B_C = 55;
+		D_E_F = 55;
+	}
+	public Test(int D_E_F) {
+		//this.A_B_C = A_B_C;
+		this.D_E_F = D_E_F;
+	}
+	
+	public static void main(String[] args) {
+		
+		Test t1 = new Test();
+		//변수: 값이 바뀌는 데이터
+		//t1.A_B_C=55;	상수는 변경 할 수 없음
+		System.out.println(t1.A_B_C);
+		System.out.println(Test.C_D_E);		// static은 클래스명. 호출
+
+Ovject class
+-오브젝트 클래스(자바의 최상위 부모클래스)의 주요3 메서드
+-상황에 맞게 이 3개의 메서드를 오버라이딩
+-상황: 객체비교를 해야하는 상황
+
+1.toString(): sysout(msg.toString());
+2.hashCode(): 객체가 어디에 저장이 되어 있는지 알려주는 메서드
+3.equals() : 객체의 동등성 비교 , 오버라이딩 해줘야 함
+
+
+*접근제한자(접근제어지시자)
+-public : 프로젝트 어디서든 접근가능
+-protected : 같은 패키지에서만 접근가능. 
+	단, 상속관계가 성립할 때는 패키지가 달라도 접근가능
+-디폴트 : 같은 패키지에서만 접근가능
+-private : 같은 클래스에서만 접근가능
+
+==
+
+변수/상수의 사용할 수 있는 접근제한자:퍼블릭, 디폴트, 프로텍티드, 프라이빗
+메서드에 사용할 수 있는 접근제한자: 퍼블릭, 디폴트, 프로텍티드, 프라이빗
+class에 사용할 수 있는 접근제한자: 퍼블릭, 디폴트
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[[연습 문제]]
+추상화,추상클레스,추상메서드
+https://imasoftwareengineer.tistory.com/77
 
 
 [[연습문제]]
@@ -2051,12 +2208,20 @@ Bow Sword Gun
 무기에 공격할수 있는기능
  필드 공격력
  공격 할 수 있는 메서드
++
+키보드 입력 받기
+몬스터 생성, 몬스터출력(피)
+무기배열 생성(3종 무기 생성)
+장착무기 지정
+히어로 생성
+종료조건
+메뉴변수
+무기변수
+루프~
+ 종료지정
+ 메뉴(공격, 종료, 무기변경)
+ 무기선택
 
-
-내일 
-반드시 오버라이딩, 절대로 오버라이딩, 객체생성불가능하게 하는 방법
-추상화. 콘솔창 데이터 입력
-스프링프레임워크
 
 [[연습문제]] 11.05
 	// "    동해물과 백두산이 up 마르고 닳도록 하나님이 UP 보우하사 우리 나라만세!    "
@@ -2113,6 +2278,8 @@ https://edu.goorm.io/search?subject=java%20%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9&
 실습코딩 인터넷강좌
 
 === 에러 메세지
+IllegalFormatConversionException: d != java.lang.String
+%d에 문자열 변수를 넣었을 때
 IllegalFormatConversionException: f != java.lang.Integer
 %f에 인트형 변수를 넣었을 때
 MissingFormatArgumentException:
