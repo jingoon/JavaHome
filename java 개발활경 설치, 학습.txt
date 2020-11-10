@@ -2168,6 +2168,89 @@ Ovject class
 class에 사용할 수 있는 접근제한자: 퍼블릭, 디폴트
 
 
+20.11.10)019---------------------------------------------------------------------------
+
+ ************** Interface *************
+상속이 상위 클래스의 기능을 하위 클래스가 물려 받는 것이라고 한다면,
+인터페이스는 하위 클래스에 특정한 메소드가 반드시 존재하도록 강제한다.
+생성자 없음
+interface I{
+    public void z();
+}
+class A implements I{ // 클래스A는 인터페이스 I를 구현한다. (상속) 과 선언부 구조는 같다.
+    public void z(){}
+}
+
+개념적 인터페이스
+상호작용하는 곳
+어플 : 기능추가역할
+전화기의 카메라기능, mp3기능 등등
+웹사이트 : 가능추가 + 접점( 연결)
+ 회원 관리 프로젝트
+=crud
+- create 입력
+- read 조회
+- update 수정
+- delete 삭제
+
+구조적 인터페이스
+public final static && public abstact void
+퍼블릭 스태틱 상수&&퍼블릭 추상메서드로 구성된 자료 구조
+
+인터페이스 내에서는
+int AA_BB=10;
+-> (public final static) int AA_BB=10; ( )있는거와 같음
+
+ex)
+	public interface Inter1 {
+
+	/* public final static */ int A=10;
+	/* public final */ static int B=20;
+	/* public */ final static int C=30;
+		public final static int AA__BB=33;
+	
+	/* public abstract */ void me2();
+	/* public */ abstract void me3();
+		public abstract void me1();
+
+	}
+
+인터페이스는 다중상속 가능
+
+클래스가 클래스를 상속한다 extends
+인터페이스가 인터페이스를 상속 extends
+클래스가 인터페이스를 구현한다 implements
+
+같은 것 끼리는 상속, 다르면 구현
+
+clss 구성요소 : 변수/상수/생성자/메서드
+interface 구성요소 : public static 상수, public abstract void
+
+다형성
+부모자료형 변수명 = new 자식생성자;
+
+인터페이스에서 적용
+자료형 통일, 오버라이딩가능
+자식클래스가 갖고 있는 고유의 자원에 접근 불가.
+
+상속과 인터페이스 둘다 적용가능
+
+인터페이스는 객체 생성없이 호출함.
+
+DTO(Data Tranfer Object)클래스 : 데이터 저장 전용 클래스
+데이터를 저장할 목적으로 만들어진 클래스
+=TO=VO(Value Ovject)=domain
+1. Serializable 인터페이스 구현(class 클래스명 implements Serializable)
+1.1 Add default serial version ID (클래스명 마우스오버)
+2. 변수 선언 시 사용되는 접근제한자는 무조건 private
+3. 디폴트 생성자 생성(Java bean)
+4. 사용자 생성자 생성
+5. getters/setters
+6. toString() 오버라이딩
+7. hashCode()/equals() 오버라이딩
+
+
+-----------------------------------------------------------------------------
 
 
 
@@ -2183,20 +2266,14 @@ class에 사용할 수 있는 접근제한자: 퍼블릭, 디폴트
 
 
 
+내부클래스, 예외처리
 
-
-
-
-
-
-
-
-
+[[연습문제]]
+몬스터 죽으면 무기 드랍. 착용가능 
 
 [[연습 문제]]
 추상화,추상클레스,추상메서드
 https://imasoftwareengineer.tistory.com/77
-
 
 [[연습문제]]
 GG / 프로젝트 
