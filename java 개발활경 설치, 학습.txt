@@ -1051,6 +1051,11 @@ ex) 		 i << n == i*(2^n)
  비트연산자4 & | ^ ~
  시프트연산자2 >> << 
 
+스위치 연산
+두 값을 실행 할 때 마다 번갈아 가며 값이 나온다.
+초기값이 0 or  1, true or false 이어야 한다
+(boolean a)	a = !a;
+(int a)		a = 1-a;	
 10.29)011-------------------------------------------------------------------------------------
 
  조건문
@@ -2212,10 +2217,15 @@ ex)
 	/* public abstract */ void me2();
 	/* public */ abstract void me3();
 		public abstract void me1();
-
 	}
 
 인터페이스는 다중상속 가능
+1. 인터페이스가 여러개의 인터페이스를 상속
+public interface inter1 extends Inter2, Inter3{}
+2. 클래스가 여러개의 인터페이스를 구현
+public class Child imlpements Inter3, Inter2{}
+- public class Show extends Object implements Inter2, Inter3{} //오브젝트는 최상위 부모클래스(이미상속)
+
 
 클래스가 클래스를 상속한다 extends
 인터페이스가 인터페이스를 상속 extends
@@ -2235,7 +2245,7 @@ interface 구성요소 : public static 상수, public abstract void
 
 상속과 인터페이스 둘다 적용가능
 
-인터페이스는 객체 생성없이 호출함.
+//인터페이스는 객체 생성없이 호출함.???
 
 DTO(Data Tranfer Object)클래스 : 데이터 저장 전용 클래스
 데이터를 저장할 목적으로 만들어진 클래스
@@ -2250,7 +2260,571 @@ DTO(Data Tranfer Object)클래스 : 데이터 저장 전용 클래스
 7. hashCode()/equals() 오버라이딩
 
 
------------------------------------------------------------------------------
+20.11.11)020-----------------------------------------------------------------------------
+
+내부 클래스
+
+내부클래스 선언과 호출
+public class Test2 {
+	public class MemberClass{		// 멤버 내부 클래스
+		private int age;
+		public void mc1() {		//내부클래스의 메서드
+			System.out.println("mc1"); 
+		}
+	}
+}
+Test2.MemberClass mc2 = new Test2().new MemberClass(); //외부클래스객체.내부클래스객체
+mc2.mc1						//내부클래스메서드 호출
+
+
+static 내부 클래스
+
+public class Test3 {
+	private String msg;
+	public static class StaticInnerClass{
+		private int age;
+		public void sic() {
+			System.out.println("sic");
+		//	System.out.println(msg);  	static클래스의 변수는 바로접근 안됨
+		//	me1();			static클래스의 메서드도 바로호출 안됨
+			Test3 t3 = new Test3();	// 선언후 접근가능
+			System.out.println(t3.msg);	
+			t3.me1();						
+		}
+	}
+}
+Test3.StaticInnerClass sic1 = new Test3.StaticInnerClass();  
+sic1.sic();
+// new는 StaticInnerClass()의 새로운 객체
+//(클래스는 객체가 필요함 Static 상수는 클래스명.상수명 으로 객체없이 접근함)
+
+로컬 내부클래스
+public class Test4 {
+	public void me1() {			// me1을 호출 해야 lic()에 접근가능
+		int a =10;
+		class LocalInnerClass{ 			// 접근제한자 쓸수 없다. 
+			public void lic() {			//보안에 강력하다..(클래스 메서드 안에 로컬클래스 안에 메서드)
+				System.out.println(a);	//클래스외부 호출 불가
+			}
+		}
+		LocalInnerClass lic1 = new LocalInnerClass();
+		lic1.lic();				// 여기서 실행. 클래스외부 호출 불가
+	}
+}
+
+익명의 내부클래스
+클래스는 구조적으로 "class"키워드가 있어야 클래스이다
+익명의 내부클래스는 class키워드가 없기 때문에 "익명"의 내부클래스라고 한다.
+((( 클래스의 선언과 객체의 생성을 동시에 하기 때문에 단 한번만 사용될 수 있고 오직 하나의 객체만을 생성할 수 있는
+일회용클래스이다. 이름이 없기 때문에 생성자도 가질 수 없으먀 , 부모클래스의 이름이나 구현하고자 하는 인터페이스의
+이름을 사용해서 정의하기 때문에 하나의 클래스로 상속받는 동시에 인터페이스를 구현하거나 둘이상의 인터페이스를 
+구현할 수 없다. 
+((( 오로지 단 하나의 클래스를 상속 받거나 단하나의 인터페이스만을 구현할 수 있다.)))
+
+1. 변수를 선언하면서 사용 	=가짜 익명(변수있음)
+// public 외부클래스명() { new 인터페이스명(){구현부}};	
+public class Test5 {
+	private int a;
+	
+	public Inter1 ano = new Inter1() {
+		
+		@Override
+		public void me1() {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+
+}
+
+Test5 t1 = new Test5();
+t1.ano.me1();
+
+2. 변수 선언없이 사용	=진짜 익명(변수없음)
+
+// public 외부클래스명() { new 인터페이스명(){구현부}};	
+// 생성자 안에 new 인터페이스(){구현부}; 와 모양이 같음
+public class Test6 {				
+	public Test6() {			//외부 호출 불가
+		new Inter1() {
+			@Override
+			public void me1() {
+			}
+		}.me1();			// 여기서 바로 사용
+	}
+
+}
+ex)
+	public class Test01 {
+	//익명의 내부 클래스1
+	// public 외부클래스명() { new 인터페이스명(){구현부}};	
+	public Inter1 ano = new Inter1() {
+		@Override
+		public void me1() {
+			System.out.println("가짜 익명");
+		}
+	};
+	//익명의 내부 클래스2
+	// public 외부클래스명() { new 인터페이스명(){구현부}};	
+	// 생성자 안에 new 인터페이스(){구현부}; 와 모양이 같음
+	// 디폴트 생성자와 동시 사용불가(생성자 만들고 new 인터페이스명 -> 익명의 내부클래스)
+	// 이름이 없어서 따로 호출 불가 } 뒤에 .오버라이드 메서드이름 으로 호출.
+	// Test01 객체생성후 첫 메서드 호출시에만 같이 나옴
+	public	Test01() {	// 외부 클래스명() 괄호가 있다.
+		new Inter1() {	// new 구현 인터페이스명()
+			@Override
+			public void me1() {
+				System.out.println("진짜 익명"); 
+			}
+		}.me1();;		// 여기서 바로 사용 ;or;; 둘다 됨
+	}
+	public void me2() {
+		System.out.println("진짜익명 호출용");
+	}
+	}
+		main)				Console)
+		Test01 t01 = new Test01();		
+		t01.me2();			// 진짜 익명 
+						// 진짜익명 호출용
+		t01.ano.me1();			// 가짜 익명
+		t01.me2();			// 진짜익명 호출용
+
+
+예외 Exception
+클래스로 예외처리함
+
+예외처리 방법
+1. try ~ catch
+: 예외가 발생해도 예외가 없는 것과 같은 효과
+: 예외 발생 코드를 블럭잡고 Alt +Shift +z ->try/catch block
+- try 예외가 발생할 수 있는 코드
+- catch 예외가 발생할 때 실행할 코드
+- 예외가 생기지 않으면 정상실행함
+
+try~catch
+문법적으로 이상이 없지만, 논리적으로 이상이 있을경우 사용
+개발자의 잘못을 처리하기 위해 사용해서는 안됨.
+사용자로부터 잘못된 데이터를 입력했을 때를 대비함
+ex)		
+		try {
+			String msg = (String) t2;			// 예외 발생 예상 코드
+		} catch (Exception e) {
+			System.out.println("뭔가 문제있지만 무시하겠음me3");	// 예외 발생시 실행
+			return;	//예외발생시 빠져나감
+		}
+
+1-1. try ~ catch ~finally~
+finally 
+-retrun; 을 만나도 반드시 실행
+-예외 발생여부에 상관없이 실행
+ex)
+		try {
+			String msg = (String) t2;			// 예외 발생 예상 코드
+		} catch (Exception e) {
+			System.out.println("뭔가 문제있지만 무시하겠음me3");	// 예외 발생시 실행
+			return;	//예외발생시 빠져나감
+		}finally{
+			System.out.println("성공/실패 상관없이 실행");	//예외발생,return;있음,예외없음/ 상관없이 실행
+			System.out.println("리턴보다 강력함");
+		}
+
+
+2. throws
+: 예외가 발생했을 때, 해당 메서드를 호출한 곳에서 예외처리를 하도록 예외를 던짐.(받은자가 선택지 생김)
+2-1)
+		public void me5(int idx) throws Exception{ 	//<----메서드 중괄호 앞에 throws Exception명시
+			String msg="hi";
+			System.out.println(msg.charAt(idx));
+		}
+//호출하는 메서드에 빨간줄(선택지) 생김
+ 	
+2-2) 
+		public void me7(String msg) throws Exception { 
+		if (msg.equals("개새끼")) {
+			throw new Exception("욕설금지");
+		}
+// 호출하는 메서드에  throw를 던짐(try ~catch작업 가능)
+
+2-3) 사용자정의 throws
+		public void me72(String msg) throws Exception {
+		if (msg.equals("개새끼")) {
+			throw new DoNotSwearException1("욕설금지!!");
+		}
+		System.out.println(msg);
+		}
+// 예외를 무시하고 계속 실행
+// throws를 날림. try~ catch 선택지
+
+
+
+3. thow
+: 문법적으로 예외는 아니지만 논리적인 예외를 발생. 예외메시지와 함께 멈춤
+3-1) 
+3-2)
+		public void me7(String msg) {
+		if (msg.equals("개새끼")) {
+			throw new RuntimeException("욕설금지");
+		}
+// 멈춤
+// Exception in thread "main" java.lang.RuntimeException: 욕설금지
+
+3-3) 사용자 정의 throw
+		public void me71(String msg) {
+		if (msg.equals("개새끼")) {
+			throw new DoNotSwearException2("욕설 금지!");
+		}
+		System.out.println(msg);
+		}
+// 멈춤
+// Exception in thread "main" com.naver.DoNotSwearException2: 욕설 금지
+
+
+
+4. 사용자 정의 예외 클래스(throw, throws)
+가능하면 Exception을 상속하도록 하여, throw를 날리도록 구현-> 호출하는 메서드에서 try~catch작업 가능
+class -> constructor from superclass
+
+extends Exception(예외를 던짐 [throws Exception작성]) 무시하고 실행	--->throws
+extends RuntimeException 상속함( 멈춤 )			--->throw
+
+2-3, 3-3
+
+2011.12) 021------------------------------------------------------------------------------
+ 
+	<예외처리에 관한 질문>
+예외
+ : 프로그래머가 조치할 수 있는 현상. 
+사용자의 입력값이 논리적&문법적으로 맞지 않는 상황
+에러
+ : 프로그래머가 조치할 수 없는 현상. jvm, 단전 
+
+Throwable: 예외와 에러의 최상위 부모클래스
+
+Exception: 예외의 최상위 부모클래스(중요)
+
+자바는 예외도 클래스로 관리하고 있음
+
+throw 
+강제적으로 예외를 발생시킴
+사용자 정의 예외 클래스를 만듬
+Exception or RentimeException을 상속함
+
+try ~ catch 
+: 조치방법을 알고 있을 때,요구사항명세서에 조치상항이 적혀있을 때, 조치에 대한 내용을 책임질 수 있을 때
+throws 
+: 조치방법을 모를 때, 예외발생 조치를 책임질 수 없을 때
+fianlly
+: 예외가 있든 없든 반드시 실행해야 하는 코드, return보다 강력함
+
+1. 예외 처리 잘합니까?
+-try ~catch 와 throws를 구분해 사용할 수 있고,
+예외가 발생하든 그렇지 않든 반드시 실행할 코드가 있으면 
+finally구문에 작성할 수 있고,
+강제로 예외를 발생시키기 위해 throw를 사용할 수 있으며
+그에 따른 사용자 정의 예외 클래스도 작성할 수 있습니다.
+-강제로 예외를 발생시키는 예시는>
+ 문법적으로는 맞지만 논리적으로는 맞지 않을 때.
+ "개새끼"등.. 욕설은 강제로 예외를 발생시키는 코드
+
+2. 예외 메시지 읽을 줄 아세요?
+(예외가 발생했을 때, 넘겨주는 메시지를 보고 조치할 수 있나?)
+예외 발생 원인과 예외 발생 위치를 알 수 있습니다. 
+조치할 수 있는 내용이면 곧바로 조치하고 모르는 내용이면 
+구글링하여 조치를 취해왔습니다. (구글링으로 안되면 팀장에게 물어본다)
+
+--- 
+
+Calendar = abstract class 
+
+	public void me1() {
+		//1. Calendar  클래스 객체 생성 방법
+		Calendar c = Calendar.getInstance(); // 현재시각정보(추상객체는 객체 생성불가,캘릭더 클래스의 겟인스턴스)
+	}
+
+	public void me2() {
+		
+		Calendar c = Calendar.getInstance();
+		
+		//c를 이용해 연도 정보 추출
+		int year = c.get(Calendar.YEAR); 		//Calendar의 Instance는 상수(final 이다)
+							//상수는 (클래스명.상수명)
+		//월정보
+		int month = c.get(Calendar.MONTH)+1;	//월정보는 0~11이다. 
+							//사용자에게 보여줄때는 +1을 한다
+							//입력정보를 처리할 때는 -1을 한다
+		//일정보
+		int date = c.get(Calendar.DATE);		// 오늘 날짜
+		//요일 정보
+		int day = c.get(Calendar.DAY_OF_WEEK);	
+		
+	}
+	public void me3() {
+		Calendar c1 = Calendar.getInstance();
+		Calendar c2 = Calendar.getInstance();
+		
+		c1.set(1950, 6-1, 25);
+		System.out.println(c1);
+		System.out.println(c2);
+	}
+	public void me31() {
+		Calendar c	= Calendar.getInstance();
+		c.set(Calendar.MONTH, Calendar.MAY); // 5-1로 대신할 수 있음
+		System.out.println(c);
+	}
+	public void me32() {
+		//1. 1950년 6월 25일은 무슨요일인가?
+		
+		Calendar c = Calendar.getInstance();
+		c.set(1950, 6-1, 25);
+		int day = c.get(Calendar.DAY_OF_WEEK);
+		System.out.println(day);
+	}
+	public void m4() {
+		Calendar c = Calendar.getInstance();
+		int maxDate = c.getActualMaximum(Calendar.DAY_OF_MONTH);	// 해당월 마지막일 (30.31)을 반환
+		System.out.println(maxDate);
+		System.out.println();
+	}
+	public void me41() {
+		// 1950년 2월의 마지막 날은 며칠까지 있나? 그날은 무슨요일?
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR,1950);
+		c.set(Calendar.MONTH, 1);
+		int maxDate = c.getActualMaximum(Calendar.DAY_OF_MONTH);		//데이오브먼스는 데이트와 같다
+		c.set(1950, 1, maxDate);
+		System.out.println(c.get(Calendar.DAY_OF_WEEK));				//요일 정보 1234567 = 일월화수목금토
+		System.out.println();
+	}
+	public void me6() {
+		Calendar c = Calendar.getInstance();
+		System.out.println(c.getTime());
+		//2020.11.12
+		//20일 후
+		c.add(Calendar.DATE, 20);	
+		// add()는 calendar객체의 정보를 변경, 특정 필드의 값에 주어진 값을 더해서 변경(중요)
+		// 변경인스턴스 , +일월년
+		System.out.println(c.getTime());  // java.util
+	}
+	public void me61() {
+		
+		Calendar c = Calendar.getInstance();
+		//20일 후의 날짜정보 방법1
+		Calendar c1 = Calendar.getInstance();
+		c1.add(Calendar.DATE, 20);
+		//20일 후의 날자정보 방법2
+		Calendar c2 = (Calendar) c.clone();
+		c2.add(Calendar.DATE, 20);
+		
+		System.out.println(c1);
+		System.out.println(c2);
+	}
+
+	public void me7() {
+		Calendar c = Calendar.getInstance();
+		System.out.println(c.getTime());	//현재날짜 Date반환
+		
+		c.roll(Calendar.DATE, 20);			//20일 후 날자가 어떻게 바뀌나?(날자정보만 변경됨)
+		System.out.println(c.getTime());
+		System.out.println(c.get(Calendar.DATE));
+		System.out.println(c.get(Calendar.MONTH));
+		System.out.println(c.get(Calendar.DAY_OF_WEEK));//요일
+	}
+	public void me8() {
+		//자바에서는 Calendar클래스를 쓰자.
+		//그러나 DB에서는 Calendar클래스보다는 Date 클래스를 많이 사용한다
+		//따라서 반드시 두 타입을 변환할 수 있어야 한다.
+		
+		Calendar c = Calendar.getInstance();
+		Date d = new Date(c.getTimeInMillis()); // 1970년 1월 1일 0시 0분 0.000초 부터 0으로 시작(미국시간)
+		c.setTime(d);
+		
+		Date d2 = new Date();
+		System.out.println(d2);
+		
+		System.out.println(System.currentTimeMillis()); // 1/1000초 의 long값
+		
+	}
+	public void me9() {
+		System.out.println(String.format("%4d,%3s", 33,"hel"));
+		
+		Calendar c = Calendar.getInstance();
+		System.out.println(c.getTime());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY년 MM월 dd일 hh시 mm분 ss초");
+		String msg=sdf.format(c.getTime());
+		System.out.println(msg);
+		
+		
+	}
+roll()
+해당 필드의 값만 변경
+다른 필드의 값은 그대로
+
+address/WrapperEx
+Wrapper Class
+대문자로 시작하고 Character와 Integer는 풀네임을 사용
+참조자료형을 AutoBoxing해서 기본자료형처럼 간소하게 사용할 수 있다.
+기본자료형을 AutoUnBoxing해서 참조자료형처럼 사용할 수도 있다.
+	//AutoBoxing
+		Boolean a = false; // 원래는 Boolean a = new Boolean(false); 이지만 AutoBoxing 해줌
+		Character b = ' ';
+		Byte c = 0;
+		Short d = 0;
+		Integer e =0;
+		Long f =0L;
+		Float g= 0.0F;
+		Double h =0.0;
+	//AutoUnBoxing
+		boolean a = new Boolean(false);
+		Character b = new Character('c');
+		char bb=b;
+
+	public void me4() {
+		//래퍼클래스.parse기본자료형(문자열)
+		//문자열을 기본자료형으로 만들어줌
+		String msg = "123";
+		int i=Integer.parseInt(msg);
+		System.out.println(i+10);
+		System.out.println(msg+10);
+	}
+	public void me41() {
+		//문자열을 기본자료형으로 변경하는 방법1,2
+		//1.WrapperType.pardeWrapper()
+		//2.WrapperType.valueOf()
+		String msg="false";
+		boolean b = Boolean.parseBoolean(msg);
+		System.out.println(b);
+		
+		boolean b2 = Boolean.valueOf(msg);
+		System.out.println(b2);
+	}
+	public void me5() {
+		//Charater.parseLong()와 Charater.valueof()는 없다
+		// 대신 문자열.chsrAt();을 사용
+		String msg ="h";
+		char c = msg.charAt(0);
+		System.out.println(c);
+	}
+
+Random
+	public void me6() {
+		//rnd1,2는 씨드가 같고 마지막값이 같을 때 랜덤 배열값이 같다.
+		// 첫번째 각 랜덤값, 두번째 각 랜덤값 세번째...가 서로같음
+		Random rnd1 = new Random(2);
+		Random rnd2 = new Random(2);
+		for (int i = 0; i < 10; i++) {
+			int num1 = rnd1.nextInt(100);
+			int num2 = rnd2.nextInt(100);
+		System.out.println(num1==num2);
+		}
+	}
+	public void me5(int start, int end) {
+		//start~end 범위에 있는 숫자가 임의로 나오도록 프로그래밍
+		
+		Random rnd = new Random();
+		int num =rnd.nextInt(end - start + 1 )+ start;
+		System.out.println(num);
+	}
+	
+	
+	public void me4() {
+		//임의의 값의 범위가 3~10까지 랜덤숫자 
+		Random rnd = new Random();
+		int n=10-3+1;
+		for (int i = 0; i < 100; i++) {
+			int num = rnd.nextInt(n)+3; 
+			/*
+			 * 0+3 ~n-1+3
+			 * 3(start)~10(end)
+			 * n-1+3=10
+			 * n=10-3+1
+			 * n=end-start+1
+			 */
+			System.out.println(num);
+		}
+			
+		
+	}
+	
+	public void me3() {
+		int num2 = 2;
+		Random rnd = new Random();
+		for (int i = 0; i < 100; i++) {
+			int num = rnd.nextInt(num2); // 0~n까지
+			System.out.println(num);
+		}
+		
+		
+	}
+	
+	public void me2() {
+		Random rnd = new Random(System.currentTimeMillis());
+	}
+	
+	public void me1() {
+		Random rnd = new Random();
+	}
+----
+package Calendar;
+
+import java.sql.Date;
+import java.util.Calendar;
+
+public class CalendarEx {
+	
+	public void me2() {
+		Calendar c = Calendar.getInstance();
+		int year =c.get(Calendar.YEAR);
+		int month=c.get(Calendar.MONTH)+1;
+		int date = c.get(Calendar.DAY_OF_MONTH);
+		int day = c.get(Calendar.DAY_OF_WEEK);
+		
+		System.out.println(String.format("%s년%s월%s일%s요일", year,month,date,day ));
+	
+	}
+	public void me3() {
+		Calendar c = Calendar.getInstance();
+		c.set(1950, Calendar.MAY, 25);
+		int day=c.get(Calendar.DAY_OF_WEEK);
+		System.out.println(day);
+	}
+	public void me4() {
+		Calendar c= Calendar.getInstance();
+		c.set(1950, Calendar.FEBRUARY, 25);
+		int maxdate = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		System.out.println(maxdate);
+		c.set(Calendar.DATE,maxdate);
+		int maxday=c.get(Calendar.DAY_OF_WEEK);
+		//System.out.println(maxday);
+		
+		String[] days= {"일","월","화" ,"수" ,"목" ,"금" ,"토"};
+		for(int i=0;i<days.length;i++) {
+			if(maxday-1==i) {
+				System.out.println(days[i]+"요일");
+			}
+		}
+	}
+	public void me6() {
+		Calendar c = Calendar.getInstance();
+		c.set(2020, Calendar.DECEMBER, 12);
+		c.add(Calendar.DATE, 20);
+		
+		System.out.println(c.getTime());
+		
+		Calendar d = (Calendar) c.clone();
+		
+		
+		
+	}
+	
+	public void me7() {
+		
+	}
+	
+
+	
+}
+----------
 
 
 
@@ -2266,7 +2840,86 @@ DTO(Data Tranfer Object)클래스 : 데이터 저장 전용 클래스
 
 
 
-내부클래스, 예외처리
+혁신아이디어공모전
+https://blog.naver.com/kipoworld2/222139323778
+내일.자바컬랙션 프레임워크: 늘러나는 배열?
+
+
+=== 에러 메세지
+java.util.InputMismatchException
+콜솔의 입력값 타입이 다를 때
+RuntimeException
+throw
+IllegalFormatConversionException: d != java.lang.String
+%d에 문자열 변수를 넣었을 때
+IllegalFormatConversionException: f != java.lang.Integer
+%f에 인트형 변수를 넣었을 때
+MissingFormatArgumentException:
+%c에 변수를 빼먹었을 때.
+
+MissingFormatWidthException:
+%-d, 자릿수를 지정하지않고 좌정렬(-)했을 때
+
+ArrayIndexOutOfBoundsException
+선언한 index의 값을 벗어남 (MAX_index= length-1과 같음)
+NullPointerException 
+객체가 만들어 지지 않았는데 자원에 접근하려 할 때 에러
+*자원 = 변수, 상수, 메서드
+ArithmeticException
+수치를 0으로 나눴을 때 에러
+
+
+
+[[Calendar , Wrapper 연습11.12]]
+	//1.캘린더 객체 생성
+	
+	//2.현재 연도 , 월 , 일 , 요일 을 캘린더에서 추출하여 각각 출력
+		
+	//3.1950.6.25 날짜 출력 set( , ,)
+	// 무슨요일인가?
+	
+	//4. 해당월의 마지막 날은 몇일 까지인가?(30,31,28,29)
+	//4-1 1950년 2월의 마지막 날은 몇일까지인가? 
+	 배열로 일~토 
+	// 마지막날은 무슨 요일인가?
+	
+	//5달력만들기 패스
+	
+	//6.2020년 11월 12일 의 20일후의 날짜는?add
+	//6-1. 20일 후의 날짜 정보. clone()을 이용
+
+	//7.현재 날짜를 Date로 형변환
+	// 20일 후의 날짜가 어떻게 변하나(날짜정보만) roll
+	// 월, 일, 요일 출력
+	
+	//8. 캘린더타입의 형변환
+	// 캘린더 타입 c를 선언하고 데이터 타입 d로 변환
+	// 데이터타입 d를 선언하고 캘린더 타입c로 변환
+	
+	//9.현재 날짜와 시간을 캘린더에서 데이터타입으로 형변환
+	// YYYY-MM-dd-hh-mm-ss형식으로 포멧하여 출력
+//Wrapper
+	//1. 기본자료형의 초기화
+	//2. 레퍼클래스의 초기화
+	//3. //AutoUnBoxing
+		boolean a = new Boolean(false);
+		Character b = new Character('c');
+	//	char bb=b;
+	//4.문자열을 기본자료형으로 변경하는 방법1 parse
+	 * 4-1.문자열을 기본자료형으로 변경하는 방법2 valueof 
+	 * 6. Charater.parse.Charater()와 Charater.valueof()는 없다
+	 * 대신 문자열.chsrAt();을 사용
+//Random
+	랜덤객체생성
+	랜덤값의 범위 (int start~end)출력
+	랜던객체 1,2 생성 같은 시드로 돌리면
+
+
+
+[[매일 연습문제, 회원관리 memberDTO]]
+GG + MMS // 두개 한번씩 
+GG의 체인지웨폰 if대신 예외처리로 변경
+GG. mms에 예외처리해야할 것 
 
 [[연습문제]]
 몬스터 죽으면 무기 드랍. 착용가능 
@@ -2354,30 +3007,8 @@ Bow Sword Gun
 https://edu.goorm.io/search?subject=java%20%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9&page=1&sort=newest
 실습코딩 인터넷강좌
 
-=== 에러 메세지
-IllegalFormatConversionException: d != java.lang.String
-%d에 문자열 변수를 넣었을 때
-IllegalFormatConversionException: f != java.lang.Integer
-%f에 인트형 변수를 넣었을 때
-MissingFormatArgumentException:
-%c에 변수를 빼먹었을 때.
 
-MissingFormatWidthException:
-%-d, 자릿수를 지정하지않고 좌정렬(-)했을 때
 
-ArrayIndexOutOfBoundsException
-선언한 index의 값을 벗어남 (MAX_index= length-1과 같음)
-NullPointerException 
-객체가 만들어 지지 않았는데 자원에 접근하려 할 때 에러
-*자원 = 변수, 상수, 메서드
-ArithmeticException
-수치를 0으로 나눴을 때 에러
-
-=== 스위치 연산
-두 값을 실행 할 때 마다 번갈아 가며 값이 나온다.
-초기값이 0 or  1, true or false 이어야 한다
-(boolean a)	a = !a;
-(int a)		a = 1-a;	
 
 
 
