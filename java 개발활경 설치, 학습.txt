@@ -2491,12 +2491,11 @@ extends RuntimeException 상속함( 멈춤 )			--->throw
 
 2011.12) 021------------------------------------------------------------------------------
  
-	<예외처리에 관한 질문>
 예외
  : 프로그래머가 조치할 수 있는 현상. 
 사용자의 입력값이 논리적&문법적으로 맞지 않는 상황
 에러
- : 프로그래머가 조치할 수 없는 현상. jvm, 단전 
+ : 프로그래머가 조치할 수 없는 현상. jvm, 단전 ...등
 
 Throwable: 예외와 에러의 최상위 부모클래스
 
@@ -2511,11 +2510,15 @@ Exception or RentimeException을 상속함
 
 try ~ catch 
 : 조치방법을 알고 있을 때,요구사항명세서에 조치상항이 적혀있을 때, 조치에 대한 내용을 책임질 수 있을 때
+
 throws 
 : 조치방법을 모를 때, 예외발생 조치를 책임질 수 없을 때
+
 fianlly
 : 예외가 있든 없든 반드시 실행해야 하는 코드, return보다 강력함
 
+===================
+	<예외처리에 관한 질문>
 1. 예외 처리 잘합니까?
 -try ~catch 와 throws를 구분해 사용할 수 있고,
 예외가 발생하든 그렇지 않든 반드시 실행할 코드가 있으면 
@@ -2525,20 +2528,19 @@ finally구문에 작성할 수 있고,
 -강제로 예외를 발생시키는 예시는>
  문법적으로는 맞지만 논리적으로는 맞지 않을 때.
  "개새끼"등.. 욕설은 강제로 예외를 발생시키는 코드
-
 2. 예외 메시지 읽을 줄 아세요?
 (예외가 발생했을 때, 넘겨주는 메시지를 보고 조치할 수 있나?)
 예외 발생 원인과 예외 발생 위치를 알 수 있습니다. 
 조치할 수 있는 내용이면 곧바로 조치하고 모르는 내용이면 
 구글링하여 조치를 취해왔습니다. (구글링으로 안되면 팀장에게 물어본다)
+====================
 
---- 
 
 Calendar = abstract class 
 
 	public void me1() {
 		//1. Calendar  클래스 객체 생성 방법
-		Calendar c = Calendar.getInstance(); // 현재시각정보(추상객체는 객체 생성불가,캘릭더 클래스의 겟인스턴스)
+		Calendar c = Calendar.getInstance(); // 현재시각정보(추상객체는 객체 생성불가,캘릭더 클래스의 getInstance)
 	}
 
 	public void me2() {
@@ -2758,73 +2760,100 @@ Random
 	}
 	
 	public void me2() {
-		Random rnd = new Random(System.currentTimeMillis());
+		Random rnd = new Random(System.currentTimeMillis());	// 1/1000초 단위로 변하는 시드를 바꿀 수 있다.
+								// 정해진 배열이지만 시드가 바뀌면 배열이 바뀐다.
 	}
 	
 	public void me1() {
 		Random rnd = new Random();
 	}
 ----
-package Calendar;
 
-import java.sql.Date;
-import java.util.Calendar;
-
-public class CalendarEx {
-	
-	public void me2() {
-		Calendar c = Calendar.getInstance();
-		int year =c.get(Calendar.YEAR);
-		int month=c.get(Calendar.MONTH)+1;
-		int date = c.get(Calendar.DAY_OF_MONTH);
-		int day = c.get(Calendar.DAY_OF_WEEK);
-		
-		System.out.println(String.format("%s년%s월%s일%s요일", year,month,date,day ));
-	
-	}
-	public void me3() {
-		Calendar c = Calendar.getInstance();
-		c.set(1950, Calendar.MAY, 25);
-		int day=c.get(Calendar.DAY_OF_WEEK);
-		System.out.println(day);
-	}
-	public void me4() {
-		Calendar c= Calendar.getInstance();
-		c.set(1950, Calendar.FEBRUARY, 25);
-		int maxdate = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-		System.out.println(maxdate);
-		c.set(Calendar.DATE,maxdate);
-		int maxday=c.get(Calendar.DAY_OF_WEEK);
-		//System.out.println(maxday);
-		
-		String[] days= {"일","월","화" ,"수" ,"목" ,"금" ,"토"};
-		for(int i=0;i<days.length;i++) {
-			if(maxday-1==i) {
-				System.out.println(days[i]+"요일");
-			}
-		}
-	}
-	public void me6() {
-		Calendar c = Calendar.getInstance();
-		c.set(2020, Calendar.DECEMBER, 12);
-		c.add(Calendar.DATE, 20);
-		
-		System.out.println(c.getTime());
-		
-		Calendar d = (Calendar) c.clone();
-		
-		
-		
-	}
-	
-	public void me7() {
-		
-	}
-	
-
-	
-}
 ----------
+20.11.13)022 -------------------------------------------------------------
+
+자바 컬랙션 프레임 워크 
+
+1. List
+interface다
+
+List<참조자료형> 변수명 = new ArrayList<참조자료형>(); 으로 선언
+ ArrayList는 LIst를 상속하는 자식클래스
+<> 는 Generic(상자의 이름)이라 하고, 참조자료형을 입력한다. 그에 맞는 데이터만 넣을 수 있다.
+자료형에 맞지 않는 데이터는 RuntimeException(컴파일 중 Exception)이 발생
+(늘어나는 배열)
+넣는 데이터에 마춰 인덱스가 늘어나는 배열이다 
+데이터를 넣는 순서대로 인덱스가 매겨진다.
+기본자료형은 Wrapper클래스로 넣을 수 있다 Integer, Boolean 등 첫자가 대문자
+객체 삭제시 다음 index의 객채가 그 자리를 빈칸마다 당겨 채워진다.
+객체 삭제시 모든 객체의 인덱스가 변하기 때문에 수정작업이 빈번한 자료는 사용하지 않는다.
+
+add()
+변수명.add(객체변수 또는 객체생성(new 생성자()))로 데이터를 추가한다
+
+get()
+변수명.get(index)로 데이터를 반환한다.
+
+set()
+변수명.set(index, 객체) 로 데이터를 수정한다.
+
+remove()
+변수명.remove(index)로 데이터를 삭제한다.(삭제후 빈 index는 다음 객체가 모두 당겨 온다)
+변수명.remove(객체(데이터))로 데이터를 동등성 비교후 같으면 삭제한다.
+오버라이딩한 인자만 비교후 삭제하기 때문에 남어지 인자는 초기값을 넣어도 무관하다
+(오버라이딩(hash&equals) 하지 않으면 인자가 같아도 동등성이 같지 않아서 삭제안된다)
+반복문을 사용해 여러객체를 한번에 삭제할 경우, 뒤번 index부터 삭제해야 한다
+
+clear()
+변수명.clear();로 List의 모든 객체를 삭제하고 List의 틀만 남는다.(List는 삭제되지 않는다)
+
+출력
+객체를 출력하면 [ ] 안에 객체가 표시된다.(toString 오버라이딩 하지않으면 주소값)
+
+2. Set
+Set interface
+
+- 데이터의 중복을 허용하지 않는다
+데이터 중복여부를 equals() 사용 동등조건을 체크한다
+equals&hash code 오버라이딩으로 동등조건의 인자를 선택할 수 있다.
+
+- 문자열의 대문자와 소문자를 다른 데이터로 인식한다
+ex) "hi".equals("Hi"); -> false
+
+- 입력 순서와 출력 순서 사이에 상관관계가 없다
+list는 입력순서대로 index가 매겨지고 순서대로 출력됨
+
+- index가 없다
+get()가 없다, 객체 호출시 iterator를 사용
+
+- 자식 클래스로 HashSet 
+Set<참조자료형> 변수명 = new HashSet<참조자료형>();
+
+- add()
+Set에 객체를 입력 한다.
+반환형이 boolean으로 입력의 성공과 실패를 반환
+
+- size()
+Set에 저장된 객체들의 개수를 반환(배열의 length)
+
+- remove()
+입력 객체를 삭제한다
+(index가 없기에 Integer의 값을 바로 삭제한다)
+반환형이 boolean으로 입력의 성공과 실패를 반환
+
+- clear()
+모든 저장 객체를 삭제하고 Set의 틀만 남는다
+
+
+-------------------------------------------------------------------------------	
+
+Map interface
+HashMap
+Map은 HashMap이 상속(List - ArrayList의 관계와 같다)
+Map<k,v> 
+key 와 value
+key
+(Index와 같음, 문자열도 가능) : 중복이면 안돼기 때문에 set을 이용
 
 
 
@@ -2840,9 +2869,32 @@ public class CalendarEx {
 
 
 
-혁신아이디어공모전
-https://blog.naver.com/kipoworld2/222139323778
-내일.자바컬랙션 프레임워크: 늘러나는 배열?
+
+
+
+
+
+encoding ... 해결했다~
+문제는 윈도우 언어변경 시 앱 디폴트인코딩이 변경됨
+윈도우 언어를 다시 되돌리고
+앱의 디폴트 인코딩을 다시 원래대로 변경.
+인코딩을 먼저 변경한다면 인코딩을 다른거 한번 변경한후 다시 인코딩 변경해야함.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 === 에러 메세지
@@ -2870,59 +2922,15 @@ ArithmeticException
 
 
 
-[[Calendar , Wrapper 연습11.12]]
-	//1.캘린더 객체 생성
-	
-	//2.현재 연도 , 월 , 일 , 요일 을 캘린더에서 추출하여 각각 출력
-		
-	//3.1950.6.25 날짜 출력 set( , ,)
-	// 무슨요일인가?
-	
-	//4. 해당월의 마지막 날은 몇일 까지인가?(30,31,28,29)
-	//4-1 1950년 2월의 마지막 날은 몇일까지인가? 
-	 배열로 일~토 
-	// 마지막날은 무슨 요일인가?
-	
-	//5달력만들기 패스
-	
-	//6.2020년 11월 12일 의 20일후의 날짜는?add
-	//6-1. 20일 후의 날짜 정보. clone()을 이용
 
-	//7.현재 날짜를 Date로 형변환
-	// 20일 후의 날짜가 어떻게 변하나(날짜정보만) roll
-	// 월, 일, 요일 출력
-	
-	//8. 캘린더타입의 형변환
-	// 캘린더 타입 c를 선언하고 데이터 타입 d로 변환
-	// 데이터타입 d를 선언하고 캘린더 타입c로 변환
-	
-	//9.현재 날짜와 시간을 캘린더에서 데이터타입으로 형변환
-	// YYYY-MM-dd-hh-mm-ss형식으로 포멧하여 출력
-//Wrapper
-	//1. 기본자료형의 초기화
-	//2. 레퍼클래스의 초기화
-	//3. //AutoUnBoxing
-		boolean a = new Boolean(false);
-		Character b = new Character('c');
-	//	char bb=b;
-	//4.문자열을 기본자료형으로 변경하는 방법1 parse
-	 * 4-1.문자열을 기본자료형으로 변경하는 방법2 valueof 
-	 * 6. Charater.parse.Charater()와 Charater.valueof()는 없다
-	 * 대신 문자열.chsrAt();을 사용
-//Random
-	랜덤객체생성
-	랜덤값의 범위 (int start~end)출력
-	랜던객체 1,2 생성 같은 시드로 돌리면
+
 
 
 
 [[매일 연습문제, 회원관리 memberDTO]]
-GG + MMS // 두개 한번씩 
+GG + MMS1_me(컬렉션프레임워크 list적용) // 두개 한번씩 
 GG의 체인지웨폰 if대신 예외처리로 변경
 GG. mms에 예외처리해야할 것 
-
-[[연습문제]]
-몬스터 죽으면 무기 드랍. 착용가능 
 
 [[연습 문제]]
 추상화,추상클레스,추상메서드
