@@ -7,4 +7,12 @@ public class bow extends Weapon{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void img() {
+	System.out.println("È°½î´Â img");
+		
+	}
+
+	
+
 }

@@ -1,37 +1,50 @@
 package GG;
 
+import java.util.List;
+
 public class Hero {
-	Weapon[] weapons;
+	List<Weapon> weaponList;
 	Weapon w;
-	public Hero(Weapon[] weapons, Weapon w) {
-		super();
-		this.weapons = weapons;
-		this.w = w;
-		
+
+	public Hero(List<Weapon> weaponList, Weapon w) {
+	super();
+	this.weaponList = weaponList;
+	this.w = w;
 	}
-	public Weapon[] getWeapons() {
-		return weapons;
+	
+
+	public List<Weapon> getWeaponList() {
+		return weaponList;
 	}
-	public void setWeapons(Weapon[] weapons) {
-		this.weapons = weapons;
+
+
+	public void setWeaponList(List<Weapon> weaponList) {
+		this.weaponList = weaponList;
 	}
+
+
 	public Weapon getW() {
 		return w;
 	}
+
+
 	public void setW(Weapon w) {
 		this.w = w;
 	}
-	
+
+
 	public void attack(Monster mon) {
 		w.attack(mon);
 	}
-	public void ChageWeapon(int idx) {
-		if(idx<0 || idx>=weapons.length) {
-			idx=weapons.length-1;
-			
+	
+	public void ChangeWeapon(int idx) {
+		
+		try {
+			w= weaponList.get(idx);
+		} catch (Exception e) {
+			idx=weaponList.size()-1;
 		}
-		w= weapons[idx];
-		System.out.println(w+"로 변경");
+		System.out.println(w+"(으)로 변경");
 	}
 
 }

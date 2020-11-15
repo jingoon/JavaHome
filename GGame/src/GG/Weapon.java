@@ -1,6 +1,6 @@
 package GG;
 
-public class Weapon {
+public abstract class Weapon implements WeaponSkill{
 	private String name;
 	private int power;
 	public Weapon(String name, int power) {
@@ -22,14 +22,20 @@ public class Weapon {
 	}
 	@Override
 	public String toString() {
-		return name;
+		return name+"("+power+")";
 	}
 	
 	public void attack(Monster	mon) {
+		img();
 		int monhp=mon.getHp() - power;
 		mon.setHp(monhp);
 		System.out.println(monhp);
 	}
+	public Weapon() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 
 }

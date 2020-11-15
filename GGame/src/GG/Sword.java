@@ -7,4 +7,9 @@ public class Sword extends Weapon{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void img() {
+		System.out.println("검으로 베는 img");
+	}
+
 }
