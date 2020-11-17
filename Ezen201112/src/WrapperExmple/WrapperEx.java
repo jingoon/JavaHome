@@ -35,10 +35,14 @@ public class WrapperEx {
 	}
 	public void me4() {
 		String msg1 = "1234567";
-		String a = "h";
+		String a = "heee";
 		int i1 = Integer.parseInt(msg1);
 		int i2 = Integer.valueOf(msg1);
 		char a2 =a.charAt(0);
+				
+		
+		System.out.println(a);
+		System.out.println(a2);
 		
 		
 	}

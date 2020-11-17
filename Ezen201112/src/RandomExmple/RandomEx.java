@@ -22,7 +22,7 @@ public class RandomEx {
 	}
 	public void me3(int start, int last) {
 		Random r = new Random();
-		int j = r.nextInt(last-start+1)+3;
+		int j = r.nextInt(last-start+1)+start;
 		System.out.println(j);
 		
 	}
@@ -34,6 +34,15 @@ public class RandomEx {
 		System.out.println(j1);
 		System.out.println(j2);
 		// ·£´ıÀÌÁö¸¸ ·£´ıÀÌ ¾Æ´Ô.
+	}
+	public void me5() {
+		Random r1 = new Random(System.currentTimeMillis()+1);
+		Random r2 = new Random(System.currentTimeMillis());
+		int j1 = r1.nextInt(100000);	// last ¼ıÀÚ 
+		int j2 = r2.nextInt(100000);
+		System.out.println(j1);
+		System.out.println(j2);
+		System.out.println(System.currentTimeMillis());
 	}
 
 }
