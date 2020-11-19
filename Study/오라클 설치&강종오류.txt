@@ -1,0 +1,20 @@
+오라클 다운로드~
+Oracle Database 11g Release 2 Express Edition for Windows 64
+설치~ go
+뇬1234
+Port for 'Oracle Database Listener': 1521
+cmd ->
+sqlplus
+(name)system
+(password)sys1234
+
+cmd 강종했을 때 발생오류~/ 종료할 때는 exit
+ora-01033 orcle initialization or dhutdown in progress
+
+sqlpls "/as sysdba"
+
+sql>
+recover datavase;
+alter database open;
+shutdown immediate;
+startup;

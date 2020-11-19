@@ -1,0 +1,3825 @@
+java 개발환경 설치. + 학습
+
+001--------------------------------------------------------------------------------------------
+
+1. jdk 설치
+-> 자바 개발환경 설정, 설치 
+https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+*모달창: 팝업창처럼 새로운창, 메인창은 비활성화됨, 모달창에 동의해야 다시 안생김.
+계정 : park~gmail / D용 ~@
+환경변수 - eclipse로 작업하기 때문에 안해도됨
+cmd : java -version 확인
+
+2. ide(eclipse 다운)  Enterprise (java는 SE-무료, 이클립스 Enterprise에서 어느정도 지원))
+https://www.eclipse.org/
+
+3. 자바 프로젝트 저장 공간
+ - workspace_java
+
+4. eclipse의 구조
+ window - show view , new Window(창 다 닫혔을 때)
+-> Package Explorer , Console
+ window - Open Perspective - java Perspective
+
+[ctrl + n]
+ Java Project, JavaSE-1.8
+HelloWorld(C:\workspace_java 에 디렉토리생성됨)
+프로젝트 첫 글자 대문자, 띄어쓰기하지 않음, 띄어쓰는 단어의 첫 글자 대문자
+
+ src - Java Package - 
+Package(디렉토리) -도메인이름 뒤에서부터 소문자(com.naver / kr.co.ezen)
+
+class
+첫 글자 대문자, 띄어쓰기하지 않음, 띄어쓰는 단어의 첫 글자 대문자
+main() 메서드 생성 -> main 적은 후 [ctrl + space]
+
+console
+[sysout] 적은 후  [ctrl + space]
+println("hello world");
+println(11);
+println("A");
+
+5. 콘솔에 "hello world" 출력
+ console
+[sysout] 적은 후  [ctrl + space]
+println("hello world");
+println(11);
+println("A");
+
+6. 변수(데이터) ,32가지? 암기!
+ a = b; 
+= 는 대입 연산자 -> b의 값을 a에 대입(같다 아님)(o), a를 b에 대입(x)
+a -> 변수명(그릇)
+b -> 값 or 변수 (b의 값이 사라지지 않음)
+
+--
+프로젝트(폴더, main한개, 첫대문자) -src- 패키지(폴더,소문자 도메인) - 클래스(첫 대문자)
+
+github에 적용
+githubstudy - javastudy 에 파일 넣기
+cmd에서javastudy이동 파일 add, commit, push 
+깃허브 로그인
+
+002---------------------------------------------------------------------------------------
+
+ 변수!!
+-----
+메서드 생성
+메서드 호출(사용)
+------
+main,class 스코프 - {_더블클릭
+ } (파란선택영역)
+-----
+
+String name = "문자열";	 // 중복되는 문자열 변수선언
+System.out.println(name);	//""없이 입력
+
+변수 선언 공식
+**자료형 변수명 = 자료형에 맞는 값;
+--
+// 변수 선언 공식
+// 자료형 변수명 = 자료형에맞는값;
+// 값에맞는자료형 변수명 = 값;
+--
+
+변수 차이 예)
+String jin = "11";		// String 문자열 "11" 로 선언
+int jin3 = 11;		// int 정수 11로 선언
+
+System.out.println(jin+jin );		//출력 1111
+System.out.println(jin3+jin3);		//출력 22
+
+
+자료형(type)의 종류 (크게 두가지)
+1. 기본자료형(primitive) 8가지.
+- boolean : true, false
+ (boolean a = true; or boolean a = false;)  
+
+- char : 한 글자
+ (char = '한';)
+
+- 정수형(값의 범위가 중요), 형변환 (자료형)값 으로 사용 할 수 있다.
+byte	(1byte=8bit)	-128~127	
+short	
+int	(4byte)		-21억~+21억 	42억(2의 32승)
+long	(8byte)
+*int (+-)21억, 정수형의 기본자료형
+*long형에 맞는 값(약 21억 이상)은 숫자 뒤에 L/l을 써줘야 한다.
+
+- 실수형(정밀도가 중요)
+float : 값 뒤에 F/f를 써줘야 한다.
+double : 실수형의 기본 자료형
+BigDecimal
+
+
+-> 참조자료형(referece) :  기본자료형이 아닌 자료형
+MainEx me = new MainEx();
+String msg = new string("hello");
+String : "문자열"
+
+
+변수선언은 자료형 변수명 = 자료형에 맞는 값; 이다
+
+자료형은 기본자료형과 참조자료형으로 나뉜다
+참조자료형은 기본자료형을 제외한 자료형이다
+기본자료형은 논리,문자,정수,실수 8가지 이다
+논리 자료형 boolean 은 true, false만을 값으로 대입할 수 있다
+문자 자료형 char 은 문자 '한' 글자만 ''안에 적는다
+정수 자료형은 값의 범위에 따라 4가지로 나뉜다
+byte 는 -128~127까지의 범위를 갖는다 1byte(=8bit) 2^16
+short 는 -32768~32767까지의 범위를 갖는다 2byte 2^32
+int 는 정수형의 기본자료형으로 약 -21억~21억의 범위를 갖는다
+long 는 int형의 범위를 초과하는 약 -22억 이하 +22억 이상의 값일 때 사용한다
+lomg 는 마지막에 l/L을 적는다
+실수자료형은 정밀도를 기준으로 나눈다
+float보다 double이 더 정밀하다
+float는 마지막에 f/F를 적는다
+double는 실수형의 기본자료형이다
+
+003 -------------------------------------------------------------------------------------------
+
+참조자료형(reference type)의 변수 선언
+
+자료형 변수명(reference) = new 자료형();   ->생성자(자료형();)
+ex) String msg = new String("hello");
+ 
+--
+Dog class : 참조자료형 ,Dog dog = new Dog(); ->creat class 호출.
+String class : 참조자료형
+Command 인터페이스 : 참조자료형
+int[ ] : 참조자료형
+--
+아스키코드(검색해보기)
+--
+기본자료형 =
+수치형 자료형 : boolean 제외한 기본자료형
++ 
+비수치형 자료형 : boolean
+--
+지역(local) 변수의 스코프: 선언 이후, 생성자 or 메서드의 스코프({}영역) 끝까지
+지역변수: 메서드나 생성자, 제어문(if, for) 안에서 선언된 변수 (보안에 좋다)
+	클래스의 필드 외에서 선언된 변수
+	선언된 이후부터 해당 중괄호의 종료 표기까지( } )
+멤버변수: 클래스 필드에 선언된 변수 , - 객채의 구성 요소
+
+클레스 이름과 생성자(참조자료형) 이름은 같아야 한다.
+
+일반적으로 지역변수는 선언과 동시에 초기화 - 자료형 변수명 = 자료형의 맞는값;
+	  멤버변수는 선언만 한다 - 자료형 변수명; 
+String master;
+int i;
+double d;
+
+초기화: 변수 선언과 동시에 값을 대입하는 것.
+int i = 0;
+String master = "마스터";
+
+=== 생성자? 메서드? 클래스필드?
+package co.naver;
+public class Cat {				
+	//member 변수(클레스 필드에 선언된 변수)
+	String name = "happy"; 
+	int age;
+	String addess;
+
+	public Cat() {			// 생성자
+		System.out.println(name);
+		int b = 33;
+		System.out.println(b);
+		me1(); // 멤버들끼리는 순서가 중요하지 않다 
+	}
+	public void me1() {			//반환값이 없다, 메서드
+		System.out.println(name);
+	}
+}
+==
+Object(모든 자료형을 포함) 
+Object c;
+
+생성자호출 - Test test = new Test();
+
+생성자 public 클레스명과동일(){ }
+
+자료형의 디폴트값
+boolean는 false(0)
+char는 빈칸
+정수형은 0 
+실수형은 0.0
+참조자료형 디폴트값은 null(값이 없음)
+
+1. 지역변수의 개념
+ - 메서드나 생성자 안에서 선언된 변수
+ - 선언위치 부터 해당 변수 영역끝( } )까지 사용
+2. 지역변수의 스코프에 대해서 깊게 학습
+ - 선언 위치 ~ 해당 변수가 선언된 곳의 } 까지
+3. 초기화
+ - 변수를 선언할 때 값을 같이 입력해주는 것
+ - 초기화 예제) int a =3;
+ - 초기화를 하지 않은 예제) int = b;
+*멤버변수초기화는 생성자 안에서만 한다.
+4. 멤버변수의 개념
+ - 클래스의 멤버로 선언된 변수
+ - 생성자나 메서드의 밖에서 선언된 변수
+ - 클래스 전체에서 사용
+ - 일반적으로 private 으로 선언함.
+ - private: 같은 클래스에서만 접근가능
+5. 멤버변수의 일반적인 사용
+ -초기화하지 않고 선언만 함
+ - int a;
+ - Dog d;
+6. 멤버변수의 디폴트값
+ - boolean - false
+ - char - 공백
+ - 정수형 및 실수형 - 0
+ - 참조자료형 - null
+7. (변수)대입: 반드시 변수가 선언된 후에만 가능
+ *변수 선언과 동시에 값을 넣으면 초기화, 선언이후에 값을 넣으면 대입.
+ - 변수명 = 자료형에 맞는 값;
+ - 예 a = 10;
+
+ int a =44; <<초기화
+ a = 44; << 대입
+
+메서드(함수) ! 
+
+void =반환값이 없을 때
+반환형 : 반환되는 데이터(값)의 자료형
+
+004----------------------------------------------------------------------------------
+
+static(특별함?)
+literal: 상수, 대입의 대상이 될수 없다.
+
+메모리 영역 할당 
+/method//stack//heap        /
+method : 
+stack : 힙 메모리의 주소 값(int형) // 인트 자료형 변수 선언의 대입되는 값
+heap : 객체(참조자료형의 값) // new MerhodTest();
+Dog d = c; (이렇게 주소값만 넘겨줄 수도 있다)
+
+생성자 
+-> public className(){ } 디폴트 생성자 // 객체를 생성
+
+메서드 
+-> publric void Name(){ } 무반환 무파람 메서드 // 객체의 기능
+-> 객체의 기능, 행위, 능력을 의미(java에서는 함수), 중복 코드를 묶어주는 역할
+
+ex)
+public class MethodTest {
+public MethodTest() {} --> 객체 생성, 생성자
+public void sleep(){} --> 객체 선언, 메소드
+                          --> 무반환(void) 무파람(괄호가비어있음)
+public (접근제한자)
+-> 프로젝트 전체에서 sleep메서드가 호출될 수 있음을 의미
+
+void (반환형: 반환되는 데이터의 자료형) 
+-> 반환되는 데이터가 없다는 의미
+
+sleep (메서드의 이름) 
+-> 메서드 호출 시, 이름을 적음으로 메서드 본문 코드를 실행하게함
+
+( ) (파라미터, 매개변수 선언하는 곳)
+-> 변수를 선언하듯 작성. 파라미터가 두개 이상일 때는 ,를 구분자로 구분
+
+{} (메서드의 본문)
+-> 메서드 호출 때 실행하고 싶은 코드 작성
+}
+
+
+메서드 선언공식
+접근제한자 반환형 메서드명(파라미터자료형 파라미터변수) { 
+	메서드 호출 시 실행 코드
+}
+ex) 메서드 선언
+public MethodTest(){
+	 public void callName(String name) { 
+	 System.out.println(name);
+	 }
+}
+ex) 메인 클레스에서 호출
+ MethodTest m1 = new MethoTest();
+ m1.cllName("홍길동");
+
+
+메서드의 종류
+
+1. 무반환(void) 무파람 : void, 파라미터가 ( )
+ //메서드 생성 ex)
+public void callName(){
+     System.out.println("무변환 무파람");
+}
+
+2. 메서드 호출 
+-> 메서드를 사용하는 것을 의미
+-> 메서드명을 적고 소괄호, 그 소괄호 안에 파라미터의 자료형에 맞는 값을 입력
+
+ 2.1 같은 class 호출 : 메서드명() 
+-> ex) callName();		// 메서드 호출
+
+ 2.2 다른 class 호출 : 객체생성 후 객체명.메서드명();
+-> ex) MethodTest mt = new MethodTest();  //객체 생성
+         mt.callName();			// 메서드 호출
+
+3. 무반환 유파람(파라미터 있음)
+
+3.1 메서드 생성
+ class [ MethodTest ]에서 printScore(String name) 메서드 생성 
+-> 메서드 파라미터에 자료형(String)과 변수명(name)을 작성
+
+// 메서드 생성 ex)
+public void printScore(String name, int score){
+     System.out.println(name + " " + score + "점")
+}
+
+3.2 메서드 호출
+ 객체 생성 후
+mt.printScore(자료형에 맞는 값)	//메서드 호출 (자료형에 맞는값)
+
+// 메서드 호출 ex)
+1) 같은 class
+﻿printScore("홍길동", 100);
+
+2) 다른 class
+MethodTest mt = new MethodTest(); //객체 생성
+mt.﻿printScore("홍길동", 100); // 메서드 호출﻿
+
+005--------------------------------------------------------------------------------------------
+
+개념 참고 http://tcpschool.com/java/intro
+
+클래스 = 설계도
+객체(변수) = 실체
+변수 = 구성요소(핸들, 이름), 
+메서드 = 기능,능력(가속하기)
+생성자(constructor) = 객체 선언, 객체의 맴버변수의 초기화, 리턴값 없음(void 안쓴다)
+지역변수 = 외부에서 접근불가, 보안에 강하다
+멤버변수(field) = 외부에서 접근가능
+매개변수(parameter) = 메서드에 넘겨줄 값, ()안에 기술
+값을 반환 return (반환자료형에 맞는 값);
+
+3. 유반환 무파람
+3.1 참조변수 반환
+public Test12 getTest12() {			//Test12(반환자료형)
+		return new Test12();
+	}
+
+MethodTest3 mt7 = new MethodTest3();	//클래스이름 객체변수명 = new 클래스이름(생성자) -->인스턴스(객체)생성
+		Test12 re4 = mt7.getTest12();	// 반환자료형 변수명 = 객체변수명.메서드명
+
+3.2 기본자료형 반환
+public int getTest13() {
+		return 99;
+	}
+
+MethodTest3 mt8 = new MethodTest3();	//인스턴스(객체) 생성, 클래스가 메모리에 생성
+		int re5 = mt8.getTest13();
+
+
+006--------------------------------------------------------------------------------------------------------------------
+- TEST -
+
+1. 자료형의 종류를 기술하시오.
+자료형은 기본자료형과 참조자료형으로 나뉜다
+참조자료형은 기본자료형을 제외한 자료형이다
+기본자료형은 8가지로 boolean, char, byte, short, int, long, float, double이 있다
+
+2. 정수형 변수 a에 자료형에 맞는 값 중 하나를 적으시오.
+-33
+
+3. long 형에 맞는 값 중 하나를 적으시오.
+2400000000L
+
+4. float 형에 맞는 값을 하나 적으시오.
+3.14f
+
+5. boolean  형에 맞는 값 두 개르를 적으시오.
+true
+false
+
+6. char 형에 맞는 값을 하나 적으시오.
+'a'
+
+7. Dog형에 맞는 값을 하나 적으시오.
+new Dog()
+
+8. String 형에 맞는 값을 하나 적으시오.
+"홍길동"
+
+9. Cat형에 맞는 값을 하나 적으시오.
+new Cat()
+
+10. Pig형에 맞는 값을 하나 적으시오.
+new Pig()
+
+11. Car형에 맞는 값을 하나 적으시오.
+new Car()
+
+12. Apple형에 맞는 값을 하나 적으시오.
+new Apple()
+
+13. 클래스 Dosirak의 디폴터 생성자를 적으시오.
+public Dosirak(){
+}
+
+14. 클래스 Gost의 디폴터 생성자를 적으시오.
+public Gost(){
+}
+
+15. 클래스 Member의 디폴터 생성자를 적으시오.
+public Member(){
+}
+
+16. 무반환 무파람 메서드 showMetheMoney( )를 작성하고 호출 코드도 작성하시오.
+     - 단, 실행 내용은 "500원" 출력
+     - 단, showMetheMoney( )는 Bank클래스의 메서드이다.
+
+public Bank(){	
+}
+public void showMetheMoney(){
+	System.out.println("500원");
+}
+
+main에서 호출
+Bank bank = new Bank();
+bank.showMetheMoney();
+
+17. 무반환 유파람 메서드 setName( )를 작성하고 호출 코드도 작성하시오.
+    - 단, 실행 내용은 this.name = name;		
+    - 단, setName( )는 Member클래스의 메서드이다.
+
+private String name;		// 필드에 선언
+public Member(){
+	 
+}
+public void setName(String name){
+	this.name = name;		//this는 객체 자기자신을 의미
+}				//지역변수와 멤버변수가 같을 때 지역변수가 우선(그래서 this.을 사용)
+
+main에서 호출
+Member member = new Member();
+member.setName("홍길동");
+
+18. 유반환 무파람 메서드 getBoard( )를 작성하고 호출 코드도 작성하시오.
+    - 단, 실행 내용은 Board클래스의 객체를 반환한다.
+    - 단, getBoard( )는 Board클래스의 메서드이다.
+
+public Board(){
+}
+
+public Board getBoard(){
+	return new Board();
+}
+
+main에서 호출
+Board board = new Board();
+Board b1 = board.getBoard();
+
+- TEST End -
+
+
+4. 유반환 유파람
+
+private String carName; 
+field(멤버변수)는 private로 선언 외부에서 접근 불가
+외부에서 접근하기 위해 get~, set~ 메서드 필요
+get, set 메서드는 이클립스에서 마우스 우클릭(source - Generate Getters and Setters) 에서 해당 필드 체크
+혹은 직접입력
+public String getCarName() {
+		return carName;
+	}
+
+public void setCarName(String carName) {
+		this.carName = carName;
+	}
+
+파라미터 입력, 리턴 (기능수행) 반환
+
+파라미터가 있음으로 동적실행가능(입력값이 변함)
+
+// 메서드 기본 4유형 
+	
+	// 1. void(return 값 없음), 매개변수 없음
+	public void me1() {
+		
+	}
+	
+	// 2. void(return 값 없음), 매개변수 있음
+	public void me2(String name, int age) {
+		
+	}
+	
+	// 3. return(참조자료형) 있음, 매개변수 없음
+	public Dog me3() {
+		return new Dog();
+	}
+	
+	// 4.return(정수형) 있음, 매개변수 있음
+	public int me4(String name) {
+		int size = name.length();
+		return size;
+	}
+
+// 메서드 4유형 호출
+		
+	Dog hot = new Dog();
+		
+	// 1. void(return 값 없음), 매개변수 없음
+	hot.me1();
+		
+	// 2. void(return 값 없음), 매개변수 있음
+	hot.me2("핫도그", 2);
+		
+	// 3. return(참조자료형) 있음, 매개변수 없음
+	Dog hotDog = hot.me3();
+		
+	// 4.return(정수형) 있음, 매개변수 있음
+	int gotDog1 = hot.me4("갓도그");
+	int gotDog2 = hot.me4(new String("갓도그"));
+	
+
+007-------------------------------------------------------------------------------
+
+5. 메서드 오버로링
+
+* 파라미터의 개수or자료형or순서가 다르면 성립*
+
+5.1 선결 조건(and)
+- 같은 클래스에서 생선된 메서드
+- 메서드의 이름이 같을 것
+* 파라미터의 개수or자료형or순서가 다르면 성립*
+- 접근제한자, 반환형, 파라미터의 변수명, 메서드 본문내용은 관련 없음
+
+5.2 메서드 오버로딩 성립 조건(or)
+- 파라미터(매개변수)의 개수가 다르면 성립
+	public void m1(){}
+	public void m1(int a){}
+- 파라미터의 개수가 같고, 파라미터의 자료형이 다르면 성립
+	public void m1(int a, long b){}
+	public void m1(int a, dog c){}
+- 파라미터의 개수가 같고, 파라미터의 자료형도 같을 때 파라미터 자료형의 배치 순서가 다르면 성립 
+	public void m1(int a dog c){}
+	public void m1(dog c, int a){}
+
+5.3 메서드 오버로딩을 사용
+- 메서드들의 전반적인 기능이 같은데 파라미터의 자료형이 다를 때
+- 장점: 메서드 호출 시 파라미터의 자료형에 구애받지 않고 호출
+
+==메서드 오버로딩 Vs 메서드 오버라이딩에 대해 설명.
+
+6. 메서드 오버라이딩 (추후에)
+- 상속 관계가 성립하는 두 클래스에서 자식 클래스가 부모 클래스의 메서드 내용을 재정의 하는 것을 의미
+- 재정의: 수정/삭제/추가 
+
+==오버로딩과 오버라이딩의 차이
+
+﻿+ 생성자
+- class의 field를 초기화하는 class의 구성요소
+- new 생성자(); 호출할 때 마다 객체 생성(객체 = 변수명 = 레퍼런스)
+- 접근제한자 생성자명(){}  // 생성자명은 클래스명과 같다,
+- [Ctrl + Space + Enter 디폴트생성자]
+- 디폴트 생성자와 사용자 생성자로 나눈다
+
++생성자의 기능
+- 클래스 멤버변수 초기화
+- 참조자료형의 자료형에 맞는 값을 제공
+- 반환형이 없다
+
++ 디폴트 생성자
+- 파라미터가 없는 생성자
+- 클래스에 생성자가 없으면, 디폴트 생성자 제공
+- 클래스에 사용자 생성자가 있으면, 디폴트 생성자 미제공
+super(); // 생략되어있음.(보이지 않지만 존재)
+- Ctrl + Space로 바로 만들 수 있다
+
++ 사용자 생성자
+- 파라미터가 있는 생성자
+- 우클릭(Shift + Alt + S) Source - Generate - Constructor - Using - fields - 체크
+*사용자 생성자가 있으면 디폴트 생성자는 지원되지 않음
+
++ 생성자 공식
+접근제한자 생성자명(){}
+-생성자명은 클래스명과 같다
+
+this.변수명
+- 해당 클래스의 field를 가르킴(객체 자기 자신)
+- 지역변수와 field가 같을 때 지역변수를 우선인식해서 this.를 쓴다
+this()
+- 다른 생성자 호출
+- 생성자가 오버로딩되면 생성자 간의 중복 코드가 발생할 때 사용
+- 초기화 내용을 한 생성자에 몰아서 작성
+- this(변수1, 변수2, 변수3....);
+- this(); 디폴트 생성자 호출
+- 생성자 본문 첫 줄에서만 사용가능(그래서 메소드호출이 더 많이 사용됨)
+
+﻿생성자 선언에 다른 생성자가 들어갈 경우
+연습 문제)1
+
+public Person(String name, String ssn, String address, int dateOfBirth, Car car, Dog dog, Cat cat) {
+	...	this.car = car;
+		this.dog = dog;
+		this.cat = cat;
+
+Person park = new Person("박씨", "m-01", "경기도", 901223, new Car("승용차"),new Dog(), new Cat());
+
+연습 문제)2
+Person kim1 = new Person("s01", new String("kim"), 44, "서울", "lec", new Dog("개똥이", 55, "개주인"), null);
+		Person park = new Person("a12", "박", 31, "서울", "학생", new Dog("멍멍이", 3, "주인박씨"), null);
+		park.setAge(99);
+		park.getDog().dogInfo();
+		
+		park.setDog(new Dog("두부", 5, "박씨"));
+		park.getDog().setName("잔디");
+		String dogName = park.getDog().getName();
+		System.out.println(dogName);
+		park.getDog().dogInfo();
+		kim1.getDog().dogInfo();
+			
+
+10.26)008-------------------------------------------------------------------------------------------------
+
+= 클래스의 구성 요소 =
+- 멤버 변수
+ 필드영역에서는 변수 대입이 불가.
+ 필드영역에서는 메서드 호출 불가.
+
+- 생성자
+
+- (멤버) 메서드
+ 메서드 영역에서 메서드 생성 불가.(호출은 가능)
+
+* 멤버변수나 메서드를 호출(사용)하려면, 반드시
+객체(=해당 변수나 메서드를 포함하고 있는 참조자료형 변수)가 있어야 한다.
+
+1. 생성자의 역할
+- 멤버 변수의 초기화
+- 객체(=참조자료형의 변수)의 생성 때, 자료형에 맞는 값으로 사용됨.
+- Ctrl + Space로 바로 만들 수 있다
+
+2. 멤버 변수의 역할
+- 객체의 구성요소를 표현
+
+3. 지역 변수
+- 메서드 안에서 중복되는 값을 표현(수정 용의)
+
+4. 메서드의 역할
+- 객체의 기능(능력)을 표현
+- 클래스 안에서 중복되는 값들(복수형)을 표현
+
+5. 디폴트 생성자(무조껀 만든다)
+- 사용자 생성자가 없을 때는 존재
+- 사용자 생성자가 있을 때는 없다
+
+6. this
+- 객체 자기자신
+- 지역 변수와 멤버 변수가 이름이 같으면 지역변수를 우선인식하기 때문에 사용
+- this.멤버변수
+
+this( ) 
+- 생성자 호출
+- 해당 클래스 안에서만
+- 다른 생성자의 첫번째 라인에서만 호출 -> 대신 메서드를 사용, 제약이 없음
+
+=========
+
+= 객체와 클래스
+
+Object = 자바의 최상위 부모클래스
+
+객체 = object(오브젝트) = instance(인스턴스) [= bean(빈) = entity = domain]
+
+1. 객체는 명사다.
+ - 한라산
+ex) Mountain hanlasin = new Mountatin("한라산");
+
+ - 자동차
+ex) Car bmw = new = Car();
+
+2. heap 메모리에 저장된 데이터
+
+3. 실체
+
+
+4. 객체 생성법
+- 참조자료형 변수명(=객체명=레퍼런스) = new 생성자();
+5. 객체 사용법
+- 객체가 갖고 있는 자원(변수, 메서드)을 사용하는 방법
+-> 객체명.변수명
+-> 객체명.메서드명()
+-> 객체명.상수명;
+- 같은 객체를 여러번 호출 하여 사용할 수 있다.
+
+= 클래스(= 객체의 설계도)
+
+1. 객체의 구성 요소를 표현한 자료 - 멤버변수/상수
+2. 객체 생성법을 표현한 자료 - 생성자
+3. 객체의 기능을 표현한 자료 - 메서드
+
+4. 설계도
+ex) 붕어빵틀(클래스) : 붕어빵(객체)
+ex) 자동차설계도(클래스) : 자동차(객체)
+
+5. 클래스의 구성 요소
+멤버 필드(변수/상수), 생성자, 메서드
+
+6. 클래스는 단독으로 실행되지 않는다. 
+ -> 객체를 생성하여 작업할 수 있다.
+
+7. class 키워드가 있어야 클래스이다.
+ (상속에서 익명의 내부클래스가 있다, class키워드가 없는 익명)
+
+
+10.27)009----------------------------------------------------------------------
+
+String
+charAt(int ide) = 인덱스, 문자열의 n번째
+ex) charAt(0)
+-> String charCap = captain.getK7().getModelName();
+		char c = charCap.charAt(0);
+
+// 멤버1이 갖고 있는 개를 외부에서 입력하는 개로 변경
+	public void changeMember1Dog(Dog dog) {
+		member1.setHappy(dog);
+	}
+// 멤버1이 갖고 있는 개의 이름을 외부에서 입력하는 이름으로 변경
+	public void changeMember1DogName(String dogName) {
+		member1.getHappy().setName(dogName);
+	}
+
+인스턴스 변수
+새로운 객체 생성시 힙메모리에 만들어진 변수
+객체가 만들어질 때 마다 새로만들어짐
+각각 고유한 값을 갖는다
+
+new Date(n)
+1970년 1월 1일 0시 0분 0초 000 --> date(0)
+1970년 1월 1일 0시 0분 0초 001 -->1
+1970년 1월 1일 0시 0분 1초 000 -->1000
+
+new Date()
+현재시각
+
+new Date(Calendar.getInstance().getTimeInMillis())
+현재시각(수정가능)
+
+
+aTeam.fight(bteam); 
+
+-> fight에 밑줄
+-> 먼저 선언후 creat method 'fightMem3(bteam)' in Type 'Team'
+
+===
+연습문제)
+public void fight(Team otherteam) {
+		String aTeamCaptainName = this.captain.getName();	//호출한 메서드
+		String bTeamCaptainName = otherteam.captain.getName();
+		System.out.println(aTeamCaptainName+"과 "+ bTeamCaptainName+"이 싸운다");
+
+System.out.println("활로 " +mon.toString()+" 를 공격합니다.");
+-> mom (mom.toString() 이 생략되어있다)
+	
+
+		Monster mon = new Monster();
+		Bow bow = new Bow();
+		
+		Hero hero = new Hero(bow);
+				
+		hero.attack(mon);
+		hero.attack(mon);
+		
+		
+		Sword sword = new Sword();
+		hero.attack(sword, mon);
+		hero.attack(mon);
+		
+		Spear spear = new Spear();
+		
+	//	hero = new Hero(spear);
+		
+		hero.setSpear(spear);	//창spear을 추가해줌
+	//	hero.setBow(bow);
+		
+	//	hero.attack(spear, mon);
+		hero.attackSpear(mon);
+		hero.attack(mon);
+
+ex) 클레스 내부에서 같은 클래스 호출 가능 aTeam, bTeam
+main
+aTeam.fight(bteam);
+class
+public class Team {
+	
+	private Person captain;
+	private Person member1;
+	private Person member2;
+	
+	public Team() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Team(Person captain, Person member1, Person member2) {
+		super();
+		this.captain = captain;
+		this.member1 = member1;
+		this.member2 = member2;
+	}
+public void fight(Team otherteam) {
+		// TODO Auto-generated method stub
+		String aTeamCaptainName = this.captain.getName();	//호출한 메서드
+		String bTeamCaptainName = otherteam.captain.getName();
+		System.out.println(aTeamCaptainName+"과 "+ bTeamCaptainName+"이 싸운다");
+		
+	}
+}
+
+
+=== 연산자
+
+사칙연산
++, -, *, /
+
+산술연산자
++, -, *, /, %
+
++
+문자열 연산이 가능
+
+-
+a = 1 - a ; 를 이용해 스위치 연산 가능
+
+*
+연산후 자료형의 표현범위를 넘는지 검사해야 한다
+
+/ 
+나누기 연산자
+0000111122223333... i/n+k
+i== i++
+n==반복되는 수의 개수 (0000 -> 4개)
+k==시작값
+같은 숫자가 n번 반복되면 /연산자
+ex) 222333444555... -> i/3+2
+ex) 778899101011... -> i/2+7
+ex) 15,15,15,15,16,16,16,16... -> i/4+15
+
+% 
+﻿나머지연산자
+012345012345012345... i%n+k
+i== i++
+n==반복되는 증가값의 개수 (012345 -> 5개))
+k==시작값
+특정 범위의숫자가 계속 반복되면 %연산자
+ex) 56789/5678956789... -> (i%5)+5
+ex) 9,10,9,10,9,10... ->(i%2)+9
+ex)73,74,75,76,77,73,74,75,76,77... ->(i%/5)+73
+﻿
+﻿
+% 연산자 사용예)
+배수 구할 대 사용함(나머지가 0이면 배수)
+소수를 구할때 사용한다(소수: 1과 자기자신을 제외한 약수가 없는 수)
+게임 움직임 처리: 기러기 날개짓 이미지(01230123...)
+
+=== 대입연산자
+=
+대입연산자는 항상 오른쪽에 있다
+
+ 복합연산자(산술연산자+대입연산자)
++=, -=, *=, /=, %=
+a+=b -> a = a+b;
+b+=a -> b = b+a;
+a*=b -> a= a*b;
+a/=b -> a= a/4;
+a%=b -> a= a%b;
+
+10.28)010------------------------------------------------------------------------
+
+=== 비교 연산자
+ >, >= , <, <= , == , !==
+ 연산 결과는 true, false (boolean)
+ 좌측을 기준으로 사용한다. ex)a>b, a는 b보다 크다.
+
+>
+ 크다 | a>b -> a는 b보다 크다 (좌측 우선)
+
+>=
+ 크거나 같다
+
+<
+ 작다
+
+<= 
+작거나 같다
+
+== 
+같다  a==b a는 b는 같다
+
+!= 
+안 같다
+
+ ==이나 !=은 boolean형 값을 비교 할 수 있다.
+(true,false는 <,>등 크기비교는 안되지만 ==, != 는 할 수 있다.)
+
+=== 논리 연산자
+ &&, ||, !
+ 연산 결과는 true, false (boolean)
+
+&&	
+앤드앤드(그리고) 연산에 참여한 데이터 모두가 true 이면 true, 나머지는 false
+ a && b		t2.k1(true, true); --> true
+		t2.k1(true, false); ->false
+		t2.k1(false, true); ->false
+		t2.k1(false, false) ;->false
+
+||	
+오아오아(또는) 연산에 참여한 데이터 모두가 false 이면 false 나머지 true
+ a || b		t2.k2(true, true); -> true
+		t2.k2(true, false); -> true
+		t2.k2(false, true); -> true
+		t2.k2(false, false); -->false
+
+!	
+낫(아니,반대) true는 false로 false는 true로 바뀐다.
+ !a		a = true; --> false
+		a = false; --> true
+
+
+=== 증감 연산자(단항 연산자)
+1씩 증가, 1씩 감소
+++ --
+
+++a;
+++이  변수 앞에 오면, 변수의 값이 1만큼 증가
+그리고 그 증가된 값은 곧바로 변수에 대입
+﻿ex) ++1 = 2
+int t=5;
+a = ++1 + t , syso(a); =>7
+
+﻿
+b++;
+++이 변수 뒤에 오면, 변수의 값이 1만큼 증가
+그러나 그 증가된 값은 나중에 해당 변수를 호출할 때 대입된다.
+﻿ex) 1++ = 1
+int t=5;
+a= t + 1++ , syso(a) => 6
+
+﻿1++ = 1
+++1 = 2
+
+a= a++;과 같이 사용하지 않는다.
+
+a--;
+스위치
+
+
+=== 조건 연산자(삼항 연산자)
+ 조건문 보다 연산 속도가 빠르지만 가독성이 떨어져 유지보수가 힘들다.
+
+변수명= a > b ? true일때 : false일때;
+(자료형) 변수명 = 조건식(이 참인가) ? 참일때의값(or변수or반환형이있는메서드): 거짓일때의값(or변수or반환형이있는메서드);
+조건식 -> 결과값이 true와 false
+
+ex) 		int aa=3;
+		int bb=5;
+		int c = aa==bb ? 44 : 33;
+		syso(c); -> 33
+ex)
+		/* 
+		a와 b는 멤버변수.
+	   	변수 c는 
+		a가 b보다 크거나 같으면 'a'
+		그렇지 않으면 'z'를 갖는다
+		변수 c를 선언하시오
+		*/
+		char c = a>=b ? 'a' : 'z';
+
+변수명 = 조건식1? 참일때의값: 조건식2?:참일때의값2:조건1,2,가 모두 거짓일때의 값;
+-> 다중 if문과 같이 표현할 수도 있다
+ 조건문 보다 연산 속도가 빠르지만 가독성이 떨어져 유지보수가 힘들다.
+
+=== 비트 연산자
+0과 1을 사용
+
+﻿&
+AND : 2진수로 비교
+1,1 이면 1 , 나머지는 0
+(모두 1일 때 1)
+
+|
+OR : 2진수로 비교
+0,0 이면 0, 나머지는 1
+(하나라도 1일 때 1)
+
+^
+XOR, 배타적 OR, 익스클레시브 OR
+같으면 0, 다르면 1
+(하나만 1일 때 1)
+두 값이 같은지 판별할 때 사용
+
+~
+NOT : 부호 반전
+양수에서 음수 : +1
+음수에서 양수 : -1
+﻿ex)	 ~(00000000 00000000 00000000 00001110)
+	== 10000000 00000000 00000000 00001110 
+
+시프트 연산자
+>>
+라이트 시프트 연산자 : 숫자가 줄어든다
+2진수가 오른쪽으로 한칸씩 옮겨진다. 
+ 2^n 승으로 나눔(나머지 버림)
+ex)		  i >> n ==  i/2^n
+		111000 >> 2 == 1110(2진수)
+		14 >> 1 == 7 
+		14 >> 2 == 3
+		
+<<
+레프트 시프트 연산자 : 숫자가 증가한다
+2진수가 왼쪽으로 한칸식 옮겨진다
+ 3*2^n승
+ex) 		 i << n == i*(2^n)
+		111000 << 2 == 11100000(2진수)
+		3 << 1 == 6
+		3 << 2 == 12
+
+연산자 29
+ 대입연산자1 =
+ 산술연산자5 + - * / %
+ 복합연산자5 += -= *= /= %=
+ 비교연산자6 < <= > >= == !=
+ 논리연산자3 && || !
+ 증감연산자2 ++ --
+ 조건연산자1 자료형 변수명 = 조건식 ? 트루: 펄스;
+ 비트연산자4 & | ^ ~
+ 시프트연산자2 >> << 
+
+스위치 연산
+두 값을 실행 할 때 마다 번갈아 가며 값이 나온다.
+초기값이 0 or  1, true or false 이어야 한다
+(boolean a)	a = !a;
+(int a)		a = 1-a;	
+10.29)011-------------------------------------------------------------------------------------
+
+ 조건문
+
+[if else]
+
+단순 if문(if)
+ : ~ 하면 실행	//~에 조건식 
+
+if else문(if else)
+ :	 ~ 하면 실행, 
+	그렇지 않으면 실행 (조건연산자(삼항연산자)와 비슷)
+
+다중 if문
+if else if else if else ...
+: 	~이면(if) ~실행, 
+	그렇지 않고(else) ~이면(if) 실행,
+	그렇지 않고(else) ~이면(if) 실행, 
+	그렇지 않으면(else) 실행
+
+if(조건식1){
+	실행1 : 조건1이 참이었을 때
+}else if(조건식2){
+	실행2 : 조건2가 참이었을 때, 실행2
+}else{
+	실행3 : 조건1과 조건2(위의 모든 조건)를 만족하지 않았을 때
+}
+실행1,2,3 중 하나만 실행하고 if문 밖 다른 걸 수행
+조건식 실행부분에 return; // 해당 메서드를 바로 종료 
+
+ex)
+	public void chDown() {
+		if(!power) {
+			return; //해당 메서드 종료
+		}
+		--ch;	//return을 실행 했다면 아래 --증감연산자와 if은 사용하지 않음
+		if(power&&ch<0) {
+			ch=999;
+		}
+	}
+
+[switch ~ case]
+
+연산자를 사용하지 않음
+- 내부적으로 ==을 수행함
+- key == value (키와 벨류가 같나 비교)
+int, String, enum 자료형만 사용가능
+
+switch 컨트롤 + 스페이스
+switch(변수 또는 변수 연산){
+	case 값1:
+		변수 == 값1일 때, 실행할 코드
+		break; //break는 상황에 따라 운용하라.
+ 			//break는 switch~case문을 빠져나가라는 의미
+	case 값2:
+		변수 == 값2일 때, 실행할 코드
+		break;
+
+	default:
+		모든 조건이 false일 때, 실행할 코드
+		break;
+}
+switch (key) { /*코드입력불가*/
+/*코드입력불가*/	case value:
+			
+			break;
+
+		default:
+			break;
+		}
+	} 
+
+key
+연산식이나 변수 입력
+int, String, enum 자료형만 사용가능
+
+{와 case 사이에 코드입력 불가
+
+case
+케이스는 if처럼 여러개 사용 가능
+
+value
+1,2,3..등 key와 ==을 비교할 값 입력
+
+:
+이 뒤에 실행문 입력
+
+default:
+모든 조건이 일치하지 않을 때
+if문의 else와 같다
+
+break;
+스위치를 빠져나감
+만날 때까지 참인 조건문의 실행을 순차적으로 실행함
+브레이크 생략 가능
+생략하면 다음 브레이크 까지 참인 조건문 실행
+
+break;와 return;의 차이점
+break;는 해당 스위치를 빠져나오고 해당 메서드 다음 기능 수행
+return;은 해당 메서드를 종료. return; 후술 기능 수행하지 않음
+
+ 알고가기_ 알고리즘
+치환 알고리즘
+a와 b의 값을 서로 교환(잠깐 담을 수있는 변수 c가 필요)
+
+누적 알고리즘
+멤버변수에 해당 변수를 계속 누적시킴
+ex) sum += a;
+ 
+ 알고가기_ 자바에서 중복코드 묶기
+메서드 내에서 중복되는 데이터가 있으면 -> 변수
+클래스 내에서 각 메서드 중에 중복되는 코드가 있으면 -> 메서드(함수역할)
+프로젝트 내에서 각 클래스 중에 중복되는 코드가 있으면 -> 상속
+
+10.30)012---------------------------------------------------------------------------------------------------
+
+return의 사용
+- 값의 반환 ex) return a;
+- 메서드의 종료 ex) return;
+ex)
+메서드{
+	if(조건){
+	retrun;
+	}
+	메서드 실행1
+	메서드 실행2
+	...
+}
+리턴으로 메서드 종료조건(or실행조건)을 만들 수 있다.
+ex) 	파워메서드가 펄스이면, 볼륨메서드는 실행하지 않는다.
+	파워가 트루일때 볼륨을 실행한다. 
+
+반복문
+특정 코드들을 반복
+
+break: 가장 가까운 반복문을 빠져나감.
+continnue: 가장 가까운 반복문의 해당 회차만 빠져나감 (증감식으로 감.)
+
+for문
+- 몇회 반복할지 알고 있을 때 사용.
+
+for(초기화; 조건식; 증감식){
+ 실행문
+}
+
+for문 연산 순서 : 
+초기화 -> 조건식 -> 
+(실행 -> 증감식 -> 조건식) -> 
+(실행 -> 증감식 -> 조건식) ->
+(실행 -> 증감식 -> 조건식) ->....(조건이 만족하지 않을때 빠져나옴)
+초기화는 1회 후
+조건식이 맞지 않으면 바로 나옴
+조건식이 맞으면 실행문
+실행문 다음에는 초기화로 가지 않고 증감식으로 간다.
+그리고 다시 조건식으로 true, false를 판단
+
+for문의 조건식
+true이면 실행문으로  false이면 if문을 빠져나옴
+반복횟수를 의미함
+ex) (i=0;i<10;i++) 10번
+
+증감식의 종류에 따라 < , >=를 주로 사용
+++이면 i<n;
+-- 이면 i>=n;
+
+다중 for문은
+ for문을 메서드로 호출해서 구현
+
+소수
+:1과 자기자신 외에는 약수가 없는 수
+(n%n==0 && n%1==0) 만 있어야 소수
+소수를 판별 하려면
+n%i~n ==0 인것이 자기자신일 경우(1은 초기화값에서 제외)
+
+[연습문제]
+1. 소수 검사
+ 1과 자기자신 외에는 약수가 없는 수
+(n%n==0 && n%1==0) 만 있어야 소수
+소수를 판별 하려면
+n%i~n ==0 인것이 자기자신일 경우(1은 초기화값에서 제외)
+
+	public void sossu(int num) {// 정수 넘겨 받기
+		for(int i=2;i<num;i++) {// 2 ~ num 바로 앞 숫자 까지 약수확인(1과 자기 자신 빼고 검사)
+			if(num%i==0) {		// 나머지가 0이면 약수
+				System.out.println(num+"은 소수 아님");//약수면 소수아님
+				break;			//약수를 찾으면 else if는 패스
+			}else if(i==num-1) {//약수가 없을 때 넘 바로 앞까지 다 검사한건가?
+				System.out.println(num+"은 소수 이다.");//약수가 없다면 소수
+			}
+		}
+	}
+
+2. 피라미드 찍기
+2.1 정수를 넘겨받아 '*'를 n개 출력
+2.2 첫번째 줄 1개 두번째2개 3번째 3개 ... n번째 n개 출력
+2.3 1개 부터 점점 증가해서 n번째 부터 1개까지 감소하게 출력
+
+	public void star(int num) {			//2.1
+		for(int i=0;i<num;i++) {
+			System.out.print('*');
+		}
+		System.out.println();
+	}
+	
+	public void star2(int num) {		//2.2
+		for(int i=0;i<num;i++) {
+			star(i+1);
+		}
+	}
+	
+	public void star3(int num) {		//2.3
+		for(int i=0;i<(num*2);i++) {
+			if(i+1<num/2) {
+				star(i+1);
+			}else {
+				star(num-i-1);
+			}
+		}
+	}
+
+3. 구구단 출력
+3.1입력받은 숫자 n단 출력
+3.2 3.1을 호출해서 1~9단까지 출력
+3.3 1~4단까지 가로로 출력 그 아래 5~9단까지 가로로 출력
+
+	public void mTable(int num) {
+		for(int i=1;i<10;i++) {		//곱셈은 1부터
+			System.out.printf("%dX%d=%d%n",num,i,num*i);
+		}
+	}
+	
+	public void mTable2() {
+		for(int i=2;i<10;i++){		//2단 부터
+			System.out.println(i+"단");
+			mTable(i);
+		}
+		
+	}
+	
+	public void mTable3(int k, int n,int j) {  //k~n단까지
+		for(int i=k;i<n;i++) {
+			System.out.print(i+"x"+j+"="+(i*j)+"\t");
+		}
+		System.out.println();
+			
+		
+	}
+	public void mTable4() {
+		for(int j=1;j<10;j++) {
+			mTable3(2, 6, j);	//2~5단까지 
+		}
+		System.out.println();
+		for(int j=1;j<10;j++) {	
+			mTable3(6, 10, j);	//6~9단까지
+		}
+			
+	}
+
+11.02)013-------------------------------------------------------------------------------------------------------------
+
+return; 메서드 중단
+break; 가장 가까운 반복문 중단, 조건문 중단
+continue; 가장 가까운 반복문의 해당횟수 중단 후 for(증감식)으로 , while(조건식으로감)
+
+
+do ~ while
+코드가 만족하지 않아도 1번 실행 후 종료
+
+while문
+ (참이면 계속) ~하까지 계속!
+어떤 조건(어떤 값 까지)으로 그만두게 할 것인지 알 때
+1.변수 선언 및 초기화
+2. while(조건식)
+3.{ 트루일 때 실행될 코드
+4. 증감식 }
+whlie문의 증감식은 i값에 대입으로 한다.
+ex)
+	public void dan(int dan) {
+		int i=1;
+		while(i<10) {
+			StringBuffer sd = new StringBuffer(dan);
+			sd.append(dan);						
+			sd.append("x");
+			sd.append(i);
+			sd.append("=");
+			sd.append(dan*i);
+			String msg = sd.toString();
+			System.out.println(msg);		// sd.append(); 가 순서대로 toString();에 들어감	
+	//		System.out.println(dan+"x"+i+"="+i*dan);	이것과 동일
+			i++;
+	}
+
+=== staic
+static 변수(상수/메서드) =(같다) class 변수(상수/메서드) = 정적 변수(상수/메서드)
+
+***(중요) 프로그램이 실행되면, 곧바로 static 영역(메서드(클래스) 메모리)에 로딩이 되어 실행 가능한 상태가 된다
+객체를 선언하지 않고 사용가능.
+
+static 변수, 상수
+- 무조건 1개만 생성(=객체마다 값이 변하지 않는다, 인스턴스변수와의 차이) 
+- (변하지 않는다, 클래스마다 1개씩)
+
+생성공식
+public(접근제한자) static type 변수명;
+ex) public static int a;
+
+접근(호출) 방법
+static 변수
+- class명.변수명
+ex) Test.a = 200; 
+ - Test t1=  new Test();
+ - Test t2 = new Test();
+ -> t1.a 와 t2.a 는 같다 하지만 Test.a로 사용한다. 
+ex) System.out.println();
+
+static 변수 초기화
+- static{ } 만들고 초기화 한다. static초기화 블록
+
+ex)
+	public static String company;
+	private String modelName;
+	
+	static {
+		company = "hyundai";
+	}
+
+	public Sonata() { //생성자.
+	//     company = "이렇게 하지 않음";	
+	}
+
+
+
+static 메서드 생성
+- 바로 사용가능한 변수와 상수만 사용가능(static 변수,상수 , 객체생성후 멤버변수, 메서드)
+- 지역변수는 객체를 생성하고 객체명으로 접근해야 쓸수 있다.
+- 		public static void me1() {
+	//	System.out.println(a);	// a는 객체가 없으면 사용할 수 없어서 static메서드로 바로 사용불가
+		Test t1 = new Test();
+		t1.m2();
+		System.out.println(t1.a); 	// 객체를 생성후 객체명으로 호출한다.
+		System.out.println(Test.b);
+	}
+
+static 메서드 호출 
+- Test.me1();
+
+static 변수가 있을 때 getters,setters
+ex) public class Sonata{
+	public static String company;
+
+	public static String getCompany() {
+		return company;
+	}
+
+	public static void setCompany(String company) {
+		Sonata.company = company;
+     }
+ 
+20.11.03)014------------------------------------------------------------------------------------------
+
+Array[배열]
+
+배열 생성
+1. 자료형[] 변수명 = new 자료형[배열의 크기];
+2. 자료형[] 배열명 = {값1,값2,값3....};
+3. type[ ] arr = new type[] {val1, val2, val3....};
+ ex) 
+	Dog[] d = new Dog[3];
+	Dog[] d2= {new Dog(), new Dog(), new Dog()};
+	Dog[] d3= new Dog[] {new Dog(), new Dog(), new Dog()};
+ ex2)
+	Dog a = new Dog();
+	Dog b = new Dog();
+	Dog c = new Dog();
+	Dog[] d2 = { a, b, c};
+	Dog[] d3 = new Dog[] { a, b, c};
+	
+배열의 크기를 확인하는 속성
+ - 배열명.length;
+ex)
+		int[] arrInt = new int[4];	//[ ] 1차원 배열 , [ ][ ] 2차원 배열, [ ] [ ] [ ] 3차원 배열 ...
+		System.out.println(arrInt.length);
+// length는 배열의 속성으로 반복문을 돌릴 때, 직접적인 배열의 크기 대신 사용
+// arrInt.length로 길이를 구한다(반복문 횟수)
+		int size = dogs.length;
+		System.out.println(size); == System.out.println(dogs.length);
+참조변수....
+// Test class의 me12()에서 파라미터로 넘어온 배열 데이터의 크기 출력
+		System.out.println(dogs.length);
+ex1)
+		 t1.me12(new Dog[5]);
+ex2)
+		Dog[] arrDog = new Dog[3];
+		t1.me12(arrDog);
+//자료형이 Dog인 1차원 배열 arrDog를 생성(두번째 방법)
+// 배열의 크기는 2, 배열의 크기 출력
+ex1)
+		public void me21() {
+		Dog[] arrDog = {new Dog(), new Dog() };
+ex2)
+		Dog a = new Dog();
+		Dog b = new Dog();
+		Dog[] arrDog2 = {a,b};
+		
+		System.out.println(arrDog.length);
+		}
+
+ 배열의 각 요소값에 접근하는 방법
+배열명[요소의 인덱스값] = 자료형에 맞는 자료;
+
+index는 0~ length-1까지 (length개)
+가장 큰 index = 배열명.length-1
+	 //dogs의 가장 큰 인덱스 요소값을 null로 설정
+	dogs[dogs.length-1]= null;
+
+//index 요소 값의 출력
+	//다차원 배열일 때
+		int [][] arr2Int = {		// [][]2차원배열
+			{1, 3, 5, 7},
+			{0, 2, 3, 6}
+		};
+		int[] arr0 = arr2Int[0];	// type[] arr = [] / 하나를 풀면 []는 =의 우측으로
+		int arr01= arr0[1]; 		// arr0[1] == arr2Int[0][1]
+
+		int arr0arr1 = arr2Int[0][1];	// type a = arr[][] / 여러개를 한번에 풀 수 있다
+					// arr01 == arr0arr1
+				
+배열을 사용하는 이유
+1. 반복문 사용을 위해
+2. 여러개의 데이터를 반환하기 위해
+
+◇ 배열 크기 확인하는 속성
+arr.length
+
+◇ 배열의 각 요소값에 접근하는 방법
+type[] arr = new type[length];		//[ ] 안에 크기(정수)를 지정.
+type[] arr = {val1, val2, val3, val4...};
+type[] arr = new type[] {val1, val2, val3, val4...};
+
+ex) arr[0] --1차원 배열의 0번 인덱스 값, 1번째 값
+   arr[0][1] -- 2차원 배열 0번 인덱스의 1차원 배열의 1번 인덱스값
+			int [][] arr2Int = {
+					{1, 3, 5, 7},  --> arr2Int[0] -> int[ ] arr0 = {1, 3, 5, 7};
+					{0, 2, 3, 6}  --> arr2Int[1] -> int[ ] arr1 = {0, 2, 3, 6};
+					};
+				int[ ] arr0 = arr2Int[0];
+				int arr01= arr0[1];
+				int arr0arr1 = arr2Int[0][1];
+				//arr01 == arr0arr1
+◇ 배열의 각 요소값 변경
+arr[index]= typeValru;
+ex)	Dog[] dogs = new dogs[] { a, b, c...;};
+	 dogs[index].setName = typeValru;
+	
+◇ 배열의 모든 요속값에 접근하는 방법
+ex)	Dog[] dogs = new dog[] { a, b, c...;};
+	for(int i=0; i < length; i++){
+		arr[ i ]; // dogs[ i ];  
+	}
+
+◇ 참조자료형의 배열의 경우, 요소값의 특정 자원을 호출하는 방법
+ex)	Dog[] dogs = new dog[] { a, b, c...;};
+	dogs[index].getName;
+
+◇ 첫 번째 방법으로 배열 생성 후 반복문을 이용하여 요소값을 변경하는 방법
+
+◇ 다차원 배열...
+n차원 배열 안에는 n-1차원의 배열이 들어있다.
+ex) int[][] arr = {
+	{1,2,3,4},
+	{2,3,4,5},
+	{6,7,8,9}
+};
+20.11.4)015----------------------------------------------------------------------------------
+ 배열TEST.txt
+		for(int i=0; i<arr.length;i++) {
+			System.out.println(arr[i]);
+
+[I@36aa7bc2
+[I@76ccd017
+[I@182decdb
+[I@26f0a63f
+[I@4361bd48
+===================> [ I @ 숫자 로 시작한다. 배열의 요소 초기값(주소)
+
+
+◇다차원 배열
+
+ 2차원 배열 (불가변일 때)
+2차원 배열 안에는 1차원 배열이 들어 있다.
+***(n차원 배열안에는 n-1차원 배열이 들어 있다)
+ex)
+	Dog[][] arr = new Dog[10][2];
+
+arr은 2차 배열이고, 1차배열을 10개 가지고 있다	[10개 = (00) (00) (00) (00) (00) (00) (00) (00) (00) (00) ]
+(arr.length ==10)
+
+arr[i]는 1차 배열이고, 배열의 크기는 2이다.	[2개 = 0 0]
+(arr[i].length ==2)
+i= 2차 배열의 크기만큼, 1차 배열의 갯수만큼 (0=i<arr.length)
+
+arr[i][j]는 arr[i]의 요소값(arr의 최종 요소값)이다.	값 = 0
+j=1차 배열의 크기만큼(0=i<arr[i].length)
+
+
+◇가변형 배열
+int[][] arr = new int[3][];	//다차원 배열에서 n차원 배열의 크기를 지정해 줘야 한다. (3이 없으면 에러)
+가변형 n-1차원 배열 요솟값의 입력은 변수.length의 값이 없으면 안된다.
+
+=== String class
+
+◇ String()
+
+//명시적 객체생성
+(힙메모리영역에 생성)
+		String msg = new String("hello");
+//암시적 객체 생성법(리터럴)
+(메소드 메모리 영역에 생성)
+		String msg2="hello";
+
+ex)  메소드 메모리의 값은 최대한 공유하려 한다.
+ 		String msg1 = new String("a");
+		String msg2 = new String("a");
+		String msg3 = "a";
+		String msg4 = "a";
+		
+		System.out.println(msg1==msg2); //false
+		System.out.println(msg1==msg3); //false
+		System.out.println(msg3==msg4); //true
+
+ex) 데이터 값만 비교 equals
+		System.out.println(msg1.equals(msg2)); // true
+		System.out.println(msg1.equals(msg3)); //true
+
+◇ to String()
+- String형으로 변경 해준다
+
+◇ StringBuffer()
+String클래스는 불변적 성격을 갖고있어서 
+변수에 새로운 값을 대입해도 이전의 값이 바로 삭제되지 않고 메모리에 남아있다.
+(시간이 지나면 가비지컬렉터가 삭제)
+문자열이 계속 누적되는 경우 메모리 부족, 속도저하의 문제를 발생시킬 수 있다.
+이럴 때 StringBuffer()를 사용한다.
+
+ex)
+- String msg = "hello";
+		msg = "good";		
+		msg ="";
+		msg +="안녕하세요";
+		msg +="저는 홍길동입니다";
+		msg +="저는 어디 살고있어요";
+		msg +=... 누적....
+		
+- StringBuffer sb = new StringBuffer();	
+		sb.append(" 안녕하세요");
+		sb.append(" 저는 홍길동입니다");
+		sb.append(" 저는 어디 살고있어요");
+		msg = sb.toString(); 		// sb를 String형으로 변경해 준다.
+ syso(msg)--> " 안녕하세요 저는 홍길동입니다 저는 어디 살고있어요";	
+
+◇중요◇ equals()
+ 참조자료형의 비교연산
+ 동등성을 비교 (객체의 구성요소 중 하나를 비교)
+(기본자료형의 비교연산은 ==을 사용)
+
+ 동일성 비교: (데이터와 저장위치) Vs 동등성 비교: (데이터만 비교)
+(기본료형)== Vs (참조자료형) equals( )
+
+20.11.05)016---------------------------------------------------------------------------------------
+
+ ◇◇ 문자열 API ◇◇
+
+.length 
+문자열의 길이를 int형 반환
+문자열의 크기를 알고 싶을 때 사용
+	public void me5() {
+		String msg = "hello";
+		System.out.println(msg.length());
+	}
+
+.charAt 
+특정 index의 문자를 char형 반환
+문자열의 특정 인덱스에 있는 문자를 알고 싶을 때
+	public void me6() {
+		String msg = "hello";
+		System.out.println(msg.charAt(msg.length() - 1));
+		for (int i = 0; i < msg.length(); i++) {
+			System.out.println(msg.charAt(i));
+		}
+	}
+
+
+.contains 
+문자열에서 찾고자 하는 문자열의 유무를 boolean형 반환
+문자열에서 특정 문자열이 있는지 알고 싶을 때
+
+.indexOf 
+문자열에서 찾고자 하는 문자열의 첫 index를 int형 반환
+해당 문자나 문자열이 없으면 -1을 반환
+.lastIndexOf
+문자열 끝에서 부터 찾는다
+	public void me7(String msg) {
+		boolean result = msg.contains("he");
+		int idx = msg.indexOf('k');
+		System.out.println(result); // true
+		System.out.println(idx); // -1
+
+		idx = msg.indexOf('l'); // 첫 l의 idx
+		System.out.println(idx);
+
+		int lastIdx = msg.lastIndexOf('l');
+		System.out.println(lastIdx);
+
+		idx = msg.indexOf('l');
+		System.out.println(idx + 1); // 두번째 l의 idx
+
+		idx = msg.indexOf('l');
+		System.out.println(idx + 1); // 세번째 l의 idx
+
+	}
+
+.endswith() 
+문자열이 특정 문자열로 끝나는지 boolean형 반환
+확장자명을 확인할 때 사용
+	public void me8() {
+
+		String msg1 = "abcd.jpg";
+		String msg2 = "defg.txt";
+		boolean result1 = msg1.endsWith("jpg");
+		boolean result2 = msg2.endsWith("txt");
+		System.out.println(msg1);
+		System.out.println(msg2);
+
+	}
+
+.startswith() 
+문자열이 특정 문자열로 시작하는지 boolean형 반환
+	public void me9() {
+		
+		String msg = "hello";
+
+		boolean result = msg.startsWith("h");
+		System.out.println(result);
+	}	
+
+.equals() 
+문자열과 문자열의 동등성을 비교해 boolean형 반환
+문자열과 문자열의 데이터 값이 같은지 확인할 때 사용
+.equalsIgnoreCase() 
+문자열과 문자열의 대소문자와 상관없이 동등성을 비교해 boolean형 반환
+	public void me10() {
+		// 문자열끼리 데이터 값이 같은지 여부 확인
+		// equals(), equalsIgnoerCase
+		String msg1 = "hello";
+		String msg2 = new String("hello");
+		String msg3 = "hello";
+
+		System.out.println(msg1.equals(msg2));
+		System.out.println(msg1.equals(msg3));
+		System.out.println(msg1.equalsIgnoreCase(msg3));
+	}
+
+.trim() 
+문자열 좌우의 빈 공백을 제거
+다시 문자열에 저장
+	public void me11() {
+		// 문자열의 좌우 공백제거
+		// .trim()
+		String msg = "      he       llo       ";
+		System.out.println(msg);
+		System.out.println(msg.trim());
+		msg = msg.trim();
+		System.out.println(msg);
+
+	}
+
+.substring() 
+문자열의 특정 인덱스부터 특정 인덱스까지(지정할 때) String형 반환
+"hello world"에서 "hello "를 잘라내고 "world"만 남게 하고싶을 때
+
+	public void me12() {
+		
+		String msg = " hello world";
+		msg = msg.trim();
+		int idxS = msg.indexOf("w");
+		String sub = msg.substring(idxS);
+		System.out.println(sub);
+
+	// sub = "lo wor";
+
+		idxS = msg.indexOf("l");
+		idxS = idxS + 1;
+		int idxE = msg.indexOf("r");
+		idxE = idxE + 1;
+		sub = msg.substring(idxS, idxS);
+		System.out.println(sub);
+
+	}
+
+.split() 
+문자열을 특정 문자열로 분리하여 String[]형 반환
+특정기준문자(delim)를 이용하여 서로다른 의미를 갖고 있는 문자열(=token)을 분할
+ 		String msg = "teacheryo#1234##vip#1000#g#";	// ~##~ 중간은 인정 ~~#마지막은 no
+		String[] arr = msg.split("#");			// delim은 "#"
+		
+		int token = arr.length;			// 토큰의 개수(배열의 갯수)
+		System.out.println(token);			// 6
+		for(int i=0;i<arr.length;i++) {
+			System.out.println(arr[i]);		//모든  토큰 출력
+		}
+
+StringTokenizer()
+StringTokenizer 변수 = new SrtringTokenizer(문자열, delim);
+﻿특정기준문자(delim)를 이용하여 서로다른 의미를 갖고 있는 문자열(=token)을 분할
+.countTokens() 
+StringTokenizer의 토큰의 갯수를 int형 반환
+.hasMoreTokens() 
+StringTokenizer의 토큰의 갯수 조건을  bolean형으로 반환(while문 조건식으로 사용)
+.nextToken() 
+StringTokenizer의 다음 토큰 String형 반환
+ (split() + StringBuffuer 와 비슷)  
+	
+	public void me13() {
+		
+		String msg = "String#Tokenizer#new#st.#";
+		StringTokenizer st = new StringTokenizer(msg, "#");
+		String[] arr = new String[st.countTokens()];
+		int i = 0;
+		while (st.hasMoreTokens()) {
+			arr[i] = st.nextToken();
+		}
+
+		for (int j = 0; j < arr.length; j++) {
+			System.out.println(arr[j]);
+		}
+
+	}
+
+.toUpperCase(); 
+문자열을 대문자로 변경
+.toLowerCase(); 
+문자열을 소문자로 변경
+	public void me15() {
+
+		String msg1 = "hello";
+		String msg2 = "Hello";
+		String msg3 = "HELLO";
+
+		// 대소문자로 변경
+		String s1 = msg1.toUpperCase();
+		System.out.println(s1);
+		String s2 = msg2.toLowerCase();
+		System.out.println(s2);
+
+	}
+
+args 
+(type...변수명)
+가변인자(variable argument)
+파라미터(매개변수)를 배열이 아니어도 ,로 구분하여 여러개 으로 입력 받을 수 있다.
+배열을 선언하고 입력한 것처럼, .length , arr[i]등으로 사용 할 수 있다.
+
+	public void me3(int a, int b, int...arr) {
+		System.out.println(a);
+		System.out.println(b);
+		
+		for(int i=0; i<arr.length;i++) {
+			System.out.println(arr[i]);
+			}
+		}
+
+		public void me2(){
+		me3(1,2,3,4,5,6,7,8, 20,44,...); // 가능
+	}
+
+
+String.format()
+ 문자열과 숫자의 표현
+ String format(문자열, 값) args 가변인자
+ %d %s %f %t %c %x %%
+ 표현자릿수 지정: %자릿수d
+ 좌정렬: %-자릿수d
+ 소수자릿수: %총자릿수(소수점 포함, 오른쪽 정렬).소수점이하자리수d
+ 소수점 이하 자릿수는 반올림
+ ,의 표현(ex 1,000원): %,자릿수d
+ 자릿수 지정 후 빈공간을 0으로 채움: %0자릿수d
+
+	public void me14() {
+		
+		String msg = "홍길동" + %d + " 살입니다.";
+		String msg2 = "홍길동은 %d 살입니다.";
+		System.out.println(String.format(msg2, 17));
+
+		// 자릿수 공백포함 줄마추기
+		String msg3 = "오늘은 2020년%2d월20일 입니다.";
+		System.out.println(String.format(msg3, 3));
+		String msg4 = "오늘은 2020년11월%-4d일 입니다.";
+		System.out.println(String.format(msg4, 20));
+
+		// 금액에 ,표기
+		String msg5 = "내 전재산은 %d원입니다.";
+		System.out.println(String.format(msg5, 1000));
+		String msg6 = "내 전재산은 %,d원입니다.";
+		System.out.println(String.format(msg6, 1000));
+		String msg7 = "내 전재산은 %,15d원입니다.";
+		System.out.println(String.format(msg7, 1000));
+
+		// 자릿수의 공백을 0으로 채우기
+		String msg8 = "내 등번호는 %2d입니다.";
+		System.out.println(String.format(msg8, 8));
+		String msg9 = "내 등번호는 %02d입니다.";
+		System.out.println(String.format(msg9, 8));
+
+		// 가변 매개변수
+		String msg10 = "%d+%d = %d입니다.";
+		System.out.println(String.format(msg10, 2, 3, 2+3));
+
+		// 소수점의 자리수, %표현
+		String msg11 = "%5.2f%%입니다.";
+		System.out.println(String.format(msg11, 52.627));
+		System.out.println(String.format(msg11, 52.627));
+
+	}
+
+201106)017-------------------------------------------------------------------------------------------
+
+
+◇ 상속
+---
+프로젝트 내에 각 클래스의 메서드 상수 변수에 중복되는 코드가 있을 때 유지보수를 용이하게 하기위해 사용
+부모클래스의 자원 변수 상수 메서드를 자식 클래스에서 임의로 사용할 수 있게 하는 기술
+부모클래스의 필드와 메서드를 물려받게 된다
+부모클래스를 지정or생성한다
+상속의 표현은 자식클래스에서 extends 부모클래스명 으로 한다
+
+부모클래스는 슈퍼클래스 기본클래스라고도 불리며 객체를 만들지 않지만 자료형으로는 사용가능 하다
+자식클래스는 서브클래스 유도클래스라고도 불리며 상속을 표현한다
+
+자바의 최상위 클래스는 오브젝트이며 자바는 단일 상속을 원칙으로 한다. 인터페이스는 예외로 다중상속을 지원한다
+부모클래스의 변수명과 자식클래스의 변수명이 같을 경우 자식클래스의 변수를 우선 인식하기 때문에
+부모클래스의 변수명을 지칭할 때는 super.변수명 으로 기술한다.
+---
+
+프로젝트 내에서 각 클래스 중(메서드or변수or상수)에 중복되는 코드가 있을 때
+유지보수를 용이하게 하기위해
+부모클래스의 자원(변수/상수/메서드,생성자는 불포함)을
+자식클래스에서 임의로 사용할 수 있게 하는 기술.
+부모 클래스의 필드와 메서드를 물려받게 된다
+부모클래스 지정(생성), 자식클래스에서 extneds(class A extends B {...})
+
+ex)
+BMW class, K7 class, SM5 class 등
+모두 model, price, company 등의 field가 같을 때 사용자 생성자, get,set메서드가 계속 중복됨
+중복되는 코드가 있다해도 같은 개념(상위개념, Car생성)만 상속적용
+public class BMW extends Car{}
+
+부모클래스
+super class, 기본클래스
+ 디폴트생성자, 사용자 생성자, field, getters, setters 메서드(자식클래스의 중복코드)를 선언
+ 자식클래스에 상속의 표현을 한다. extends 부모클래스명.
+ 객체를 만들지 않는다( Car car1 = new Car() X ), 
+ 자료형으로는 사용가능 ( Car[] arrCar; O )
+
+자식클래스
+sub class, 유도클래스
+
+상속의 표현 extends
+class (자식)클래스명 extends (부모)클래스명{...}
+사용자 생성자는 = Shift + Alt + s -> Constructors from Superclass...
+
+자바의 최상위 부모클래스는 Object
+
+자바는 단일 상속이 원칙
+예외적으로 interface는 다중상속을 지원
+
+super(): 부모 클래스의 생성자 호출==> 부모 객체
+부모 클래스도 보이지 않지만 extends Object 가 존재
+자식 클래스는 부모클래스로부터 간접적으로 Object의 클래스를 사용
+
+부모클래스의 변수명과 자식클래스의 변수명이 같을 경우,
+자식클래스의 변수가 우선인식
+부모클래스의 변수를 가르키고 싶을 때는 super.변수명
+(this.(자신의, 멤버변수지칭) 와 비슷하게 super. 는 부모클래스를 지칭한다)
+
+===
+
+◇ 다형성
+---
+객체를 생성하는 다양한 방법으로
+슈퍼클래스타입 변수명 대입연산자 자식생성자로도 객체를 생성할 수 있다
+다형성으로 만들어진 객체의 자료형은 슈퍼클래스타입으로 통일된다
+타입의 통일로 여러타입의 객체, 자식 클래스의 객체들을 한번에 사용할 수 있다
+---
+
+객체를 생성하는 다양한 방법
+ 부모자료형 변수명 = new 자식생성자(); 	// 이게 가능함
+ 자식자료형 변수명 = new 자식생성자();	//원래 가능했음
+
+*다형성으로 만들어진 객체의 자료형은 부모자료형으로 통일 된다
+(Car[]로 선언, 묶어줄 수 있다)-> 상속을 하는 이유인가
+ex)
+		Sonata sonata1 =new Sonata();
+		BMW bmw1 = new BMW();
+	// 아래의 방법으로 생성(다형성으로)		
+		Car sonata2 = new Sonata();
+		Car bmw2 = new BMW();
+		
+		Car[] arrCar = {sonata1, bmw1, sonata2, bmw2};
+
+상속
+프로잭트 내 중복된 코드를 가진 메서드의 유지보수가 용이
+슈퍼클래스의 자원을 서브클래스가 사용
+서브클래스에서 상속을 표현(extends superClassName)
+
+superClass
+부모클래스, 기본클래스
+객체 생성하지 않음
+type으로 사용
+
+subClass
+자식클래스, 유도클래스
+상속을 표현
+
+Object
+최상위 클래스
+단일속성원칙
+
+Interface
+다중상속지원
+
+superclass와 subClass의 변수명이 같을 때 subclass의 변수를 우선인식
+superclass의 변수를 지칭 할 때 super.변수명
+
+다형성 
+객체를 생성하는 다양한 방법
+슈퍼클래스타입 변수명 = new 서브생성자(); 
+*다형성으로 만들어진 객체의 타입은 슈퍼클래스타입
+
+
+◇ 메서드 오버라이딩
+상속 관계가 성립하는 클래스에서
+부모클래스가 갖고 있는 메서드(run())의 내용을
+자식클래스에서 재정의(수정/삭제/추가)하는 것
+
+ (부모클래스의 메서드와 같은 이름의 메서드를 
+자식클래스에서 오버라이드 메서드 메뉴를 이용해 생성, 수정한다
+이 메서드를 호출 하더라도 부모클래스의 메서드는 작동하지 않고
+오버라이딩된 자식클래스의 메서드가 호출된다.
+다형성을 이용해 생성한 타입이 부모클래스타입인 객체만 적용)
+ =
+다형성으로 생성된 객체(sonata2)의 경우, 자료형이 부모자료형(Car)이라도 (부모의 run이 실행되지 않음)
+그 객체가 호출한 메서드(run())는 오버라이딩된 메서드( 자식 생성자에서 재정의한 run())다
+
+오버로딩과 오버라이딩에 대해서 설명
+- 오버로딩은 같은 클래스에서 이름이 같은 메서드가 파라미터 자료형에 따라 인정되는 문법
+- 오버라이딩은 상속관계가 성립하는 부모클래스와 자식클래스에서 자식클래스가 부모클래스의
+메서드를 재정의하는 것을 의미.
+ -- 다형성으로 생성된 객체의 경우에는 자료형이 부모자료형이라도 
+그 객체가 호출한  메서드는 오버라이딩된 메서드다
+
+다형성으로 객체를 만들면 생기는 문제점
+ 자식클래스가 갖고 있는 고유자원에 접근할 수 없다.
+- 이유는 자료형이 부모자료형이기 때문
+- 해결방법: instanceof, getclass() 를 사용하여 접근할 수 있다.
+ex)
+// sonata2.only(); 접근불가
+		Sonata s =null;
+		if(sonata2 instanceof Sonata) {
+			s=(Sonata)sonata2;
+			s.only();
+		}
+		if(sonata2 instanceof Car) {
+			s=(Sonata)sonata2;
+			s.only();
+		}
+		//
+		
+		Sonata ss=null;
+		if(sonata2.getClass()== Sonata.class) {
+			ss=(Sonata)sonata2;
+			ss.only();
+		}
+
+20.11.09_018--------------------------------------------------------------------------------------
+
+표준입출력
+Scanner sc = new Scanner(System.in); //키보드 입력{} sc.close(); 곡 닫아 줘야함
+String msg1 = sc.nextLine(); // 문자열 입력받음. 띄어쓰기 조차도 다 입력으로 인식// 끝을 엔터로 구분
+// 그전 입력 받은 sc.nex~~ 의 엔터를 없애줘야함		
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in); //키보드 입력 받기
+		
+		boolean isTrue = true;
+		int a=0;
+		while(isTrue) {
+			System.out.println("a 값을 입력하세요.");
+			a = sc.nextInt();				//정수값 받기
+			sc.nextLine();				//엔터 없애기
+			System.out.println("msg1값을 입력하세요.");
+			String msg1 = sc.nextLine();			//스트링값 받아서  msg1에 넣기
+			System.out.println(msg1);			
+			
+			if(a==4) {
+				break;				//4 입력시 while문 종료
+			}
+			System.out.println(a+ "를 넘겨받았습니다.");
+		}
+		
+		System.out.println("end");
+		
+		sc.close();			//닫기
+	}
+
+ * 추상화
+- 추상 클래스와 추상메서드를 의미함
+**추상 메서드를 갖고 있는 클래스는 반드시 추상 클래스로 선언해야 한다
+**추상 클래스가 추상 메서드를 꼭 가지고 있지는 않음.
+*자식클래스에서 반드시 오버라이딩해야 하는 메서드
+abstract
+**추상 메서드를 갖고 있는 클래스는 반드시 추상 클래스로 선언해야 한다
+추상클래스 선언 방법
+클래스 헤더에 abstract 키워드를 넣어줌
+
+public abstract class ~~{	// 추상클래스
+public void me1(){}
+public void me2(){}
+public abstract me3();	//추상메서드 중괄호가 없음. 
+public void me4(){}
+}
+
+ex)이미지
+자식 클래스에서는 추상메서드를 반드시 오버라이딩.
+
+추상메서드 사용 이유
+자식클래스에서 반드시 오버라이딩 해야하는 메서드가 있을 때
+
+추상클래스 사용 이유
+부모클래스로 객체를 만들 수 없게 강제하기 위해
+추상메서드를 가지고 있는 클래스를 추상클래스로 만들어 준다.
+
+부모클래스가 갖고 있는 추상메서드를 오버라이딩하기 싫을 경우
+추상클래스로 선언하기도 함.
+
+추상메서드는 자식클래스가 반드시 오버라이딩 해야하고 추상클래스로 선언하면 오버라이딩을 안할 수 있다. 
+이 자식클래스를 상속하는 또다른 자식클래스는 추상메서드를 반드시 오버라이딩 해야한다.
+추상메서드는 다음 상속으로 이어지더라도 오버라이딩 해야한다. 하지 않을려면 추상클래스로 선언
+
+final (변경,오버라이딩,상속 안됨)
+1. 변수에 final
+접근제한자 final 변수명;
+- 값을 변경할 수 없음(=상수)
+상수는 대문자_대문자_... 로 작명
+
+2. 메서드에 final
+접근제한자 final 반환자 메서드명(){ }
+- subclass에서 오버라이딩 안됨.
+
+3.클래스에 final
+접근제한자 final class 클래스명(){ }
+상속불가 클래스(자식클래스를 만들수 없음)...a.k.a.심영
+﻿
+final
+public void me1(){}
+public void me2(){}
+public final me3();	//반드시 오버라이딩 하면 안됨
+public void me4(){}
+
+*변수에 final을 붙이면 값을 변경할 수 없음. (상수)
+상수는 변수명을 대문자로 처리함 띄어쓰기는 _를 사용
+
+private final int A_B_C = 3;
+	private static final int C_D_E=44;
+	private final int D_E_F;
+	
+	public Test() {
+		//A_B_C = 55;
+		D_E_F = 55;
+	}
+	public Test(int D_E_F) {
+		//this.A_B_C = A_B_C;
+		this.D_E_F = D_E_F;
+	}
+	
+	public static void main(String[] args) {
+		
+		Test t1 = new Test();
+		//변수: 값이 바뀌는 데이터
+		//t1.A_B_C=55;	상수는 변경 할 수 없음
+		System.out.println(t1.A_B_C);
+		System.out.println(Test.C_D_E);		// static은 클래스명. 호출
+
+Ovject class
+-오브젝트 클래스(자바의 최상위 부모클래스)의 주요3 메서드
+-상황에 맞게 이 3개의 메서드를 오버라이딩
+-상황: 객체비교를 해야하는 상황
+
+1.toString(): sysout(msg.toString());
+2.hashCode(): 객체가 어디에 저장이 되어 있는지 알려주는 메서드
+3.equals() : 객체의 동등성 비교 , 오버라이딩 해줘야 함
+
+
+*접근제한자(접근제어지시자)
+-public : 프로젝트 어디서든 접근가능
+-protected : 같은 패키지에서만 접근가능. 
+	단, 상속관계가 성립할 때는 패키지가 달라도 접근가능
+-디폴트 : 같은 패키지에서만 접근가능
+-private : 같은 클래스에서만 접근가능
+
+==
+
+변수/상수의 사용할 수 있는 접근제한자:퍼블릭, 디폴트, 프로텍티드, 프라이빗
+메서드에 사용할 수 있는 접근제한자: 퍼블릭, 디폴트, 프로텍티드, 프라이빗
+class에 사용할 수 있는 접근제한자: 퍼블릭, 디폴트
+
+
+20.11.10)019---------------------------------------------------------------------------
+
+ ************** Interface *************
+상속이 상위 클래스의 기능을 하위 클래스가 물려 받는 것이라고 한다면,
+인터페이스는 하위 클래스에 특정한 메소드가 반드시 존재하도록 강제한다.
+생성자 없음
+interface I{
+    public void z();
+}
+class A implements I{ // 클래스A는 인터페이스 I를 구현한다. (상속) 과 선언부 구조는 같다.
+    public void z(){}
+}
+
+개념적 인터페이스
+상호작용하는 곳
+어플 : 기능추가역할
+전화기의 카메라기능, mp3기능 등등
+웹사이트 : 가능추가 + 접점( 연결)
+ 회원 관리 프로젝트
+=crud
+- create 입력
+- read 조회
+- update 수정
+- delete 삭제
+
+구조적 인터페이스
+public final static && public abstact void
+퍼블릭 스태틱 상수&&퍼블릭 추상메서드로 구성된 자료 구조
+
+인터페이스 내에서는
+int AA_BB=10;
+-> (public final static) int AA_BB=10; ( )있는거와 같음
+
+ex)
+	public interface Inter1 {
+
+	/* public final static */ int A=10;
+	/* public final */ static int B=20;
+	/* public */ final static int C=30;
+		public final static int AA__BB=33;
+	
+	/* public abstract */ void me2();
+	/* public */ abstract void me3();
+		public abstract void me1();
+	}
+
+인터페이스는 다중상속 가능
+1. 인터페이스가 여러개의 인터페이스를 상속
+public interface inter1 extends Inter2, Inter3{}
+2. 클래스가 여러개의 인터페이스를 구현
+public class Child imlpements Inter3, Inter2{}
+- public class Show extends Object implements Inter2, Inter3{} //오브젝트는 최상위 부모클래스(이미상속)
+
+
+클래스가 클래스를 상속한다 extends
+인터페이스가 인터페이스를 상속 extends
+클래스가 인터페이스를 구현한다 implements
+
+같은 것 끼리는 상속, 다르면 구현
+
+clss 구성요소 : 변수/상수/생성자/메서드
+interface 구성요소 : public static 상수, public abstract void
+
+다형성
+부모자료형 변수명 = new 자식생성자;
+
+인터페이스에서 적용
+자료형 통일, 오버라이딩가능
+자식클래스가 갖고 있는 고유의 자원에 접근 불가.
+
+상속과 인터페이스 둘다 적용가능
+
+//인터페이스는 객체 생성없이 호출함.???
+
+DTO(Data Tranfer Object)클래스 : 데이터 저장 전용 클래스
+데이터를 저장할 목적으로 만들어진 클래스
+=TO=VO(Value Ovject)=domain
+1. Serializable 인터페이스 구현(class 클래스명 implements Serializable)
+1.1 Add default serial version ID (클래스명 마우스오버)
+2. 변수 선언 시 사용되는 접근제한자는 무조건 private
+3. 디폴트 생성자 생성(Java bean)
+4. 사용자 생성자 생성
+5. getters/setters
+6. toString() 오버라이딩
+7. hashCode()/equals() 오버라이딩
+
+
+20.11.11)020-----------------------------------------------------------------------------
+
+내부 클래스
+
+내부클래스 선언과 호출
+public class Test2 {
+	public class MemberClass{		// 멤버 내부 클래스
+		private int age;
+		public void mc1() {		//내부클래스의 메서드
+			System.out.println("mc1"); 
+		}
+	}
+}
+Test2.MemberClass mc2 = new Test2().new MemberClass(); //외부클래스객체.내부클래스객체
+mc2.mc1						//내부클래스메서드 호출
+
+
+static 내부 클래스
+
+public class Test3 {
+	private String msg;
+	public static class StaticInnerClass{
+		private int age;
+		public void sic() {
+			System.out.println("sic");
+		//	System.out.println(msg);  	static클래스의 변수는 바로접근 안됨
+		//	me1();			static클래스의 메서드도 바로호출 안됨
+			Test3 t3 = new Test3();	// 선언후 접근가능
+			System.out.println(t3.msg);	
+			t3.me1();						
+		}
+	}
+}
+Test3.StaticInnerClass sic1 = new Test3.StaticInnerClass();  
+sic1.sic();
+// new는 StaticInnerClass()의 새로운 객체
+//(클래스는 객체가 필요함 Static 상수는 클래스명.상수명 으로 객체없이 접근함)
+
+로컬 내부클래스
+public class Test4 {
+	public void me1() {			// me1을 호출 해야 lic()에 접근가능
+		int a =10;
+		class LocalInnerClass{ 			// 접근제한자 쓸수 없다. 
+			public void lic() {			//보안에 강력하다..(클래스 메서드 안에 로컬클래스 안에 메서드)
+				System.out.println(a);	//클래스외부 호출 불가
+			}
+		}
+		LocalInnerClass lic1 = new LocalInnerClass();
+		lic1.lic();				// 여기서 실행. 클래스외부 호출 불가
+	}
+}
+
+익명의 내부클래스
+클래스는 구조적으로 "class"키워드가 있어야 클래스이다
+익명의 내부클래스는 class키워드가 없기 때문에 "익명"의 내부클래스라고 한다.
+((( 클래스의 선언과 객체의 생성을 동시에 하기 때문에 단 한번만 사용될 수 있고 오직 하나의 객체만을 생성할 수 있는
+일회용클래스이다. 이름이 없기 때문에 생성자도 가질 수 없으먀 , 부모클래스의 이름이나 구현하고자 하는 인터페이스의
+이름을 사용해서 정의하기 때문에 하나의 클래스로 상속받는 동시에 인터페이스를 구현하거나 둘이상의 인터페이스를 
+구현할 수 없다. 
+((( 오로지 단 하나의 클래스를 상속 받거나 단하나의 인터페이스만을 구현할 수 있다.)))
+
+1. 변수를 선언하면서 사용 	=가짜 익명(변수있음)
+// public 외부클래스명() { new 인터페이스명(){구현부}};	
+public class Test5 {
+	private int a;
+	
+	public Inter1 ano = new Inter1() {
+		
+		@Override
+		public void me1() {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+
+}
+
+Test5 t1 = new Test5();
+t1.ano.me1();
+
+2. 변수 선언없이 사용	=진짜 익명(변수없음)
+
+// public 외부클래스명() { new 인터페이스명(){구현부}};	
+// 생성자 안에 new 인터페이스(){구현부}; 와 모양이 같음
+public class Test6 {				
+	public Test6() {			//외부 호출 불가
+		new Inter1() {
+			@Override
+			public void me1() {
+			}
+		}.me1();			// 여기서 바로 사용
+	}
+
+}
+ex)
+	public class Test01 {
+	//익명의 내부 클래스1
+	// public 외부클래스명() { new 인터페이스명(){구현부}};	
+	public Inter1 ano = new Inter1() {
+		@Override
+		public void me1() {
+			System.out.println("가짜 익명");
+		}
+	};
+	//익명의 내부 클래스2
+	// public 외부클래스명() { new 인터페이스명(){구현부}};	
+	// 생성자 안에 new 인터페이스(){구현부}; 와 모양이 같음
+	// 디폴트 생성자와 동시 사용불가(생성자 만들고 new 인터페이스명 -> 익명의 내부클래스)
+	// 이름이 없어서 따로 호출 불가 } 뒤에 .오버라이드 메서드이름 으로 호출.
+	// Test01 객체생성후 첫 메서드 호출시에만 같이 나옴
+	public	Test01() {	// 외부 클래스명() 괄호가 있다.
+		new Inter1() {	// new 구현 인터페이스명()
+			@Override
+			public void me1() {
+				System.out.println("진짜 익명"); 
+			}
+		}.me1();;		// 여기서 바로 사용 ;or;; 둘다 됨
+	}
+	public void me2() {
+		System.out.println("진짜익명 호출용");
+	}
+	
+		main)				Console)
+		Test01 t01 = new Test01();		
+		t01.me2();			// 진짜 익명 
+						// 진짜익명 호출용
+		t01.ano.me1();			// 가짜 익명
+		t01.me2();			// 진짜익명 호출용
+
+
+예외 Exception
+클래스로 예외처리함
+
+예외처리 방법
+1. try ~ catch
+: 예외가 발생해도 예외가 없는 것과 같은 효과
+: 예외 발생 코드를 블럭잡고 Alt +Shift +z ->try/catch block
+- try 예외가 발생할 수 있는 코드
+- catch 예외가 발생할 때 실행할 코드
+- 예외가 생기지 않으면 정상실행함
+
+try~catch
+문법적으로 이상이 없지만, 논리적으로 이상이 있을경우 사용
+개발자의 잘못을 처리하기 위해 사용해서는 안됨.
+사용자로부터 잘못된 데이터를 입력했을 때를 대비함
+ex)		
+		try {
+			String msg = (String) t2;			// 예외 발생 예상 코드
+		} catch (Exception e) {
+			System.out.println("뭔가 문제있지만 무시하겠음me3");	// 예외 발생시 실행
+			return;	//예외발생시 빠져나감
+		}
+
+1-1. try ~ catch ~finally~
+finally 
+-retrun; 을 만나도 반드시 실행
+-예외 발생여부에 상관없이 실행
+ex)
+		try {
+			String msg = (String) t2;			// 예외 발생 예상 코드
+		} catch (Exception e) {
+			System.out.println("뭔가 문제있지만 무시하겠음me3");	// 예외 발생시 실행
+			return;	//예외발생시 빠져나감
+		}finally{
+			System.out.println("성공/실패 상관없이 실행");	//예외발생,return;있음,예외없음/ 상관없이 실행
+			System.out.println("리턴보다 강력함");
+		}
+
+
+2. throws
+: 예외가 발생했을 때, 해당 메서드를 호출한 곳에서 예외처리를 하도록 예외를 던짐.(받은자가 선택지 생김)
+2-1)
+		public void me5(int idx) throws Exception{ 	//<----메서드 중괄호 앞에 throws Exception명시
+			String msg="hi";
+			System.out.println(msg.charAt(idx));
+		}
+//호출하는 메서드에 빨간줄(선택지) 생김
+ 	
+2-2) 
+		public void me7(String msg) throws Exception { 
+		if (msg.equals("개새끼")) {
+			throw new Exception("욕설금지");
+		}
+// 호출하는 메서드에  throw를 던짐(try ~catch작업 가능)
+
+2-3) 사용자정의 throws
+		public void me72(String msg) throws Exception {
+		if (msg.equals("개새끼")) {
+			throw new DoNotSwearException1("욕설금지!!");
+		}
+		System.out.println(msg);
+		}
+// 예외를 무시하고 계속 실행
+// throws를 날림. try~ catch 선택지
+
+
+
+3. thow
+: 문법적으로 예외는 아니지만 논리적인 예외를 발생. 예외메시지와 함께 멈춤
+3-1) 
+3-2)
+		public void me7(String msg) {
+		if (msg.equals("개새끼")) {
+			throw new RuntimeException("욕설금지");
+		}
+// 멈춤
+// Exception in thread "main" java.lang.RuntimeException: 욕설금지
+
+3-3) 사용자 정의 throw
+		public void me71(String msg) {
+		if (msg.equals("개새끼")) {
+			throw new DoNotSwearException2("욕설 금지!");
+		}
+		System.out.println(msg);
+		}
+// 멈춤
+// Exception in thread "main" com.naver.DoNotSwearException2: 욕설 금지
+
+
+
+4. 사용자 정의 예외 클래스(throw, throws)
+가능하면 Exception을 상속하도록 하여, throw를 날리도록 구현-> 호출하는 메서드에서 try~catch작업 가능
+class -> constructor from superclass
+
+extends Exception(예외를 던짐 [throws Exception작성]) 무시하고 실행	--->throws
+extends RuntimeException 상속함( 멈춤 )			--->throw
+
+2-3, 3-3
+
+2011.12) 021------------------------------------------------------------------------------
+ 
+예외
+ : 프로그래머가 조치할 수 있는 현상. 
+사용자의 입력값이 논리적&문법적으로 맞지 않는 상황
+에러
+ : 프로그래머가 조치할 수 없는 현상. jvm, 단전 ...등
+
+Throwable: 예외와 에러의 최상위 부모클래스
+
+Exception: 예외의 최상위 부모클래스(중요)
+
+자바는 예외도 클래스로 관리하고 있음
+
+throw 
+강제적으로 예외를 발생시킴
+사용자 정의 예외 클래스를 만듬
+Exception or RentimeException을 상속함
+
+try ~ catch 
+: 조치방법을 알고 있을 때,요구사항명세서에 조치상항이 적혀있을 때, 조치에 대한 내용을 책임질 수 있을 때
+
+throws 
+: 조치방법을 모를 때, 예외발생 조치를 책임질 수 없을 때
+
+fianlly
+: 예외가 있든 없든 반드시 실행해야 하는 코드, return보다 강력함
+
+===================
+	<예외처리에 관한 질문>
+1. 예외 처리 잘합니까?
+-try ~catch 와 throws를 구분해 사용할 수 있고,
+예외가 발생하든 그렇지 않든 반드시 실행할 코드가 있으면 
+finally구문에 작성할 수 있고,
+강제로 예외를 발생시키기 위해 throw를 사용할 수 있으며
+그에 따른 사용자 정의 예외 클래스도 작성할 수 있습니다.
+-강제로 예외를 발생시키는 예시는>
+ 문법적으로는 맞지만 논리적으로는 맞지 않을 때.
+ "개새끼"등.. 욕설은 강제로 예외를 발생시키는 코드
+2. 예외 메시지 읽을 줄 아세요?
+(예외가 발생했을 때, 넘겨주는 메시지를 보고 조치할 수 있나?)
+예외 발생 원인과 예외 발생 위치를 알 수 있습니다. 
+조치할 수 있는 내용이면 곧바로 조치하고 모르는 내용이면 
+구글링하여 조치를 취해왔습니다. (구글링으로 안되면 팀장에게 물어본다)
+====================
+
+
+Calendar = abstract class 
+
+	public void me1() {
+		//1. Calendar  클래스 객체 생성 방법
+		Calendar c = Calendar.getInstance(); // 현재시각정보(추상객체는 객체 생성불가,캘릭더 클래스의 getInstance)
+	}
+
+	public void me2() {
+		
+		Calendar c = Calendar.getInstance();
+		
+		//c를 이용해 연도 정보 추출
+		int year = c.get(Calendar.YEAR); 		//Calendar의 Instance는 상수(final 이다)
+							//상수는 (클래스명.상수명)
+		//월정보
+		int month = c.get(Calendar.MONTH)+1;	//월정보는 0~11이다. 
+							//사용자에게 보여줄때는 +1을 한다
+							//입력정보를 처리할 때는 -1을 한다
+		//일정보
+		int date = c.get(Calendar.DATE);		// 오늘 날짜
+		//요일 정보
+		int day = c.get(Calendar.DAY_OF_WEEK);	
+		
+	}
+	public void me3() {
+		Calendar c1 = Calendar.getInstance();
+		Calendar c2 = Calendar.getInstance();
+		
+		c1.set(1950, 6-1, 25);
+		System.out.println(c1);
+		System.out.println(c2);
+	}
+	public void me31() {
+		Calendar c	= Calendar.getInstance();
+		c.set(Calendar.MONTH, Calendar.MAY); // 5-1로 대신할 수 있음
+		System.out.println(c);
+	}
+	public void me32() {
+		//1. 1950년 6월 25일은 무슨요일인가?
+		
+		Calendar c = Calendar.getInstance();
+		c.set(1950, 6-1, 25);
+		int day = c.get(Calendar.DAY_OF_WEEK);
+		System.out.println(day);
+	}
+	public void m4() {
+		Calendar c = Calendar.getInstance();
+		int maxDate = c.getActualMaximum(Calendar.DAY_OF_MONTH);	// 해당월 마지막일 (30.31)을 반환
+		System.out.println(maxDate);
+		System.out.println();
+	}
+	public void me41() {
+		// 1950년 2월의 마지막 날은 며칠까지 있나? 그날은 무슨요일?
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR,1950);
+		c.set(Calendar.MONTH, 1);
+		int maxDate = c.getActualMaximum(Calendar.DAY_OF_MONTH);		//데이오브먼스는 데이트와 같다
+		c.set(1950, 1, maxDate);
+		System.out.println(c.get(Calendar.DAY_OF_WEEK));				//요일 정보 1234567 = 일월화수목금토
+		System.out.println();
+	}
+	public void me6() {
+		Calendar c = Calendar.getInstance();
+		System.out.println(c.getTime());
+		//2020.11.12
+		//20일 후
+		c.add(Calendar.DATE, 20);	
+		// add()는 calendar객체의 정보를 변경, 특정 필드의 값에 주어진 값을 더해서 변경(중요)
+		// 변경인스턴스 , +일월년
+		System.out.println(c.getTime());  // java.util
+	}
+	public void me61() {
+		
+		Calendar c = Calendar.getInstance();
+		//20일 후의 날짜정보 방법1
+		Calendar c1 = Calendar.getInstance();
+		c1.add(Calendar.DATE, 20);
+		//20일 후의 날자정보 방법2
+		Calendar c2 = (Calendar) c.clone();
+		c2.add(Calendar.DATE, 20);
+		
+		System.out.println(c1);
+		System.out.println(c2);
+	}
+
+	public void me7() {
+		Calendar c = Calendar.getInstance();
+		System.out.println(c.getTime());	//현재날짜 Date반환
+		
+		c.roll(Calendar.DATE, 20);			//20일 후 날자가 어떻게 바뀌나?(날자정보만 변경됨)
+		System.out.println(c.getTime());
+		System.out.println(c.get(Calendar.DATE));
+		System.out.println(c.get(Calendar.MONTH));
+		System.out.println(c.get(Calendar.DAY_OF_WEEK));//요일
+	}
+	public void me8() {
+		//자바에서는 Calendar클래스를 쓰자.
+		//그러나 DB에서는 Calendar클래스보다는 Date 클래스를 많이 사용한다
+		//따라서 반드시 두 타입을 변환할 수 있어야 한다.
+		
+		Calendar c = Calendar.getInstance();
+		Date d = new Date(c.getTimeInMillis()); // 1970년 1월 1일 0시 0분 0.000초 부터 0으로 시작(미국시간)
+		c.setTime(d);
+		
+		Date d2 = new Date();
+		System.out.println(d2);
+		
+		System.out.println(System.currentTimeMillis()); // 1/1000초 의 long값
+		
+	}
+	public void me9() {
+		System.out.println(String.format("%4d,%3s", 33,"hel"));
+		
+		Calendar c = Calendar.getInstance();
+		System.out.println(c.getTime());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY년 MM월 dd일 hh시 mm분 ss초");
+		String msg=sdf.format(c.getTime());
+		System.out.println(msg);
+		
+		
+	}
+roll()
+해당 필드의 값만 변경
+다른 필드의 값은 그대로
+
+address/WrapperEx
+Wrapper Class
+대문자로 시작하고 Character와 Integer는 풀네임을 사용
+참조자료형을 AutoBoxing해서 기본자료형처럼 간소하게 사용할 수 있다.
+기본자료형을 AutoUnBoxing해서 참조자료형처럼 사용할 수도 있다.
+	//AutoBoxing
+		Boolean a = false; // 원래는 Boolean a = new Boolean(false); 이지만 AutoBoxing 해줌
+		Character b = ' ';
+		Byte c = 0;
+		Short d = 0;
+		Integer e =0;
+		Long f =0L;
+		Float g= 0.0F;
+		Double h =0.0;
+	//AutoUnBoxing
+		boolean a = new Boolean(false);
+		Character b = new Character('c');
+		char bb=b;
+
+	public void me4() {
+		//래퍼클래스.parse기본자료형(문자열)
+		//문자열을 기본자료형으로 만들어줌
+		String msg = "123";
+		int i=Integer.parseInt(msg);
+		System.out.println(i+10);
+		System.out.println(msg+10);
+	}
+	public void me41() {
+		//문자열을 기본자료형으로 변경하는 방법1,2
+		//1.WrapperType.pardeWrapper()
+		//2.WrapperType.valueOf()
+		String msg="false";
+		boolean b = Boolean.parseBoolean(msg);
+		System.out.println(b);
+		
+		boolean b2 = Boolean.valueOf(msg);
+		System.out.println(b2);
+	}
+	public void me5() {
+		//Charater.parseLong()와 Charater.valueof()는 없다
+		// 대신 문자열.chsrAt();을 사용
+		String msg ="h";
+		char c = msg.charAt(0);
+		System.out.println(c);
+	}
+
+Random
+	public void me6() {
+		//rnd1,2는 씨드가 같고 마지막값이 같을 때 랜덤 배열값이 같다.
+		// 첫번째 각 랜덤값, 두번째 각 랜덤값 세번째...가 서로같음
+		Random rnd1 = new Random(2);
+		Random rnd2 = new Random(2);
+		for (int i = 0; i < 10; i++) {
+			int num1 = rnd1.nextInt(100);
+			int num2 = rnd2.nextInt(100);
+		System.out.println(num1==num2);
+		}
+	}
+	public void me5(int start, int end) {
+		//start~end 범위에 있는 숫자가 임의로 나오도록 프로그래밍
+		
+		Random rnd = new Random();
+		int num =rnd.nextInt(end - start + 1 )+ start;
+		System.out.println(num);
+	}
+	
+	
+	public void me4() {
+		//임의의 값의 범위가 3~10까지 랜덤숫자 
+		Random rnd = new Random();
+		int n=10-3+1;
+		for (int i = 0; i < 100; i++) {
+			int num = rnd.nextInt(n)+3; 
+			/*
+			 * 0+3 ~n-1+3
+			 * 3(start)~10(end)
+			 * n-1+3=10
+			 * n=10-3+1
+			 * n=end-start+1
+			 */
+			System.out.println(num);
+		}
+			
+		
+	}
+	
+	public void me3() {
+		int num2 = 2;
+		Random rnd = new Random();
+		for (int i = 0; i < 100; i++) {
+			int num = rnd.nextInt(num2); // 0~n까지
+			System.out.println(num);
+		}
+		
+		
+	}
+	
+	public void me2() {
+		Random rnd = new Random(System.currentTimeMillis());	// 1/1000초 단위로 변하는 시드를 바꿀 수 있다.
+								// 정해진 배열이지만 시드가 바뀌면 배열이 바뀐다.
+	}
+	
+	public void me1() {
+		Random rnd = new Random();
+	}
+----
+
+----------
+20.11.13)022 -------------------------------------------------------------
+
+자바 컬랙션 프레임 워크 
+
+1. List
+interface다
+
+List<참조자료형> 변수명 = new ArrayList<참조자료형>(); 으로 선언
+ ArrayList는 LIst를 상속하는 자식클래스
+<> 는 Generic(상자의 이름)이라 하고, 참조자료형을 입력한다. 그에 맞는 데이터만 넣을 수 있다.
+자료형에 맞지 않는 데이터는 RuntimeException(컴파일 중 Exception)이 발생
+(늘어나는 배열)
+넣는 데이터에 마춰 인덱스가 늘어나는 배열이다 
+데이터를 넣는 순서대로 인덱스가 매겨진다.
+기본자료형은 Wrapper클래스로 넣을 수 있다 Integer, Boolean 등 첫자가 대문자
+객체 삭제시 다음 index의 객채가 그 자리를 빈칸마다 당겨 채워진다.
+객체 삭제시 모든 객체의 인덱스가 변하기 때문에 수정작업이 빈번한 자료는 사용하지 않는다.
+
+add()
+변수명.add(객체변수 또는 객체생성(new 생성자()))로 데이터를 추가한다
+
+get()
+변수명.get(index)로 데이터를 반환한다.
+
+set()
+변수명.set(index, 객체) 로 데이터를 수정한다.
+
+remove()
+변수명.remove(index)로 데이터를 삭제한다.(삭제후 빈 index는 다음 객체가 모두 당겨 온다)
+변수명.remove(객체(데이터))로 데이터를 동등성 비교후 같으면 삭제한다.
+오버라이딩한 인자만 비교후 삭제하기 때문에 남어지 인자는 초기값을 넣어도 무관하다
+(오버라이딩(hash&equals) 하지 않으면 인자가 같아도 동등성이 같지 않아서 삭제안된다)
+반복문을 사용해 여러객체를 한번에 삭제할 경우, 뒤번 index부터 삭제해야 한다
+
+clear()
+변수명.clear();로 List의 모든 객체를 삭제하고 List의 틀만 남는다.(List는 삭제되지 않는다)
+
+출력
+객체를 출력하면 [ ] 안에 객체가 표시된다.(toString 오버라이딩 하지않으면 주소값)
+
+2. Set
+Set interface
+
+- 데이터의 중복을 허용하지 않는다
+데이터 중복여부를 equals() 사용 동등조건을 체크한다
+equals&hash code 오버라이딩으로 동등조건의 인자를 선택할 수 있다.
+
+- 문자열의 대문자와 소문자를 다른 데이터로 인식한다
+ex) "hi".equals("Hi"); -> false
+
+- 입력 순서와 출력 순서 사이에 상관관계가 없다
+list는 입력순서대로 index가 매겨지고 순서대로 출력됨
+
+- index가 없다
+get()가 없다, 객체 호출시 iterator를 사용
+
+- 자식 클래스로 HashSet 
+Set<참조자료형> 변수명 = new HashSet<참조자료형>();
+
+- add()
+Set에 객체를 입력 한다.
+반환형이 boolean으로 입력의 성공과 실패를 반환
+
+- size()
+Set에 저장된 객체들의 개수를 반환(배열의 length)
+
+20.011.16)023-------------------------------------------------------------------------------
+
+- remove()
+입력 객체를 삭제한다
+(index가 없기에 Integer의 값을 바로 삭제한다)
+반환형이 boolean으로 입력의 성공과 실패를 반환
+ list에서는 remove(int idx), remove(Object obj)
+ set에는 remove(Object obj), index가 없다
+동등성 비교 한다
+ 
+- clear()
+모든 저장 객체를 삭제하고 Set의 틀만 남는다
+
+- iterator() 반환자?
+ Iterator 인터페이스 자료형으로 데이터 반환
+ ArrayList의 get() if()와 대응 된다.
+
+hasNext()
+ 다음 원소가 남아있으면 true를 반환
+next()
+ 다음 원소를 가져옵니다. 
+remove()
+ 현재 반복자가 가리키고 있는 원소를 삭제
+
+선언
+Interator<참조자료형> it = set.interator;  // it은 변수명이다
+
+데이터 반환1
+while문을 이용해서 set데이터를 획득
+Interator<참조자료형> it = set.interator; 
+ while(it.hasNext()){
+	참조자료형 변수명2= it.next();
+	syso(변수명2);
+}
+
+데이터 반환2
+List에 저장하여 데이터 획득 // 다형성으로 List선언
+ List<참조자료형> list= new ArrayList<참조자료형>();	//list는 변수명이다
+list.addAll(set);	//set은 변수명이다
+syso(list);
+
+데이터 반환3
+ArrayList에 저장하여 데이터 획득
+ArrayList list = new ArrayList();
+list.addAll(set);
+syso(list);
+
+- 프레임워크 정렬 -
+
+기본자료형 List의 정렬
+		Collections.sort(list);
+		System.out.println(list);
+
+기본자료형 Set의 정렬(List 로 저장 후 정렬)
+		List<Integer> list = new ArrayList<Integer>();
+		list.addAll(set);
+		Collections.sort(list);
+		System.out.println(list);
+
+참조 자료형의 정렬
+참조자료형 class를  Comparable<Apple>구현하고, 오버라이딩 하고 리턴값으로 비교한다.
+public class Apple implements Serializable, Comparable<Apple>{  // Comparable<참조자료형> 구현
+
+@Override
+	public int compareTo(Apple o) {	// 참조자료형 비교
+		return this.getId().compareTo(o.getId());	// 무엇과 무엇을 비교할 것인지 this의 getid와 o.getid의 동등성 비교
+	}
+
+ Iterator의 사용
+
+ex) 모두출력
+		Iterator<Apple> it = set.iterator();	
+		while (it.hasNext()) {		// 다음 자료가 없을 때 까지	
+			//sysout(it.next());
+			Apple apple = it.next();	 
+			System.out.println(apple);
+		}
+ex) List 저장 출력
+		Iterator<Apple> it = set.iterator();
+		List<Apple> list = new ArrayList<Apple>();
+		while (it.hasNext()) {
+			Apple apple = (Apple) it.next();
+			System.out.println(apple);
+			list.add(apple);
+		}
+		int index=list.indexOf(new Apple("a002", null, null, 0));
+		Apple apple=list.get(index);
+		System.out.println(apple);
+ex) ArrayList 저장 출력
+		ArrayList list = new ArrayList();
+		list.addAll(set);
+		System.out.println(list);
+		int index = list.indexOf(new ("찾을id", 초기값, 초기값...));
+		Apple apple1 = list.get(index);
+		sys.out(apple1);
+ex) 간단하게 출력
+		list = new ArrayList<MemberDTO>(set);
+
+기본자료형의 내림차순 정렬하기
+		List<Integer>list = new ArrayList<Integer>();
+		Iterator<Integer> it =set.iterator();
+		while (it.hasNext()) {
+			Integer integer =  it.next();
+			list.add(integer);
+		}
+
+Map interface
+
+HashMap
+Map은 HashMap이 상속(List - ArrayList의 관계와 같다)
+
+Map<k,v> key 와 value
+map의 출력
+{ key=value, key=value, ...} , { key=[ , , ], key=[ , ,], ...}
+
+key
+(Index와 같음, 문자열, Set 가능) : 중복이면 안돼기 때문에 set을 이용
+
+value
+중복가능. 참조자료형가능
+
+put 
+언어에서 데이터 두개를 입력할 때
+map의 자료 입력(add() 역할)
+put은 키값이 동일하다면 나중에 입력한 값이 그전 값을 덮는다.
+ex)
+		map.put(1, "kim");
+		map.put(1, "kang"); --> kim이 kang으로 변한다.
+ex)		
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+		map.put("진돗개", list1);
+		map.put("세퍼드", list2);
+20.11.17)024--------------------------------------------------------------------------------------
+
+replace() 
+value 값의 수정
+
+keySet()
+key의 묶음(Set으로 만들어짐)
+Set값을 반환
+		//keySet()사용 key와 value를 출력
+		Set<String> set = map.keySet();
+		System.out.println(set);
+		Iterator<String> it = set.iterator();
+		while (it.hasNext()) {
+			String key = it.next();
+			int val = map.get(key);
+			System.out.println(key + ":" + val);
+		}
+
+map.values()
+keySet 으로 val를 뽑는게 더 나아보인다
+value값의 묶음
+
+
+
+		//values()사용 value를 출력
+		Collection<Integer> val = map.values();
+		Iterator<Integer> itVal = val.iterator();
+		while (itVal.hasNext()) {
+			Integer integer =  itVal.next();
+			System.out.println(integer);
+		}
+================
+
+Thread
+동시에 실행, 움직임
+기본적으로 main Thread가 있다
+
+< 사용자Thread 생성1 >
+1. Thread 상속
+2. run() 오버라이드
+3. 객체 선언
+4. start() 호출 (스레드생성)
+ex)
+public class Test extends Thread{ // 1.thread 상속
+	@Override		//2. 오버라이드
+	public void run() {	// thread실행코드
+		me1();
+	}
+	public void me1() {
+		for(int i=0; i<10;i++) {
+			System.out.println("Test1: "+i);
+			try {
+				Thread.sleep(1000);	// 1s마다 쉬면서 출력(1000밀리세컨즈)
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+public class MainEx {
+	public static void main(String[] args) {
+		Test t1 = new Test();	//3. 스레드객체선언
+		t1.start();			//4. 스레드생성
+	}
+}
+
+< 사용자Thread 생성2 >
+- 다른 클래스를 상속하고 있을 때
+1. Runnable 구현
+2. run() Override
+3. Runnable 객체선언
+4. Thread 선언
+5. Thread 생성 (start() 호출)
+ex)
+public class Test4 extends Unit implements Runnable{ // 1. Unit을 상속했을 때
+	@Override				// 2. Override run()
+	public void run() {
+		for (int i = 0; i < 10; i++) {		// 실행코드
+			System.out.println("Test4: "+i*100);
+			try {
+				Thread.sleep(1000);		// 1000/1000 초마다 쉰다
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+public class MainEx {
+	public static void main(String[] args) {
+		Test t3 = new Test3();	//3. Runable 객체선언
+		Thread t3 = new Thread(r3);	//4. thread 객체선언
+		t3.start();			//5. 스레드 생성 
+	}
+}
+
+< 사용자Thread 생성3 >
+- 익명의 객체를 사용, 일회용으로 한번만 실행됨
+ex)
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("통신 등을 구현할 때, 자주 쓰는 스레드");
+			}
+		}).start();	//익명의 객체를 바로 호출 , 일회용
+
+< 사용자Thread 생성4 >
+- 일회용 익명의 객체의 변수 선언
+ex)
+		Thread t4 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("통신 등을 구현할 때, 자주 쓰는 스레드");
+			}
+		});
+		t4.start();
+
+< Thread Life Cycle >
+ 생성(stat() 호출) ->- runnable(대기) ->- runnimg(run() 실행) ->- dead(소멸)
+
+메모리구조(클래스,스텍,힙)가 또다시 생성됨 (첫 thread는 main)
+start()가 호출되면 thread는 생성되며 runnable상태가 된다.
+run()가 실행되면 running가 되며 runnable-blocked-running 상태를 반복하다 실행이 끝나면 소멸한다
+thread들 간의 데이터는 공유된다. 단, stack영역의 데이터는 공유불가
+
+<thread의 영역>
+main() : mainThread 영역
+tun() : 사용자Thread 영역(Test class의 run())
+
+<Thread의 dead 순서>
+join() *중요*
+조인을 호출한 스레드는 현재영역의 스레드 보다 먼저 dead
+ex)
+ main()에서 t1.join()작성시 -> t1Thread가 dead되고 mainThread가 dead
+= 현재영역관리자(mainThread)에게 이거(t1Thread) 급한거야 먼저 끝내줘 =
+
+synchronized 
+동기화 메서드
+임계영역 문제가 발생할 수 있는 메서드에 작성
+같은 데이터를 공유하는 여러 쓰레드가 있을 때 동기화작업이 필요
+
+synchronized 블럭
+(ex 자물쇠가 잠긴다. 자문쇠는 열쇠가 필요하고 같은 열쇠라면 동시에 작업이 가능하다
+그러나 같은 데이터를 동시에 작업하면 문제가 생길 수 있으므로 각기 다른 열쇠를 사용한다)
+서로 같은 변수는 같은 열쇠로 동시 사용을 막는다.(데이터의 안정성을 높인다)
+서로 다른 변수는 각기 다른 열쇠로 의미없는 기다림을 없게 한다
+
+Wait() Notify()
+wait() : 얼음!하고
+notify() : 땡!한다, 
+땡을 하면 wait()뒤를 이어서 실행
+공유된 변수를 동시에 사용하는 것을 방지할 수 있다.
+ex)
+
+	public String getTodayPost() {
+		if(!isOk) {				// if가 없어도 실행하지만 계속 기다리기만 할때가 있다.
+			synchronized (this) {
+				try {
+					wait();			// 멈춤
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return todayPost;
+	}
+	public void setTodayPost(String todayPost) {
+		this.todayPost = todayPost;
+		isOk = true;				// if문 실행 안하게 변경
+
+		synchronized (this) {			
+			notify();				// 이제 땡~ 하고 넘김 
+		}
+	}
+
+
+//- set을 사용하는 스레드를 join()해서 get을 사용하는 스레드에 넣어줘도 된다. 
+
+20.11.18)025---------------------------------------------------------------------------
+
+
+< I/O > 
+Input/Output 입력과 출력
+
+자바		-	장치
+프로그램		-	(모니터/키보드/마우스/파일/DB/네트워크/메모리~)
+(우리의 작업위치)
+ㅡㅡㅡㅡㅡㅡㅡ		  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+| 자바프로그램 | <<<Input<<<|		 장치	 			  |
+| (왼쪽)(기준)   | >>>Output>>|모니터/키보드/마우스/파일/DB/네트워크/메모리/프린터~등|			
+ㅡㅡㅡㅡㅡㅡㅡ		  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+Stream(>>>>)(<<<<)
+한 방향으로 흘러간다.
+(InpuStream, OutStream)
+
+<Stream을 나누는 기준>*
+1. 전송되는 데이터의 크기(이름에 따라)
+1) 바이트스트림(~Stream) 
+- 1바이트씩 전송
+멀티미디어는 꼭 바이트
+
+2) 문자스트림(~er) 
+- 2바이트씩 전송
+
+3) 필터 스트림
+특별한 기능이 있다
+장치와 직접 연결하지 않는다
+
+4) 노드 스트림
+장치와 직접적으로 연결이 된다 
+
+byte stream에서 입력과 관련된 최상위 부모클래스는 InputStream
+byte stream에서 출력과 관련된 최상위 부모클래스는 OutputStream
+InputStream, OutputStream 추상클래스이다.(자료형으로는 사용하되 객체를 생성불)
+I/O 객체는 반드시 개발자가 메모리를 해제시켜야 한다
+해제시키는 것은 try~catch해야 한다
+ex) in.close(); sc.close(); === InputStream, Scanner
+
+필터 채이닝
+노드스트림과 프로그램 사이에 필터역할
+필터 스트림를 노드스트림보다 먼저 닫는다.
+(자바 프로그램에 가까운 스트림부터 닫는다)
+
++File.separator+
+// /파일구분자
+상대경로
+"." 현재위치
+".." 바로위
+절대경로
+"c:/test.jpg" =="c:"+File.separator+"test.jpg" 
+
+<I/O 객체 만들기> , 그림의 화살표 만듬
+1. stream을 선언만 한다.
+2. try ~catch ~finally 구조를 만듬
+3. finally 안에 try ~catch
+4. finally 안에 있는 try에 close() 호출, catch에 예외처리
+5. 원 try catch에 예외처리
+6. 원래 try를 코딩 
+ 데이터의 위치(저장위치, 복사위치)
+7. while문
+ 데이터 처리 read(), write()
+
+ex) 
+1-1.파일(이미지)복사 
+	public void me1() {
+		InputStream in = null;		//1
+		OutputStream out = null;		
+		try {				//2
+			in = new FileInputStream("c:"+File.separator+"test.jpg");		//6
+			out = new FileOutputStream("c:"+File.separator+"test_copy2.jpg");
+
+			int what=-1;						//7
+			while((what=in.read()) !=-1) {
+				out.write(what);
+			}
+			System.out.println("end");
+			
+		} catch (Exception e) {
+			e.printStackTrace();		//5
+		}finally {				//2.1
+			try {			//3
+				if (in !=null) {	//4
+					in.close();	
+				}
+				if (out !=null) {
+					out.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();//4.1
+			}
+		}
+	}
+1-2. 배열을 이용하여 파일스트림의 속도 향상
+- 뭉텅이로 옮겨서 속도를 올린다
+	public void me3() {
+		InputStream in= null;
+		OutputStream out = null;
+		try {
+			
+			in = new FileInputStream("c:"+File.separator+"test.jpg");
+			out = new FileOutputStream("c:"+File.separator+"test_copy.jpg");
+			
+			
+			byte[] arr = new byte[1024]; //what대신, 배열로 더 빨리
+			int length=-1;
+			while((length = in.read(arr)) !=-1) {
+				
+				out.write(arr,0,length);
+			}
+			System.out.println("copy end");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+				if (out !=null) {
+					out.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+bufferedStream
+2-1. 파일스트림으로 받은 데이터를 버퍼에서 한계까지 모아서 전달한다 (속도 향상)
+
+public void me1() {
+	InputStream in = null;
+	BufferedInputStream bis = null;
+	OutputStream out = null;
+	BufferedOutputStream bos = null;
+	try {
+		in = new FileInputStream("c:"+File.separator+"test.jpg");
+		bis = new BufferedInputStream(in);	// 필터 채이닝
+		out = new FileOutputStream("c:"+File.separator+"test_copy3.jpg");
+		bos = new BufferedOutputStream(out);
+		int what =-1;
+		while((what = bis.read()) != -1) {
+			bos.write(what);
+		}
+		System.out.println("endd");
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if (bis!=null) {	//필터를 먼저 닫는다
+				bis.close();
+			}
+			if (bos!=null) {	//필터를 먼저 닫는다
+				bos.close();
+			}
+			if (in !=null) {
+				in.close();
+			}
+			if (out != null) {
+				out.close();
+			}
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+	}
+}
+
+2-2. 배열을 버퍼에 적용하여 속도 더욱 향상
+	public void me4() {
+		InputStream in = null;
+		BufferedInputStream bis = null;
+		OutputStream out = null;
+		BufferedOutputStream bos = null;
+		try {
+			in = new FileInputStream("c:"+File.separator+"test.jpg");			
+			bis = new BufferedInputStream(in);
+			out = new FileOutputStream("c:"+File.separator+"test_copy.jpg");
+			bos = new BufferedOutputStream(out);
+			byte[] arr = new byte[1024];
+			int length = -1;
+			while((length = bis.read(arr)) !=-1) {
+				bos.write(arr, 0, length);
+			}
+			System.out.println("copyEnd");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (bis !=null) {
+					bis.close();
+				}
+				if (bos != null) {
+					bos.close();
+				}
+				if (in != null) {
+					in.close();
+				}
+				if (out != null) {
+					out.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+20.11.19)026-----------------------------------------------------------------------------------
+
+ < 문자 Stream >
+2바이트씩 데이터를 전송
+
+Reader / Writer
+Character 기반 문자 스트림의 최상위 부모클래스
+
+FileReader / FileWriter
+문자 기반의 파일을 입출력 하는 클래스
+
+ < 보조 스트림 >
+"프로그램에서" 파일을 읽기/쓰기 할 수 있도록 해준다(기능을 부여)
+[ InputStream, OutpurStream ] & [ Reader, Writer ] - 최상위 부모( 홀로 객체 생성 불, 자료형으로 쓰임 )
+[ FileInputStream, FileOutStram] & [ FileReadet, FileWriter ] - 파일입출력 주 객체 바이트스트림 & 문자스트림
+는 "외부에서" 파일 읽기/쓰기를 수행
+
+BufferedInputStream / BufferedOutputStream (속도 향상)
+ 버퍼( byte[] )기능을  부여하는 보조스트림 (바이트스트림)
+
+BufferedReader(속도향상) / BufferedWriter-대신 PrintWriter
+- scanner처럼 사용, 스캐너 전신
+- 버퍼( char[] )기능을 부여 보조스트림 (문자스트림)
+- readLine을 사용
+ - 엔터를 기준으로 라인단위로 데이터 전송(아주 강력함)
+- 읽어오는 모든 값을 문자열로 인식
+- 숫자 등을 읽어와 사용하려면 Wrapper클래스를 사용
+
+PrintWriter
+- 주로 BufferedReader와 페어를 이루어 작성
+- flush()가 필요
+ - 버퍼가 다 채워지지 않았지만 남아있는 데이터를 모두 전송
+ - 입출력을 동시에 작성할 때, 채팅프로그램에서 주로 사용
+
+
+InputStreamReader / OutputStreamReader
+바이트 스트림과 문자 스트림을 연결
+인코딩 변환 가능
+
+ex)멀티미디어 파일의 데이터는 문자스트림을 사용할 수 없다.		
+	in = new FileInputStream("c:"+File.separator+"abc.txt"); //텍스트아님 멀티미디어임. 바이트스트림은 느리니까
+	isr= new InputStreamReader(in);			// 바이트-> 문자스트림으로 연결
+	br = new BufferedReader(isr);			// 버퍼기능을 달아준다. 문자스트림으로
+
+ex1) 구조화 하지 않은 코딩
+	public void me5() throws Exception {
+		//콘솔창에서 사용자의 입력을 Scanner를 이용해서 획득
+		//예전에는, 또 어떤 곳은 아직도 BuggeredReader를 이용
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+		//system.in - 표준입력장치, 키보드
+		
+		System.out.println("당신이 가장 좋아하는 숫자 하나를 입력하시오.");
+		
+		String sNum =br.readLine();	//모든 데이터를 스트링형으로 입력받는다
+		int num = Integer.parseInt(sNum);
+		
+		System.out.println("당신이 가장 싫어하는 숫자 하나를 입력하시오");
+		String sNum2=br.readLine();
+		int num2 = Integer.valueOf(sNum2);
+		
+		System.out.println("두 수의 합은 "+(num+num2));
+		
+		if(br != null) {
+			br.close(); 	//변수만 close()
+		}
+	}
+ex2) 구조화 코딩
+	public void me8() {
+		BufferedReader br = null;
+		InputStreamReader isr = null;
+		try {
+			isr = new InputStreamReader(System.in);
+			br = new BufferedReader(isr);
+			
+			System.out.println("숫자하나를 입력");
+			String s =br.readLine();
+			int n = Integer.parseInt(s);
+			
+			System.out.println("숫자 하나를 또 입력");
+			String s2=br.readLine();
+			int n2 = Integer.valueOf(s2);
+			
+			System.out.println("입력한 두수의 합:"+(n+n2));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (isr != null) {
+					isr.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+	}
+
+ < 직렬화 >
+
+자바 직렬화란 자바 시스템 내부에서 사용되는 객체 또는 데이터를 외부의 자바 시스템에서도 사용할 수 있도록
+바이트(byte) 형태로 데이터 변환하는 기술과 바이트로 변환된 데이터를 다시 객체로 변환하는 기술
+- 참고 https://woowabros.github.io/experience/2017/10/17/java-serialize.html
+
+imlements serializable 구현
+~~~~~~UID = 1L // 직렬화 코드
+데이터저장을 위한 객체 DTO클래스는 직렬화 해야한다
+직렬화 코드가 같아야 저장과 출력시 같은 데이터를 얻을 수 있다
+
+직렬화 데이터에 쓰이는 Stream
+ObjectInputStream, ObjectOutStream
+writeobject()
+- 오브젝트를 출력, 쓴다, 전달한다
+readobject()
+- 오브젝트를 입력, 읽는다, 가져온다
+
+instanceof or get.class() 
+(자료형 = 클래스) 비교 후 형변환한다
+
+transient 
+변수 값을 초기화값으로 넘긴다.(외부유출 방지)
+
+ex)
+MemberDTO imlements serializable 
+	private transient String id;
+	private String name;
+	private int age;
+	public void me6() {
+		// 오브젝트인풋아웃풋 스트림
+		//DTO(데이터저장을 위한 클레스)
+	
+		MemberDTO dto = new MemberDTO("m001", "kim", 10);
+		// 데이터저장을 위한 객체 DTO클레스 직렬화해야함
+		//implements Serializable , UID값마다 직렬화 방법이 바뀐다
+		//UID값이 같아야 저장과 출력시 같은 데이터값을 얻을 수 있다.
+
+		OutputStream out = null;
+		ObjectOutputStream oos = null;
+
+		InputStream in = null;
+		ObjectInputStream ois = null;
+
+		try {
+			out = new FileOutputStream("obj.txt");// 텍스트 파일에 출력 스트림 객체
+			oos = new ObjectOutputStream(out);	// 텍스트파일에 데이터 출력 객체(보조스트림)
+
+			oos.writeObject(dto);				// dto 데이터를 텍스트에 출력한다
+			System.out.println(":::::::::::");
+
+			in = new FileInputStream("obj.txt"); // 텍스트에서 데이터 입력 객체
+			ois = new ObjectInputStream(in);	//(보조스트림)
+			Object obj = ois.readObject();		//텍스트에서 읽어온다
+
+			if (obj instanceof MemberDTO) {		//데이터의 형식 같은지 검사
+				MemberDTO mDTO = (MemberDTO) obj; // 가저온 오브젝트를 형변환한다
+				System.out.println(mDTO.getId()); // 각 데이터를 출력한다
+				System.out.println(mDTO.getAge());
+				System.out.println(mDTO.getName());
+			}
+/*
+		try {
+			
+			out = new FileOutputStream("obj2.txt");
+			oos = new ObjectOutputStream(out);
+			
+			oos.writeObject(dto);
+			
+			
+			in = new FileInputStream("obj2.txt");
+			ois = new ObjectInputStream(in);
+			Object mdto = ois.readObject();
+			if(mdto.getClass() == mdto.getClass()) {
+				MemberDTO mmdto = (MemberDTO) mdto;
+				System.out.println(mmdto.getAge());
+				System.out.println(mmdto.getId());
+				System.out.println(mmdto.getName());
+			}
+*/
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (oos != null) {
+					oos.close();
+				}
+				if (in != null) {
+					in.close();
+				}
+				if (ois != null) {
+					ois.close();
+				}
+				if (out != null) {
+					out.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+
+< 오라클 다운로드 >
+
+Oracle Database 11g Release 2 Express Edition for Windows 64
+설치~ go
+뇬1234
+Port for 'Oracle Database Listener': 1521
+cmd ->
+sqlplus
+(name)system
+(password)sys1234
+
+cmd 강종했을 때 발생오류~/ 종료할 때는 exit
+ora-01033 orcle initialization or dhutdown in progress
+
+sqlpls "/as sysdba"
+
+sql>
+recover datavase;
+alter database open;
+shutdown immediate;
+startup;
+027------------------------------------------------------------------------------------
+
+< encoding ...오류 >
+문제는 윈도우 언어변경 시 앱 디폴트인코딩이 변경됨
+윈도우 언어를 다시 되돌리고
+앱의 디폴트 인코딩을 다시 원래대로 변경.
+인코딩을 먼저 변경한다면 인코딩을 다른거 한번 변경한후 다시 인코딩 변경해야함.
+
+023 정리하기!이클립스
+024 정리하기!
+
+=== 에러 메세지
+java.util.InputMismatchException
+콜솔의 입력값 타입이 다를 때
+RuntimeException
+throw
+IllegalFormatConversionException: d != java.lang.String
+%d에 문자열 변수를 넣었을 때
+IllegalFormatConversionException: f != java.lang.Integer
+%f에 인트형 변수를 넣었을 때
+MissingFormatArgumentException:
+%c에 변수를 빼먹었을 때.
+
+MissingFormatWidthException:
+%-d, 자릿수를 지정하지않고 좌정렬(-)했을 때
+
+ArrayIndexOutOfBoundsException
+선언한 index의 값을 벗어남 (MAX_index= length-1과 같음)
+NullPointerException 
+객체가 만들어 지지 않았는데 자원에 접근하려 할 때 에러
+*자원 = 변수, 상수, 메서드
+ArithmeticException
+수치를 0으로 나눴을 때 에러
+
+자바컬렉션 프레임워크, 스레드, *중요*
+mms1 계속 쳐보기
+
+[i/o]-reader/writer (문자 스트림)
+BuffueredWriter/ printreader
+InputStremReder // 바이트스트림과 문자스트림사이에서 필터역할(문자스트림)
+
+[I/O]- input/output (바이트스트림)
+이미지 파일을
+복사해서 이미지파일이름2 로 생성하기
+1.FileStream 이용 
+2.필터 채이닝. bufferedStream 이용
+3.배열을 이용해 속도 향상
+4.bufferedStream과 배열 적용 속도비교
+5. 4+상대경로
+상대경로를 이용해서 복사한 이미지를 저장
+배열을 사용해서 속도 업
+필터스트림인 BufferedStream을 사용해서 속도 업
+		
+[Thread Test]
+1. thread생성방법3가지 
+2. thread의 소멸 순서.[ join() test] 3개 1~10까지 05초 쉬면서  세기
+3
+[synchronized]
+1. 값을 저장하는 sum num+=n, minus mNum-=n 객체선언
+2. 값을 연산(for 1~10000)하는 thread 객체 생성
+3. 연산을 두개로 나누어 동시에 실행
+4. synchonized 블럭 , 해당클레스로만든객채(열쇠) 의 구분
+
+[wait notify] 복합문제
+Board class String msg , ReadThread, WriteThread
+msg 초기값 null
+ReadThread 에서 msg를 출력한다. get
+WriteThread 에서 msg를 "먼저 쓰자"를 입력한다 set
+Board class에서 wait notify, synchronized , try~catch를 작성
+main()이 끝나기전에 두 스레드가 끝나게 코딩
+
+[[set 연습문제]]
+1. 정수 5개 넣기.
+- 사이즈 출력하기
+  iterator이용해 set전부 출력하기
+ iterator이용해 set을 arraylist에 넣기
+ while문 밖에서 특정인자의 인덱스를 검색해 출력하기
+삭제하기 클리어하기
+정렬해서 출력하기
+
+2.hello Hello HELLO
+ 사이즈 
+iterator전부출력
+arraylist = new arraylist
+인덱스 검색해 출력
+정렬해서 출력하기
+
+3. 애플 
+사이즈
+배열을 이용해 set을 저장하기
+arraylist 에 넣기 전부출력하기
+인덱스 검색하기, 출력하기
+정렬해서 출력하기
+
+4. 멤버DTO
+사이즈
+list = new ArrayList<MemberDTO>(set);
+그중 id m005의 age를 출력
+정렬해서 출력하기
+
+5.[set 응용문제]
+1~45까지 들어있는 list 에서 랜덤으로 숫자를 빼서(remove이용)
+새로운 list를 만든다 size가 6이 되면 출력.
+
+[[ 문제 로또 ]]
+
+	public void lotto() {
+		Random rnd = new Random(System.currentTimeMillis());
+		Set<Integer> set = new HashSet<Integer>();
+		while(set.size() < SIZE) {	// set.size() 증감연산자 역할
+			long n=r.nextLong();
+			Random r2 = new Random(n);
+			int num = r2.nextInt(LATR - STATRT +1)+STATRT;
+			set.add(num);			// 추가가 되면 size()가 커진다
+		}
+		System.out.println(sum);
+		System.out.println(set);
+	}
+
+
+
+[[Map 연습문제]]
+1.key: String value: integer 의 Map 객체 선언
+-데이터의 입력 : 
+비밀번호 , 1234
+전화번호, 01012341234
+집전화번호,0212341234
+비밀번호, 5678
+비밀번호 출력
+집전화번호 삭제
+key값만 출력
+value값만 출력
+
+2.key: String value:List<Dog>
+key: 진돗개
+		(new Dog("d001", "누렁이", "진도인", 3));
+		(new Dog("d002", "백구", "진도인2", 4));
+key: 독일개
+		(new Dog("d003", "happy", "독일인1", 3));
+		(new Dog("d004", "타크", "독일인2", 2));
+-진돗개 전부 출력
+- 독일개 중 타크의 주인 이름만 출력
+
+[Map 응용문제]
+"파일명.확장자"를 입력했을 때 확장자를 비교해 map의 value값을 출력하라(대소문자 구별없이)
+txt ,png, jpg, avi, mp3 그외는 "시스템파일" 출력
+
+[[매일 연습문제, 회원관리 memberDTO]]
+GG + MMS1_me(컬렉션프레임워크 list적용) // 두개 한번씩 
+list.get(idx).execute(sc);
+GG의 체인지웨폰 if대신 예외처리로 변경
+GG. mms에 예외처리해야할 것 
+
+[[연습 문제]]
+추상화,추상클레스,추상메서드
+https://imasoftwareengineer.tistory.com/77
+
+[[연습문제]]
+GG / 프로젝트 
+영웅1, 무기3종류 각1개씩 총3개
+Bow Sword Gun
+파워 1, 5, 10
+그중 하나를 이용해 몬스터를 공격할수 있음
+영웅은 가지고 있는 무기 중에서 공격용 무기를 변경할 수 있다
+무기에 공격할수 있는기능
+ 필드 공격력
+ 공격 할 수 있는 메서드
++
+키보드 입력 받기
+몬스터 생성, 몬스터출력(피)
+무기배열 생성(3종 무기 생성)
+장착무기 지정
+히어로 생성
+종료조건
+메뉴변수
+무기변수
+루프~
+ 종료지정
+ 메뉴(공격, 종료, 무기변경)
+ 무기선택
+
+
+[[연습문제]] 11.05
+	// "    동해물과 백두산이 up 마르고 닳도록 하나님이 UP 보우하사 우리 나라만세!    "
+	// 좌우 공백 제거, 
+	// 마르고 닳도록 만 str1;
+	// 우리 나라만세 까지 str2;
+	// up과 UP을 strUp1,2로 저장하고 동등성 비교
+
+ 		ArrayList<String> list = new ArrayList();
+		// list.size(); 
+
+		StringTokenizer st = new StringTokenizer(msg, "#");
+		String[] arr = new String[st.countTokens()];
+		int i = 0;
+		while (st.hasMoreTokens()) {
+			arr[i++] = st.nextToken();
+		}
+
+ String APi
+ variabla args
+
+[[연습문제]] 11.04
+	// String 변수로 이름을 선언하고 #으로 구분한다
+	// String 배열에 split("#")으로 나눈 문자열 선언과 대입.
+	// Dog 배열을 선언(String배열의 크기(길이)만큼 생성), 
+	// Dog 배열의 각 요소의 name(dog 멤버변수)에 String배열의 각 요소를 대입
+	// (Dog 배열을 반환하여 각 요소출력 메서드)각 요소의 name을 출력
+
+	// 최종 값은 5 ~9 다음 0~9 0~9 순환되면서 배열에 들어감
+	// int형 3차원 arr3은 3X1X4크기
+
+	// arr3의 마지막 index의 요솟값의 1번째 요솟값 출력
+		
+	// 최종 값은 5 ~9 다음 0~9 0~9 순환되면서 배열에 들어감
+	// int형 2차원 배열 arr4는 5x3크기
+	
+	// arr4의 [2][1]의 요솟값을 100으로 수정 (가로~~세로~)
+
+	// arr4의 3번째 요소값의 최종 요솟값을 구하라.
+
+	// StringBuffer 사용 
+	// "태산이 높다하되 하늘아래 뫼이거늘 오르고 또 오르면 못 오를릴 없건마는 
+	// 사람이 제 아니 오르고 뫼만 높다 하더라
+
+	// equals로 참조자료형 비교
+	// String형 a1, a2 "a" 선언 
+	//참조자료형 String a3,a4 선언 eqauls로 비교 
+
+
+
+정보처리기사 실기 알고리즘
+
+https://edu.goorm.io/search?subject=java%20%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9&page=1&sort=newest
+실습코딩 인터넷강좌
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,102 @@
+
+ < 문자 Stream >
+2바이트씩 데이터를 전송
+
+Reader / Writer
+Character 기반 문자 스트림의 최상위 부모클래스
+
+FileReader / FileWriter
+문자 기반의 파일을 입출력 하는 클래스
+
+ < 보조 스트림 >
+"프로그램에서" 파일을 읽기/쓰기 할 수 있도록 해준다(기능을 부여)
+[ InputStream, OutpurStream ] & [ Reader, Writer ] - 최상위 부모( 홀로 객체 생성 불, 자료형으로 쓰임 )
+[ FileInputStream, FileOutStram] & [ FileReadet, FileWriter ] - 파일입출력 주 객체 바이트스트림 & 문자스트림
+는 "외부에서" 파일 읽기/쓰기를 수행
+
+BufferedInputStream / BufferedOutputStream (속도 향상)
+ 버퍼( byte[] )기능을  부여하는 보조스트림 (바이트스트림)
+
+BufferedReader(속도향상) / BufferedWriter-대신 PrintWriter
+- scanner처럼 사용, 스캐너 전신
+- 버퍼( char[] )기능을 부여 보조스트림 (문자스트림)
+- readLine을 사용
+ - 엔터를 기준으로 라인단위로 데이터 전송(아주 강력함)
+- 읽어오는 모든 값을 문자열로 인식
+- 숫자 등을 읽어와 사용하려면 Wrapper클래스를 사용
+
+PrintWriter
+- 주로 BufferedReader와 페어를 이루어 작성
+- flush()가 필요
+ - 버퍼가 다 채워지지 않았지만 남아있는 데이터를 모두 전송
+ - 입출력을 동시에 작성할 때, 채팅프로그램에서 주로 사용
+
+
+InputStreamReader / OutputStreamReader
+바이트 스트림과 문자 스트림을 연결
+인코딩 변환 가능
+
+ex)멀티미디어 파일의 데이터는 문자스트림을 사용할 수 없다.		
+	in = new FileInputStream("c:"+File.separator+"abc.txt"); //텍스트아님 멀티미디어임. 바이트스트림은 느리니까
+	isr= new InputStreamReader(in);			// 바이트-> 문자스트림으로 연결
+	br = new BufferedReader(isr);			// 버퍼기능을 달아준다. 문자스트림으로
+
+ex1) 구조화 하지 않은 코딩
+	public void me5() throws Exception {
+		//콘솔창에서 사용자의 입력을 Scanner를 이용해서 획득
+		//예전에는, 또 어떤 곳은 아직도 BuggeredReader를 이용
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+		//system.in - 표준입력장치, 키보드
+		
+		System.out.println("당신이 가장 좋아하는 숫자 하나를 입력하시오.");
+		
+		String sNum =br.readLine();	//모든 데이터를 스트링형으로 입력받는다
+		int num = Integer.parseInt(sNum);
+		
+		System.out.println("당신이 가장 싫어하는 숫자 하나를 입력하시오");
+		String sNum2=br.readLine();
+		int num2 = Integer.valueOf(sNum2);
+		
+		System.out.println("두 수의 합은 "+(num+num2));
+		
+		if(br != null) {
+			br.close(); 	//변수만 close()
+		}
+	}
+ex2) 구조화 코딩
+	public void me8() {
+		BufferedReader br = null;
+		InputStreamReader isr = null;
+		try {
+			isr = new InputStreamReader(System.in);
+			br = new BufferedReader(isr);
+			
+			System.out.println("숫자하나를 입력");
+			String s =br.readLine();
+			int n = Integer.parseInt(s);
+			
+			System.out.println("숫자 하나를 또 입력");
+			String s2=br.readLine();
+			int n2 = Integer.valueOf(s2);
+			
+			System.out.println("입력한 두수의 합:"+(n+n2));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (isr != null) {
+					isr.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+	}
+
+자바의 인코딩. 한번 읽어보기 https://st-lab.tistory.com/41

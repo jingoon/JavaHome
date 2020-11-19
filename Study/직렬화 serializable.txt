@@ -1,0 +1,102 @@
+
+ < 직렬화 >
+
+자바 직렬화란 자바 시스템 내부에서 사용되는 객체 또는 데이터를 외부의 자바 시스템에서도 사용할 수 있도록
+바이트(byte) 형태로 데이터 변환하는 기술과 바이트로 변환된 데이터를 다시 객체로 변환하는 기술
+- 참고 https://woowabros.github.io/experience/2017/10/17/java-serialize.html
+
+imlements serializable 구현
+~~~~~~UID = 1L // 직렬화 코드
+데이터저장을 위한 객체 DTO클래스는 직렬화 해야한다
+직렬화 코드가 같아야 저장과 출력시 같은 데이터를 얻을 수 있다
+
+직렬화 데이터에 쓰이는 Stream
+ObjectInputStream, ObjectOutStream
+writeobject()
+- 오브젝트를 출력, 쓴다, 전달한다
+readobject()
+- 오브젝트를 입력, 읽는다, 가져온다
+
+instanceof or get.class() 
+(자료형 = 클래스) 비교 후 형변환한다
+
+transient 
+변수 값을 초기화값으로 넘긴다.(외부유출 방지)
+
+ex)
+MemberDTO imlements serializable 
+	private transient String id;
+	private String name;
+	private int age;
+	public void me6() {
+		// 오브젝트인풋아웃풋 스트림
+		//DTO(데이터저장을 위한 클레스)
+	
+		MemberDTO dto = new MemberDTO("m001", "kim", 10);
+		// 데이터저장을 위한 객체 DTO클레스 직렬화해야함
+		//implements Serializable , UID값마다 직렬화 방법이 바뀐다
+		//UID값이 같아야 저장과 출력시 같은 데이터값을 얻을 수 있다.
+
+		OutputStream out = null;
+		ObjectOutputStream oos = null;
+
+		InputStream in = null;
+		ObjectInputStream ois = null;
+
+		try {
+			out = new FileOutputStream("obj.txt");// 텍스트 파일에 출력 스트림 객체
+			oos = new ObjectOutputStream(out);	// 텍스트파일에 데이터 출력 객체(보조스트림)
+
+			oos.writeObject(dto);				// dto 데이터를 텍스트에 출력한다
+			System.out.println(":::::::::::");
+
+			in = new FileInputStream("obj.txt"); // 텍스트에서 데이터 입력 객체
+			ois = new ObjectInputStream(in);	//(보조스트림)
+			Object obj = ois.readObject();		//텍스트에서 읽어온다
+
+			if (obj instanceof MemberDTO) {		//데이터의 형식 같은지 검사
+				MemberDTO mDTO = (MemberDTO) obj; // 가저온 오브젝트를 형변환한다
+				System.out.println(mDTO.getId()); // 각 데이터를 출력한다
+				System.out.println(mDTO.getAge());
+				System.out.println(mDTO.getName());
+			}
+/*
+		try {
+			
+			out = new FileOutputStream("obj2.txt");
+			oos = new ObjectOutputStream(out);
+			
+			oos.writeObject(dto);
+			
+			
+			in = new FileInputStream("obj2.txt");
+			ois = new ObjectInputStream(in);
+			Object mdto = ois.readObject();
+			if(mdto.getClass() == mdto.getClass()) {
+				MemberDTO mmdto = (MemberDTO) mdto;
+				System.out.println(mmdto.getAge());
+				System.out.println(mmdto.getId());
+				System.out.println(mmdto.getName());
+			}
+*/
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (oos != null) {
+					oos.close();
+				}
+				if (in != null) {
+					in.close();
+				}
+				if (ois != null) {
+					ois.close();
+				}
+				if (out != null) {
+					out.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}

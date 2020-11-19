@@ -1,0 +1,162 @@
+package kr.co.ezen;
+
+public class Dog {
+	private String name;
+	private int age;
+	
+	public Dog() {
+		name = "멍멍이";
+		age =23;
+	}
+	
+	public Dog(String name) {
+		this.name = name;
+	}
+	public Dog(int age) {
+		this.age = age;
+	}
+	public Dog(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+	public Dog(int age, String name) {
+		this.age= age;
+		this.name=name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+
+}
+------------------------
+package com.naver;
+
+import kr.co.ezen.Dog;
+
+public class DogRegistMenagementServise {
+	private Dog dog;
+	
+	public DogRegistMenagementServise() {
+	
+	}
+
+	
+	
+	public Dog getDog() {
+		return dog;
+	}
+
+
+
+	public void setDog(Dog dog) {
+		this.dog = dog;
+	}
+
+
+
+	public Dog makeDog(String name, int age) {
+		
+/*		Dog d = new Dog();
+		d.setName(name);
+		d.setAge(age);		
+		return d; 
+or */	
+		return new Dog(name, age);
+	}
+	
+}
+
+-------------------------------------------
+
+package kr.co.ezen;
+
+
+import com.naver.CarRegistManagementService;
+import com.naver.DogRegistMenagementServise;
+
+public class MainEx {
+	public static void main(String[] args) {
+		
+		CarRegistManagementService crms = new CarRegistManagementService();
+		
+		crms.setCarName("k7");
+		String carName = crms.getCarName();
+		System.out.println(carName);
+		
+		CarRegistManagementService crms2 = new CarRegistManagementService();
+		long result = crms2.add(2100000000, 2100000000);
+		System.out.println(result);
+		
+		DogRegistMenagementServise drms = new DogRegistMenagementServise();
+		Dog d1 = drms.makeDog("Happy", 3);
+		System.out.println(d1);
+		System.out.println(d1.getName());
+		System.out.println(d1.getAge());
+		System.out.println();
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------
+
+package com.naver;
+
+public class CarRegistManagementService {
+	private String carName;
+	
+	public CarRegistManagementService() {
+		carName = "소나타";
+	}
+	
+	//-----------------------------------------
+	//우클릭 소스 - 제너레이터 겟,셋, 체크
+	public String getCarName() {
+		return carName;
+	}
+
+	public void setCarName(String carName) {
+		this.carName = carName;
+	}
+
+	public int getCountCarName(String carName) {
+		
+		int size = carName.length();
+		
+		return size;
+	}
+	public long add(int a , int b) {
+		
+		long sum =(long) a + b;
+		return sum;
+	}
+	
+	
+
+}
+-------------------------
+
+dog, main = ezen
+service 2 = naver
