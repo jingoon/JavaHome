@@ -1,0 +1,97 @@
+[SQL문, sqlplus 명령어 연습문제]
+1. sql 객체 명령어 5개
+2. sql 데이터 명령어 6개
+3. 실습 코딩
+- 계정 sss 생성
+- sss에 권한부여 커넥트, 리소스, dba
+- sss로 로그인
+- 현재 계정 확인
+- 다시 원래계정으로 로그인
+- sss에 권한취소
+- sss계정 삭제
+- mem 테이블 생성(id, name, job, birth, num)
+- mem 확인
+(mem 테이블 데이터 입력)
+- id만 입력(m001)
+- name, job 만 입력(kim, a)
+- name, birth, num 만 입력(lee, 2020-11-21, 01)
+- 모든 칼럼 한번에 입력(m002, park, b, 2020-11-20, 2)
+- 테이블의 데이터 조회
+- 테이블의 입력 데이터 삭제(commit전 데이터 롤백)
+- mem 테이블 삭제
+
+-----------------------------------------------
+
+[SQL문, sqlplus 명령어 연습문제]
+
+1. sql 객체 명령어 5개
+생성 create
+수정 alter
+삭제 drop
+권한부여 grant
+권한회수 revoke
+
+2. sql 데이터 명령어 6개
+입력 insert
+조회 select
+수정 update
+삭제 delete
+확정 commit
+취소 rollback
+
+3. 실습 코딩
+
+- 계정 sss 생성
+SQL> create user sss identified by sss;
+
+- sss에 권한부여 커넥트, 리소스, dba
+SQL> grant connect, resource, dba to sss;
+
+- sss로 로그인
+SQL> conn sss/sss
+
+- 현재 계정 확인
+SQL> show user
+
+- 다시 원래계정으로 로그인
+SQL> conn home/home
+
+- sss에 권한취소
+SQL> revoke connect, resource, dba from sss;
+
+- sss계정 삭제
+SQL> drop user sss;
+
+- mem 테이블 생성(id, name, job, birth, num)
+SQL> create table mem(
+  2  id varchar2(6),
+  3  name varchar2(15),
+  4  job varchar2(3),
+  5  birth date,
+  6  num number
+  7  );
+
+- mem 확인
+SQL> desc mem
+
+(mem 테이블 데이터 입력)
+- id만 입력(m001)
+SQL> insert into mem (id) values ('m001');
+
+- name, job 만 입력(kim, a)
+SQL> insert into mem (name, job) values ('kim','a');
+
+- name, birth, num 만 입력(lee, 2020-11-21, 01)
+SQL> insert into mem (name, birth, num) values ('lee', '2020-11-21',01);
+
+- 모든 칼럼 한번에 입력(m002, park, b, 2020-11-20, 2)
+SQL> insert into mem values ('m002', 'park', 'b','2020-11-20', 2);
+
+- 테이블의 데이터 조회
+SQL> select *from mem;
+
+- 테이블의 입력 데이터 삭제(commit전 데이터 롤백)
+SQL> rollback;
+
+- mem 테이블 삭제
+SQL> drop table mem;

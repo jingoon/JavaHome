@@ -1,0 +1,31 @@
+
+< 이클립스에서 오라클 코딩 하기위한 설정 >
+
+클래스패스 확인
+-- 이클립스 프리퍼런시즈 -java - 빌드패스- 클래스패스- JRE_LIB 
+C:\Program Files\Java\jdk1.8.0_261\jre\lib
+
+C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+-ojdbc6.jar 복사
+
+클래스패스에 붙여넣기
+->C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext 
+
+CMD에서 작업한 내용을 이클립스에서 하려면 connection이 필요함
+-eclipse - 윈도우- 아더- 데이타매니지먼트- 데이터 소스익스플로러 추가
+
+데이터베이스 커넥션즈 우클릭 뉴 - 오라클선택 넥스트 - 뉴 드라이버 - 
+name 탭/ 오라클드라이버 11
+ jar탭/ 있는거 리므브 C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\ojdbc6.jar 
+프로퍼티스탭/ url/ server -> locakhost , db -> xe 변경 
+아이디/패스워드 입력 . 테스트 !
+
+elipse 실행 시 DB를 connect 한다.
+
+eclipse의 SQL resruts가 먹통일 때 
+window - new window
+
+- eclipse에서
+확장자명은 .sql
+실행
+명령어 뒤에 ; 을 쓰지 않고 블럭을 잡고 alt+x

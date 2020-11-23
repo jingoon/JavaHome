@@ -1,0 +1,143 @@
+
+SELECT
+조회, 선별해서 출력하기 
+
+culumn = 컬럼(목록), 레코드를 분류하는 기준
+row(행) = 레코드, 가로~, 칼럼내의 단 하나의 값
+
+테이블의 모든 레코드(WHERE 생략), 모든 컬럼(*) 값을 조회
+
+select * from test		// test는 table 이름
+
+테이블의 모든 레코드의 name 컬럼 값을 조회
+
+select name from test
+
+WHERE 
+조건절, 조건이 TRUE인 레코드의 컬럼값을 조회
+
+select * from test where mid = 'm005'
+select name from test where mid = 'm005'
+
+AS 
+alias 컬럼의 별칭
+
+select name as 이름 , age as 나이 from test
+select name 이름 , age 나이 from test ( as 생략 가능)
+
+
+DISTINCT
+중복된 컬럼 하나만 출력
+SELECT DISTINCT name FROM test
+
+DESC 
+내림차순 정렬
+SELECT age FROM test ORDER BY age DESC
+
+ASC
+오름차순 정렬
+SELECT age FROM test ORDER BY age ASC
+
+NUll인 값을 조건으로 조회 할 때
+= 대신 IS를 사용
+select * from test where mid IS NULL
+
+NULL이 아닌 값을 조건으로 조회 할 때 
+!= 대신 IS NOT을 사용
+select * from test where mid IS NOT NULL
+
+OR
+여러 조건 중 하나만 만족
+select * from test where age=20 or age=23 or age=40
+
+IN
+or의 중첩, a이거나 b이거나 c이거나 d이거나 ...
+IN( a, b, c ,b, ... ) == where a OR b OR c OR d OR ...
+select * from test where age in(20, 23, 40, 43, 61, 77)
+
+NOT IN
+모두 아닌 것. a도 b도 c도 d도 ... 모두 아닌 것
+NOT IN (a, b, c, d, ...) 
+select * from test where age not in(20, 23, 40, 43, 61, 77)
+
+AND 
+두 조건 모두 만족
+select * from test where name='kim' and age=33
+
+BETWEEN
+BETWEEN a AND b 
+a에서 b까지 포함하는 범위
+select * from test where age>=25 and age <=47
+==
+select * from test where age between 25 and 47
+
+
+LIKE
+~같이, 일부 문자만 입력하여 조회
+
+1) 일부 문자와 레코드의 자릿수를 알고 있을 때
+
+k로 시작하는 3자리의 name을 조회
+select * from test where name like 'k__'
+두번 째가 e인 5자리의 name을 조회
+select * from test where name like '_e___'
+두번 째가 e인 3자리의 name을 조회
+select * from test where name like '_e_'
+
+2) 일부 문자를 포함하는지 조회
+
+o로 끝나는 name를 조회
+select * from test where name like '%o'
+p가 들어가는 name을 조회
+select * from test where name like '%c%'
+
+rownum
+오라클의 row번호, 반드시 별칭을 명시
+
+테이블명 대신 select문 사용가능
+select *from
+(select rownum rrum, name, age from test)
+where rrum between 2 and 4
+
+
+원 select order by(정렬) 조건이 들어가면,
+별도의 select문을 이용하여 rownum 컬럼을 넣어줘야 함
+
+select * from(
+select rownum rrum, name, age from
+(select name, age from test order by age asc)
+)
+where rrum between 2 and 4
+
+
+ex)
+입력
+insert into test (name, age) values ('park',33)
+insert into test values ('kim', 25)
+insert into test (age) values ('lee')
+insert into test (name) values (55)
+
+수정
+update test set name ='park' where age='30'
+
+조회 
+select  distinct name from test 
+select name 이름, age 나이 from test 
+select * from test order by age asc
+select * from test order by age desc
+select * from test where name is null
+select * from test where age is not null
+select * from test where name = park or name =kim 
+select * from test where name in ('park', 'kim', 'lee')
+select * from test where age not in (25,55,33)
+select * from test where name = 'park' and age = 33
+select * from test where age between 25 and 47
+select * from test where name like '%c%'
+select * from (select rownum rrum, name, age from test) where rrum between 2 and 4
+select * from (select rownum rrum, name, age from (select name, age from test order by age asc))where rum between 2 and 4
+
+삭제
+delete from test where name is null
+
+
+

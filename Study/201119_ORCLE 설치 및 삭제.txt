@@ -1,0 +1,29 @@
+오라클 다운로드
+https://www.oracle.com/database/technologies/oracle-database-software-downloads.html 
+
+설치 버전
+Oracle Database 11g Release 2 Express Edition for Windows 64
+
+기억하기
+설치 비밀번호/ Port for 'Oracle Database Listener': 1521
+
+CMD를 종료할 때는 윈도우 창을 닫지 말고 exit 
+
+CMD를 exit 하지 않고 종료할 때 발생하는 오류
+ora-01033 orcle initialization or dhutdown in progress
+
+오류해결 타이핑
+sqlpls "/as sysdba"
+
+sql>
+recover datavase;
+alter database open;
+shutdown immediate;
+startup;
+
+오류해결이 안되면 삭제 후 재설치.
+
+remove가 안될 때 삭제 방법
+윈도우검색 - regedit - oracl 관련 파일 삭제 ora & ODBC
+내컴퓨터 속성- 고급시스템- path - 오라클path 삭제 
+c 오라클폴더 삭제

@@ -1,0 +1,171 @@
+20.11.20)027------------------------------------------------------------------------------------
+
+ cmd에서 로그인
+sqlplus system/sys1234
+
+오라클 설치 시 system과 sys 계정이 있다.
+
+오라클 계정생성
+계정을 생성할 때는 일정자격이 있는 계정에서 생성
+
+[ 오라클(sqlplus)의 명렁어 ]
+(sql문 아님) ; 안붙인다
+
+SHOW USER
+현재 사용 유저를 보여준다
+
+CONN 
+사용 유저를 변경
+ex) CONN userid/password
+
+DESC
+테이블과 자료형을 보여준다
+ex) DESC tablename
+--
+
+DB에서의 객체
+user, table, function, sequence, indexm trigger, procedure, ...
+
+DB에서 데이터는 객체가 아니다.
+
+객체의 명령어
+creat, alter, drop, ...
+
+데이터의 명령어
+insert, select, update, delete, ...
+
+객체를 생성, 수정 , 삭제 하는 SQL문
+데이터 정의 언어 (DDL : Data Definition Language)
+ create, alter, drop
+
+보안적인 요소를 담고 있는 SQL문
+데이터 제어 언어(DCL : Data Control Language)
+ grant, revoke
+
+트랜잭션을 제어하는 SQL문
+TCL(Transaction Control Language)
+- DCL(Data Control Language)의 일부
+commit, rollback
+
+데이터의 입력, 조회, 수정, 삭제 하는 SQL문
+데이터 조작 언어(Data Manipulation Language, DML)
+insert, select, update, delete
+
+*중요*--- SQL 명령어
+
+[ 객체의 명령어 ]
+
+* creat 생성 
+ex) CREATE USER ezen IDENTIFIED BY ezen;
+
+* alter 수정 
+ex)
+
+*drop 삭제 
+ ex) DROP USER ezen
+
+* grant 권한 부여 
+ex) GRANT CONNECT, RESOURCE, DBA TO ezen;
+
+* revoke 부여 취소 
+ex) REVOKE CONNET, RESOURCE, DBA FROM ezen;
+
+[ 데이터의 명령어 ]
+
+* insert 입력
+ex) INSERT INTO member (컬럼, ... , ...) VALUES ('데이터', ... , ...);
+
+* select 조회
+ex) SELECT * FROM member;
+
+* update 수정
+ex) UPDATE membert SET  mid = ('m005') WHERE mid=('M005');
+
+* delete 삭제
+ex) DELETE FROM member;
+
+* commit 확정
+
+* rollback 확정취소
+ex) ROLLBACK;
+
+sql문 입력 시 대소문자를 구분하지 않음
+
+데이터는 대소문자를 구분함
+
+숫자를 제외한 모든 자료형은 '작은 따옴표' 안에 입력
+
+[ 테이블 생성 ]
+
+ex)
+create table tbl_member(
+id varchar2(6),
+name varchar2(15),
+age number,
+jon varchar2(2),
+birth date
+);
+or
+create table member(mid varchar2(6), name varchar2(15), job varchar2(3), birth date);
+
+[ 테이블에 데이터 입력 ]
+ex)
+SQL> insert into member (mid) values ('m001');
+1 row created.
+SQL> insert into member (mid, name) values ('m002','kim');
+1 row created.
+SQL> insert into member (mid, name, job) values ('m003', 'lee','a');
+1 row created.
+SQL> insert into member (mid, name, job, birth) values ('m004', 'park','b', '2000-12-17');
+1 row created.
+SQL> insert into member values ('m005','kang','a','1990-10-03' );
+1 row created.
+SQL> update member set mid = 'M005' where mid = 'm005';
+SQL> update member set name = 'choi' where mid = 'm001';
+SQL> update member set job = 'b', birth = '1888-05-03' where mid = 'm001';
+SQL> update member set job='c', birth='1988-05-05' where mid='m002';
+commit;
+SQL> delete from member;
+SQL> rollback;
+SQL> delete from member where mid='m003';
+SQL> delete from member where name='park';
+SQL> rollback;
+SQL> delete from member where job = 'a';
+
+테이블 확인
+desc tbl_member
+
+테이블 삭제
+drop table member;
+
+테이블의 데이터 조회
+select * from member;
+
+테이블 데이터의 입력 초기화
+rollback;
+
+where의 = 은 > , < 같은 부등호도 가능
+
+[SQL문, sqlplus 명령어 연습문제]
+1. sql 객체 명령어 5개
+2. sql 데이터 명령어 6개
+3. 실습 코딩
+- 계정 sss 생성
+- sss에 권한부여 커넥트, 리소스, dba
+- sss로 로그인
+- 현재 계정 확인
+- 다시 원래계정으로 로그인
+- sss에 권한취소
+- sss계정 삭제
+- mem 테이블 생성(id, name, job, birth, num)
+- mem 확인
+(mem 테이블 데이터 입력)
+- id만 입력(m001)
+- name, job 만 입력(kim, a)
+- name, birth, num 만 입력(lee, 2020-11-21, 01)
+- 모든 칼럼 한번에 입력(m002, park, b, 2020-11-20, 2)
+- 테이블의 데이터 조회
+- 테이블의 입력 데이터 삭제(commit전 데이터 롤백)
+- mem 테이블 삭제
+
+029------------------------------------------------------------------------------------

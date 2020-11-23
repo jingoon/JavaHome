@@ -1,0 +1,475 @@
+오라클 다운로드
+https://www.oracle.com/database/technologies/oracle-database-software-downloads.html 
+
+설치 버전
+Oracle Database 11g Release 2 Express Edition for Windows 64
+
+기억하기
+설치 비밀번호/ Port for 'Oracle Database Listener': 1521
+
+CMD를 종료할 때는 윈도우 창을 닫지 말고 exit 
+
+CMD를 exit 하지 않고 종료할 때 발생하는 오류
+ora-01033 orcle initialization or dhutdown in progress
+
+오류해결 타이핑
+sqlpls "/as sysdba"
+
+sql>
+recover datavase;
+alter database open;
+shutdown immediate;
+startup;
+
+오류해결이 안되면 삭제 후 재설치.
+
+오라클 삭제
+remove가 안될 때 삭제 방법
+윈도우검색 - regedit - oracl 관련 파일 삭제 ora & ODBC
+내컴퓨터 속성- 고급시스템- path - 오라클path 삭제 
+c 오라클폴더 삭제
+
+20.11.20)027------------------------------------------------------------------------------------
+
+ cmd에서 로그인
+sqlplus system/sys1234
+
+오라클 설치 시 system과 sys 계정이 있다.
+
+오라클 계정생성
+계정을 생성할 때는 일정자격이 있는 계정에서 생성
+
+[ 오라클(sqlplus)의 명렁어 ]
+(sql문 아님) ; 안붙인다
+
+SHOW USER
+현재 사용 유저를 보여준다
+
+CONN 
+사용 유저를 변경
+ex) CONN userid/password
+
+DESC
+테이블과 자료형을 보여준다
+ex) DESC tablename
+--
+
+DB에서의 객체
+user, table, function, sequence, indexm trigger, procedure, ...
+
+DB에서 데이터는 객체가 아니다.
+
+객체의 명령어
+creat, alter, drop, ...
+
+데이터의 명령어
+insert, select, update, delete, ...
+
+객체를 생성, 수정 , 삭제 하는 SQL문
+데이터 정의 언어 (DDL : Data Definition Language)
+ create, alter, drop
+
+보안적인 요소를 담고 있는 SQL문
+데이터 제어 언어(DCL : Data Control Language)
+ grant, revoke
+
+트랜잭션을 제어하는 SQL문
+TCL(Transaction Control Language)
+- DCL(Data Control Language)의 일부
+commit, rollback
+
+데이터의 입력, 조회, 수정, 삭제 하는 SQL문
+데이터 조작 언어(Data Manipulation Language, DML)
+insert, select, update, delete
+
+*중요*--- SQL 명령어
+
+[ 객체의 명령어 ]
+
+* creat 생성 
+ex) CREATE USER ezen IDENTIFIED BY ezen;
+
+* alter 수정 
+ex)
+
+*drop 삭제 
+ ex) DROP USER ezen
+
+* grant 권한 부여 
+ex) GRANT CONNECT, RESOURCE, DBA TO ezen;
+
+* revoke 부여 취소 
+ex) REVOKE CONNET, RESOURCE, DBA FROM ezen;
+
+[ 데이터의 명령어 ]
+
+* insert 입력
+ex) INSERT INTO member (컬럼, ... , ...) VALUES ('데이터', ... , ...);
+
+* select 조회
+ex) SELECT * FROM member;
+
+* update 수정
+
+* delete 삭제
+
+* commit 확정
+
+* rollback 확정취소
+ex) ROLLBACK;
+
+sql문 입력 시 대소문자를 구분하지 않음
+
+데이터는 대소문자를 구분함
+
+숫자를 제외한 모든 자료형은 '작은 따옴표' 안에 입력
+
+[ 테이블 생성 ]
+
+ex)
+create table tbl_member(
+id varchar2(6),
+name varchar2(15),
+age number,
+jon varchar2(2),
+birth date
+);
+or
+create table member(mid varchar2(6), name varchar2(15), job varchar2(3), birth date);
+
+[ 테이블에 데이터 입력 ]
+ex)
+SQL> insert into member (mid) values ('m001');
+1 row created.
+SQL> insert into member (mid, name) values ('m002','kim');
+1 row created.
+SQL> insert into member (mid, name, job) values ('m003', 'lee','a');
+1 row created.
+SQL> insert into member (mid, name, job, birth) values ('m004', 'park','b', '2000-12-17');
+1 row created.
+SQL> insert into member values ('m005','kang','a','1990-10-03' );
+1 row created.
+
+테이블 확인
+desc tbl_member
+
+테이블 삭제
+drop table member;
+
+테이블의 데이터 조회
+select * from member;
+
+테이블 데이터의 입력 초기화
+rollback;
+
+[SQL문, sqlplus 명령어 연습문제]
+1. sql 객체 명령어 5개
+2. sql 데이터 명령어 6개
+3. 실습 코딩
+- 계정 sss 생성
+- sss에 권한부여 커넥트, 리소스, dba
+- sss로 로그인
+- 현재 계정 확인
+- 다시 원래계정으로 로그인
+- sss에 권한취소
+- sss계정 삭제
+- mem 테이블 생성(id, name, job, birth, num)
+- mem 확인
+(mem 테이블 데이터 입력)
+- id만 입력(m001)
+- name, job 만 입력(kim, a)
+- name, birth, num 만 입력(lee, 2020-11-21, 01)
+- 모든 칼럼 한번에 입력(m002, park, b, 2020-11-20, 2)
+- 테이블의 데이터 조회
+- 테이블의 입력 데이터 삭제(commit전 데이터 롤백)
+- mem 테이블 삭제
+
+
+20.11.23)029------------------------------------------------------------------------------------
+column= 컬럼(목록), 레코드를 분류하는 기준
+record(row) = 레코드(행), 칼럼 내의 단 하나의 값
+
+UPDATE 
+UPDATE member SET 칼럼='레코드' WHERE  컬럼='레코드';
+		   (이렇게 수정)		(변경하고 싶은 녀석)	    			
+mid 'm005'인 레코드를 mid='M005" 업데이트
+SQL> update member set mid = 'M005' where mid = 'm005';
+
+ mid 값이 m001인 레코드만 name을 choi로 수정
+SQL> update member set name = 'choi' where mid = 'm001';
+UPDATE member SET name = 'choi' WHERE mid = 'm001';
+
+ mid 값이 m001인 레코드만 job은 b로 birth는 1888-5-3으로로 수정
+SQL> update member set job = 'b', birth = '1888-05-03' where mid = 'm001';
+
+ mid 값이 m002인 레코드만 job은 c로 birth는 1988-5-5으로로 수정
+SQL> update member set job='c', birth='1988-05-05' where mid='m002';
+
+commit; 확정
+
+where의 = 은 > , < 같은 부등호도 가능 // 숫자가 아닌 레코드의 부등호는 무엇을 비교하나?
+
+DELETE
+
+member 레코드 전부 삭제
+SQL> delete from member;
+
+rollback;
+(commit 한 작업으로)
+
+mid가 m003인 레코드 삭제
+SQL> delete from member where mid='m003';
+
+name이 park인 레코드 삭제
+SQL> delete from member where name='park';
+
+rollback;
+
+job이 a인 레코드 삭제
+SQL> delete from member where job = 'a';
+
+< 이클립스에서 오라클 SQL 코딩 하기위한 설정 >
+
+클래스패스 확인
+-- 이클립스 프리퍼런시즈 -java - 빌드패스- 클래스패스- JRE_LIB 
+C:\Program Files\Java\jdk1.8.0_261\jre\lib
+
+C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+-ojdbc6.jar 복사
+
+클래스패스에 붙여넣기
+->C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext 
+
+CMD에서 작업한 내용을 이클립스에서 하려면 connection이 필요함
+-eclipse - 윈도우- 아더- 데이타매니지먼트- 데이터 소스익스플로러 추가
+
+데이터베이스 커넥션즈 우클릭 뉴 - 오라클선택 넥스트 - 뉴 드라이버 - 
+name 탭/ 오라클드라이버 11
+ jar탭/ 있는거 리므브 C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext\ojdbc6.jar 
+프로퍼티스탭/ url/ server -> locakhost , db -> xe 변경 
+아이디/패스워드 입력 . 테스트 !
+
+elipse 실행 시 DB를 connect 한다.
+
+eclipse의 SQL resruts가 먹통일 때 
+window - new window
+
+- eclipse에서
+확장자명은 .sql
+실행
+명령어 뒤에 ; 을 쓰지 않고 블럭을 잡고 alt+x
+
+create table test(
+name varchar2(3),
+age number(3)
+)
+
+test 테이블에 다음 값들을 입력하세요.
+kim 20,lee 40, park 50,cho 23
+
+insert into test values ('kim', 20)
+insert into test values ('lee', 40)
+insert into test values ('park', 50)
+insert into test values ('cho', 23)
+commit
+
+test 테이블의 모든 레코드(where 생략)의 모든 컬럼(*)값을 조회
+select *from test
+
+test 테이블의 모든 레코드의 name 컬럼값을 조회
+select name from test
+
+test 테이블의 모든 레코드의 age 컬럼값을 조회
+select age from test
+
+AS (ALIAS 컬럼의 별칭)
+select name as 이름, age as 나이 from test
+select name 이름, age 나이 from test
+ 
+DISTINCT
+중복된 컬럼 하나만 출력
+SELECT DISTINCT name FROM test
+
+DESC 
+내림차순 정렬
+SELECT age FROM test ORDER BY age DESC
+select age 나이 from test order by 나이 desc
+
+ASC
+오름차순 정렬
+SELECT age FROM test ORDER BY age ASC
+
+NUll인 값을 조건으로 조회 할 때
+= 대신 IS를 사용
+select * from test where mid IS NULL
+
+NULL이 아닌 값을 조건으로 조회 할 때 
+!= 대신 IS NOT을 사용
+select * from test where mid IS NOT NULL
+
+OR
+여러 조건 중 하나만 만족
+select * from test where age=20 or age=23 or age=40
+
+IN
+or의 중첩, a이거나 b이거나 c이거나 d이거나 ...
+IN( a, b, c ,b, ... ) == where a OR b OR c OR d OR ...
+select * from test where age in(20, 23, 40, 43, 61, 77)
+
+NOT IN
+모두 아닌 것. a도 b도 c도 d도 ... 모두 아닌 것
+NOT IN (a, b, c, d, ...) 
+select * from test where age not in(20, 23, 40, 43, 61, 77)
+
+AND 
+두 조건 모두 만족
+select * from test where name='kim' and age=33
+
+BETWEEN
+BETWEEN a AND b 
+a에서 b까지 포함하는 범위
+select * from test where age>=25 and age <=47
+==
+select * from test where age between 25 and 47
+
+LIKE
+~같이, 일부 문자만 입력하여 조회
+
+test 테이블의 모든 레코드를 모든 컬럼이 포함되게 조회하되 
+이름을 기준으로 내림차순으로 정렬하시오 
+만약 이름이 같으면 나이가 많은 사람이 우선이 되도록 정렬하싱오
+select * from test order by name desc, age desc
+
+null인 값을 조건으로 조회 할 때
+ = 대신 is를 사용
+
+null이 아닌 값을 조건으로 조회 할 때
+ != 대신 is not을 사용
+
+name이 kim인 레코드 조회
+select * from test  where name ='kim'
+
+name이 kim이 아닌 레코드 조회 
+select * from test where name !='kim'
+
+insert into test (age) values (55)
+insert into test (name) values ('pyo')
+commit
+
+select * from test
+
+name이 null인 레코드 정보를 조회
+단, 컬럼은 name만 있음
+select name 이름, age 나이 from test where name is null
+
+name이 null이 아닌 레코드 정보를 조회
+단, 레코드에 대한 정렬은 age가 증가되게 정렬하고,
+만약 age가 같으면 name을 내림차순으로 정렬
+select * from test where name is not null order by age asc, name desc
+
+age가 55인 레코드 조회
+select * from test where age = 55
+
+age가 55가 아닌 레코드 조회
+select * from test where age != 55
+
+age가 null인 레코드 조회
+select * from test where age is null
+
+null이 아닌 레코드를 조회하시오
+select * from test where age is not null
+
+age가 33보다 큰 레코드 조회
+select * from test where age >33
+
+age가 33보다 크거나 같은 레코드 조회
+select * from test where age >=33
+
+age가 20이거나 23이거나 40인 레코드를 조회
+select * from test where age=20 or age=23 or age=40
+
+age가 20이거나 23이거나 40이거나 43이거나 61이거나 77인 레코드를 조회
+select * from test where age in(20, 23, 40, 43, 61, 77)
+
+age가 20이거나 23이거나 40이거나 43이거나 61이거나 77인 레코드가 아닌 레코드를 조회
+select * from test where age not in(20, 23, 40, 43, 61, 77)
+
+name이 kim이고 age가 33인 레코드 조회
+select * from test where name='kim' and age=33
+
+age가 25보다 크고 47보다 작은 레코드를 조회
+select * from test where age>25 and age<47
+
+age가 25보다 크거나 같고 age가 47보다 작거나 같은 레코드를 조회
+select * from test where age>=25 and age <=47
+==
+select * from test where age between 25 and 47
+age between A and B (age가 A에서 B까지 포함하는 범위 조회)
+
+LIKE
+~같이, 일부 문자만 입력하여 조회
+
+1) 일부 문자와 레코드의 자릿수를 알고 있을 때
+
+k로 시작하는 3자리의 name을 조회
+select * from test where name like 'k__'
+두번 째가 e인 5자리의 name을 조회
+select * from test where name like '_e___'
+두번 째가 e인 3자리의 name을 조회
+select * from test where name like '_e_'
+
+2) 일부 문자를 포함하는지 조회
+
+o로 끝나는 name를 조회
+select * from test where name like '%o'
+p가 들어가는 name을 조회
+select * from test where name like '%c%'
+
+rownum
+오라클의 row번호, 반드시 별칭을 명시
+select *from
+(select rownum rrum, name, age from test)
+where rrum between 2 and 4
+
+원 select order by(정렬) 조건이 들어가면,
+별도의 select문을 이용하여 rownum 컬럼을 넣어줘야 함
+
+select * from(
+select rownum rrum, name, age from
+(select name, age from test order by age asc)
+)
+where rrum between 2 and 4
+
+JDBC 
+Java와 DB를 연결시켜주는 프로그램
+
+ex)
+입력
+insert into test (name, age) values ('park',33)
+insert into test values ('kim', 25)
+insert into test (age) values ('lee')
+insert into test (name) values (55)
+
+수정
+update test set name ='park' where age='30'
+
+조회 
+select  distinct name from test 
+select name 이름, age 나이 from test 
+select * from test order by age asc
+select * from test order by age desc
+select * from test where name is null
+select * from test where age is not null
+select * from test where name = park or name =kim 
+select * from test where name in ('park', 'kim', 'lee')
+select * from test where age not in (25,55,33)
+select * from test where name = 'park' and age = 33
+select * from test where age between 25 and 47
+select * from test where name like '%c%'
+select * from (select rownum rrum, name, age from test) where rrum between 2 and 4
+select * from (select rownum rrum, name, age from (select name, age from test order by age asc))where rum between 2 and 4
+
+삭제
+delete from test where name is null
+
+
