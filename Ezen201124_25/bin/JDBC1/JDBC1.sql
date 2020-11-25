@@ -1,0 +1,37 @@
+// 외래키 설정 연습 테이블 만들기
+create table menu(
+name varchar2(15) primary key,
+price number
+)
+
+insert into menu values ('불고기', 15000)
+insert into menu values ('제육볶음', 20000)
+insert into menu values ('닭도리탕', 25000)
+insert into menu values ('삼계탕', 15000)
+
+select * from MENU
+
+create table orderm(
+tablenum number(2),
+name varchar2(15),
+constraint pk_orderm_tablenum primary key(tablenum)
+)
+
+alter table orderm add constraint fk_orderm_name foreign key(name) references menu(name)
+
+insert into orderm values (01, '불고기')
+insert into orderm values (02, '제육볶음')
+insert into orderm values (04, '삼계탕')
+insert into orderm (tablenum) values (05)
+왜래키 null 가능
+insert into orderm values (06, '삼계탕')
+왜래키 중복가능 
+
+insert into orderm values (06, '닭도리탕')
+기본키 걸려서 안들어감
+insert into orderm values (07, '피자')
+외래키 걸려서 안들어감
+
+select * from orderm
+
+select* from member
