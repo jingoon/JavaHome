@@ -128,10 +128,10 @@ sql문 입력 시 대소문자를 구분하지 않음
 
 ex)
 create table tbl_member(
-id varchar2(6),
+mid varchar2(6),
 name varchar2(15),
 age number,
-jon varchar2(2),
+job varchar2(2),
 birth date
 );
 or
@@ -605,23 +605,6 @@ insert into orderm values (07, '피자')
 
 select * from orderm
 
-
-[문제]
-id 값을 기본키로 설정(alter constraint)
-기본키 설정 3가지 방법
-외래키 설정 연습 테이블 만들기
--menu의 기본키 설정
--orderm의 외래키설정, 기본키 설정
-- 부모테이블 menu 생성
-('불고기', 15000)
-('제육볶음', 20000)
-('닭도리탕', 25000)
-('삼계탕', 15000)
-- 자식테이블 orderm 생성
--왜래키를 중복해서 입력
--왜래키에 null 
--기본키 중복해서 입력(입력안됨확인)
--왜래키 이외의 값 입력(입력안됨확인)
 ----
 
 자바 메소드로 
@@ -629,54 +612,9 @@ DB에 접근하기(insert, delete, update, select)
 select는 executeQuery 제외하고 나머지는 executeUpdate
 DAO클래스는 DB테이블당 하나씩 만든다.
 DTO클래스의 멤버 필드는 DB테이블의 컬럼과 연결된다.
-DAO클래스의 생성자에 full package(패키지.클래스명)로 오라클 드라이버(jdbc연결)
 
-jdbc는 자바프로그램과 오라클 DB를 연결 
-
-insert 
-values (?,?,?,?,...) 인덱스가 1부터 시작한다.
-ex) pst.setString(1, "m006"); //인덱스와 입력값
-
-Connection 과 PreparedStatement 는 메서드가 끝나기전에 수동으로 닫아준다.
-(자바앱 - pst  -  Connection - DriverManager - DATEBASE                 ,Stream에서 처럼 pst를 먼저 close())
-(배고파 - 주문 - 인터넷(연결) - 배달앱                  - 각 매장)
-그러기 위해서 try~catch 구문 밖에 초기화 값으로 선언한다
-
-DB는 Date.sql
-claender는 date.util
-getTimeMillis() , getTime()로 형변환
-(java.sql)Date birth = list.get(i).getBirth();
-java.util.Date bi = new java.util.Date(birth.getTime());
-
-select
-executeQuery() 를 쓴다.
-(cud 는 executeUpdate or execute(반환값이 햇갈린다))
-
-CRUD( create, Read, Update, Delete)
-- insert, select, update, delete 이다 .(isud로 하지? 그냥 암기)
-- 대충 한국말로 생성, 읽기, 수정, 삭제
-
-executeUpdate()
-전달에 성공 갯수를 int형으로 반환(실패 0, 성공 1이상)
-- CD는 -1 반환
-​
-execute()
-boolean값을 반환하는데 반환조건이 특정 값에 따른다.
-
-참고 링크
-[JAVA] Execute, ExecuteQuery, ExecuteUpdate 차이점 알아보기
-Execute 1. 수행결과로 Boolean 타입의 값을 반환합니다. 2. 모든 구문을 수행할 수 있습니다. execute 함수를 사용하는 방법입니다. -> 리턴값이 ResultSet 일 경우에는 true, 이 외의 경우에는 false 로 출력됩..
-mozi.tistory.com
-​
-next()
-반복문이나 조건문에서 객체의 값의 유무를 확인할 수 있다.
-if(rs.next()){}
-while(rs.next()){}
-​
-Date birth=rs.getDate("birth"); 별칭이 있을 때 컬럼명이 아닌 별칭으로 작성
-Date birth=rs.getDate("생일"); 
 public class Test {	// DAO클래스 이다
-	
+	// 생성자. main클래스에서 T1객체를 만들 때 한번 실행 되면서 오라클 드라이버가 DB와 연결됨
 	// full package: 패키지.클래스명
 	// kr.co.ezen.Test
 	private final String DRIVER_NAME = "oracle.jdbc.OracleDriver";
@@ -684,13 +622,10 @@ public class Test {	// DAO클래스 이다
 	private final String USER = "ezen";
 	private final String PASS	= "ezen";
 	
-	public Test() {
-// 생성자. main클래스에서 T1객체를 만들 때 한번 실행 되면서 오라클 드라이버가 DB와 연결됨
-		//full package: 패키지.클래스명
-		//kr.co.ezen.Test
+	public MemberDAO() {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
-			System.out.println("드라이버 로딩 성공");
+			System.out.println("드라이버 로딩성공");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
 			e.printStackTrace();
@@ -708,7 +643,7 @@ public class Test {	// DAO클래스 이다
 			pstmt = conn.prepareStatement(sql);
 			System.out.println("prepareStatement 생성 성공");
 			
-			pstmt.setString(1, "m006"); //인덱스와 입력값
+			pstmt.setString(1, "m006");
 			pstmt.setString(2, "kim");
 			pstmt.setString(3, "c");
 			pstmt.setDate(4, new Date(Calendar.getInstance().getTimeInMillis()));// long타입 파라미터로 수정값을 넣을 수 있다.
@@ -827,168 +762,43 @@ public class MemberDAO {
 	}
 }
 
-201125)031--------------------------------------------------------------------------------------
 
-	public void update(MemberDTO dto) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		String sql = "Update member set name=?,job=?,birth=? where mid=?"; // ? 순서대로index 1,2,3,4
-		
-		try {
-			
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", USER, PASS);
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, dto.getName());
-			pstmt.setString(2, dto.getJob());
-			pstmt.setDate(3, dto.getBirth());
-			pstmt.setString(4,	dto.getMid());
-			
-			pstmt.executeUpdate();
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-	}
-
-main에서
-
-MemberDTO odto= dao2.selectbymid("m005"); // 기존 데이터 가져오기
-MemberDTO dto = new MemberDTO("m005", "lee", odto.getJob(), odto.getBirth()); // 수정 하지 않을 값은 기존데이터로 입력
-dao2.update(dto);
-
-selectBymid
-
-	public MemberDTO selectBymid(String mid) {
-		MemberDTO dto = null;
-		
-		Connection conn = null;
-		PreparedStatement pstmt= null;
-		String sql = "select * from member where mid=?";
-		ResultSet rs = null;
-		
-		try {
-			conn = DriverManager.getConnection(URL, USER, PASS);
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mid);
-			
-			rs = pstmt.executeQuery(); // rs에 저장된 데이터는 최대 1개, 조건문사용 
-			
-			if (rs.next()) { // rs에 데이터가 있나?
-				String job =rs.getString("job") ;// Label은 별칭, 컬럼명은 별칭을 대신함
-				String name =rs.getString("name") ;
-				Date birth= rs.getDate("birth");
-				
-				dto= new MemberDTO(mid, name, job, birth);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		
-		return dto;
-	}
-
-	public List<MemberDTO> select() {
-		List<MemberDTO> list = new ArrayList<MemberDTO>();
-		Connection conn =null;
-		PreparedStatement pst = null;
-		String sql = "select * from member";
-		ResultSet rs=null;
-		try {
-			conn = DriverManager.getConnection(URL, USER, PASS);
-			pst = conn.prepareStatement(sql);
-			
-			rs=pst.executeQuery();
-			while(rs.next()) {
-				String id=rs.getString("mid");
-				String name=rs.getString("name");
-				String job=rs.getString("job");
-				Date birth = rs.getDate("birth");
-				MemberDTO dto = new MemberDTO(mid, name, job, birth);
-				list.add(dto);
-			}
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		
-		return list;
-	}
-[[ 연습 문제 ]]
-JDBC
-CRUD 각 메서드 생성
-
-
-java.sql.SQLException: 부적합한 열 이름
-Date birth=rs.getDate("birth"); 별칭이 있을 때 컬럼명이 아닌 별칭으로 작성
-Date birth=rs.getDate("생일"); 
-
+[문제]
+id 값을 기본키로 설정(alter constraint)
+기본키 설정 3가지 방법
+외래키 설정 연습 테이블 만들기
+-menu의 기본키 설정
+-orderm의 외래키설정, 기본키 설정
+- 부모테이블 menu 생성
+('불고기', 15000)
+('제육볶음', 20000)
+('닭도리탕', 25000)
+('삼계탕', 15000)
+- 자식테이블 orderm 생성
+-왜래키를 중복해서 입력
+-왜래키에 null 
+-기본키 중복해서 입력(입력안됨확인)
+-왜래키 이외의 값 입력(입력안됨확인)
+--
 insert() 만들기
 DB테이블에 입력하기
 delete() 만들기
 DB테이블 레코드 삭제하기
+------
+
+PrepearedStatement
+- 
 
 pstmt.execute(); 전달 값이 입력이 안되면 발생
 java.sql.SQLException: 인덱스에서 누락된 IN 또는 OUT 매개변수:: 1
 
-jdbc_me 확인
-
-aicd
-트랜젝션
-하나의 사건이 발생했는데 cud(입력, 수정, 삭제)가 복합적으로 일어나는 상황
-(조회가 빠짐. DB에 직접적으로 연결되어 DB의 데이터에 영향을 주는 상황에서 발생)
-select는 데이터를 출력할 뿐이라서 DB에 영향은 주지 않는다
-트랜젝션 처리
-다 성공시 commit
-하나라도 실패시 rollback
-
-커넥션과 연결됨. 연결되고 바로 오토 커밋을 수동커밋으로
-트랜젝션 처리는 finally에서
 
 
--------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
 

@@ -1,0 +1,35 @@
+ CONSTRAINT
+제약 조건
+
+ primary key
+기본키, 주키, pk
+컬럼 하나만을 이용해서 특정 레코드 하나만을 조회
+NULL불가 , 중복 불가
+
+Primary key 제약조건
+1)  unique constraint(유니크 제약조건)
+기본키에 대한 중복을 불허
+
+2) NOT NULL constraint
+기본키에 대해 NULL 입력 불가
+
+Primary key 설정 방법
+1) Table 생성 후 수정 시
+	Create table test(
+	Id varchar2(3) primary key,
+	)
+	Alter table test add comstraint pk_test_id primary key(id)
+	
+2) Table 생성 시  명시
+	Create table test(
+	Id varchar2(3) primary key,
+	)
+	
+3) Table 생성 시 추가
+	Create table test(
+	Id varchar2(3),
+	Constraint pk_test_id primary key(id)
+	)
+
+
+

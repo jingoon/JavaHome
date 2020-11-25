@@ -1,0 +1,68 @@
+CONSTRAINT
+
+제약 조건
+
+​
+
+foreign 
+
+외래키, fk
+
+허용된 데이터(부모테이블의 기본키 레코드) 만 입력 가능
+
+null 허용, 중복 허용
+
+integrity constraint (참조 무결성 제약조건)
+
+​
+
+외래키 설정 순서
+
+1. 부모테이블의 생성과 기본키 설정
+
+2. 부모테이블의 기본키 설정
+
+create table manu(
+name varchar2(15) primary key,
+price number
+)
+3. 부모테이블의 데이터 추가
+
+insert into manu values ('불고기', 15000)
+insert into manu values ('제육볶음', 20000)
+insert into manu values ('닭도리탕', 25000)
+insert into manu values ('삼계탕', 15000)
+4. 자식테이블 생성
+
+create table orderm(
+tablenum number(2),
+name varchar2(15),
+constraint pk_orderm_tablenum primary key(tablenum)
+)
+5. 자식테이블 외래키 설정(부모테이블의 기본키 참조)
+
+alter table orderm add constraint fk_orderm_name foreign key(name) references manu(name)
+​
+
+ex) 외래키 설정 시
+
+insert into orderm values (01, '불고기')
+insert into orderm values (02, '제육볶음')
+insert into orderm values (04, '삼계탕')
+insert into orderm (tablenum) values (05)
+왜래키 null 가능
+insert into orderm values (06, '삼계탕')
+왜래키 중복가능 
+
+insert into orderm values (06, '닭도리탕')
+기본키 걸려서 안들어감
+insert into orderm values (07, '피자')
+외래키 걸려서 안들어감
+ TABLENUM NAME
+ -------- ----
+        1 불고기
+        2 제육볶음
+        4 삼계탕
+        5 NULL
+        6 삼계탕
+menu 외에는 table에서 주문 불가능, 안시키는건 가능, 앞 테이블꺼 똑같이 시키는거 가능

@@ -1,0 +1,411 @@
+자바 코딩으로 DB에 접속하기
+
+insert, delete , update, select
+
+DAO클래스는 DB테이블당 하나씩 만든다.
+
+DTO클래스의 멤버필드는 DB테이블의 컬럼과 연결
+
+​
+
+DAO클래스의 생성자에 full package(패키지.클래스명)로 오라클 드라이버(jdbc연결)
+
+​
+
+jdbc는 자바프로그램과 오라클 DB를 연결 
+
+​
+
+insert 
+
+values (?,?,?,?,...) 인덱스가 1부터 시작한다.
+
+ex) pst.setString(1, "m006"); //인덱스와 입력값
+
+​
+
+Connection 과 PreparedStatement 는 메서드가 끝나기전에 수동으로 닫아준다.
+
+(자바앱 - pst  -  Connection - DriverManager - DATEBASE                 ,Stream에서 처럼 pst를 먼저 close())
+
+(배고파 - 주문 - 인터넷(연결) - 배달앱                  - 각 매장)
+
+그러기 위해서 try~catch 구문 밖에 초기화 값으로 선언한다
+
+​
+
+DB는 Date.sql
+
+claender는 date.util
+
+getTimeMillis() , getTime()로 형변환
+
+(java.sql)Date birth = list.get(i).getBirth();
+
+java.util.Date bi = new java.util.Date(birth.getTime());
+
+​
+
+select
+
+executeQuery() 를 쓴다.
+
+(cud 는 executeUpdate or execute(반환값이 햇갈린다))
+
+​
+
+CRUD( create, Read, Update, Delete)
+
+- insert, select, update, delete 이다 .(isud로 하지? 그냥 암기)
+
+- 대충 한국말로 생성, 읽기, 수정, 삭제
+
+​
+
+executeUpdate()
+
+전달에 성공 갯수를 int형으로 반환(실패 0, 성공 1이상)
+
+- CD는 -1 반환
+
+​
+
+execute()
+
+boolean값을 반환하는데 반환조건이 특정 값에 따른다.
+
+​
+
+참고 링크
+
+ 
+[JAVA] Execute, ExecuteQuery, ExecuteUpdate 차이점 알아보기
+Execute 1. 수행결과로 Boolean 타입의 값을 반환합니다. 2. 모든 구문을 수행할 수 있습니다. execute 함수를 사용하는 방법입니다. -> 리턴값이 ResultSet 일 경우에는 true, 이 외의 경우에는 false 로 출력됩..
+
+mozi.tistory.com
+
+​
+
+next()
+
+반복문이나 조건문에서 객체의 값의 유무를 확인할 수 있다.
+
+if(rs.next()){}
+
+while(rs.next()){}
+
+​
+
+Date birth=rs.getDate("birth"); 별칭이 있을 때 컬럼명이 아닌 별칭으로 작성
+
+Date birth=rs.getDate("생일"); 
+
+​
+
+public class Test {	// DAO클래스 이다
+	
+	// full package: 패키지.클래스명
+	// kr.co.ezen.Test
+	private final String DRIVER_NAME = "oracle.jdbc.OracleDriver";
+	private final String URL ="jdbc:oracle:thin:@localhost:1521:xe";
+	private final String USER = "ezen";
+	private final String PASS	= "ezen";
+	
+	public Test() {
+// 생성자. main클래스에서 T1객체를 만들 때 한번 실행 되면서 오라클 드라이버가 DB와 연결됨
+		//full package: 패키지.클래스명
+		//kr.co.ezen.Test
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			System.out.println("드라이버 로딩 성공");
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패");
+			e.printStackTrace();
+		}
+	}
+	public void me1() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+//		String sql = "INSERT INTO member(mid, name, job, birth) values ('m005','kim', 'd', '2000-01-03')"; //  pstmt.setString과 대응 됨
+		String sql = "INSERT INTO member(mid, name, job, birth) values (?, ?, ?, ?)"; //파라미터로 받는 데이터는 ? 동적인것 , 인덱스 1,2,3,4
+		try {
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "ezen", "ezen");
+			System.out.println("커넥션 연결 성공");
+			
+			pstmt = conn.prepareStatement(sql);
+			System.out.println("prepareStatement 생성 성공");
+			
+			pstmt.setString(1, "m006"); //인덱스와 입력값
+			pstmt.setString(2, "kim");
+			pstmt.setString(3, "c");
+			pstmt.setDate(4, new Date(Calendar.getInstance().getTimeInMillis()));// long타입 파라미터로 수정값을 넣을 수 있다.
+			pstmt.execute(); // DB or driver에게 데이터(.setString( , ) 값)를 전달.
+			
+		} catch (Exception e) {
+			System.out.println("커넥션 연결 실패");
+			System.out.println("prepareStatement 생성 실패");
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();// conn보다 먼저 닫기
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+}
+DAO insert
+
+public class MemberDAO {
+	
+	private final String DRIVER_NAME = "oracle.jdbc.OracleDriver";
+	private final String URL ="jdbc:oracle:thin:@localhost:1521:xe";
+	private final String USER = "ezen";
+	private final String PASS	= "ezen";
+	
+	public MemberDAO() {
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			System.out.println("드라이버 로딩성공");
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패");
+			e.printStackTrace();
+		}
+	}
+		
+	public void insert(MemberDTO dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO member(mid, name, job, birth) values (?, ?, ?, ?)";
+		
+		try {
+			
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", USER, PASS);
+			System.out.println("insert 연결 성공");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getMid());
+			pstmt.setString(2, dto.getName());
+			pstmt.setString(3, dto.getJob());
+			pstmt.setDate(4, dto.getBirth());
+		
+			int insert	= pstmt.executeUpdate(); //select메소드는 executQuery() 사용
+			if(insert ==1) {
+				System.out.println("입력 성공");
+			}else {
+				System.out.println("입력 실패");
+			}
+			
+		} catch (Exception e) {
+			System.out.println("insert 연결 실패");
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();					
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+			e2.printStackTrace();
+			}
+		}
+		
+	}
+​
+
+​
+
+DAO delete
+
+public void delete(MemberDTO dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "delete from member where mid=?";
+		try {
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", USER, PASS);
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getMid());
+		
+			int del= pstmt.executeUpdate();
+			if(del==1) {
+				System.out.println("삭제 성공");
+			}else {
+				System.out.println("삭제 실패");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+}
+DB mid 검색해서 memberDTO형 반환
+
+public MemberDTO selectBymid(String mid) {
+		MemberDTO dto = null;
+		
+		Connection conn = null;
+		PreparedStatement pstmt= null;
+		String sql = "select * from member where mid=?";
+		ResultSet rs = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASS);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			
+			rs = pstmt.executeQuery(); // rs에 저장된 데이터는 최대 1개, 조건문사용 
+			
+			if (rs.next()) { // rs에 데이터가 있나?
+				String job =rs.getString("job") ;// Label은 별칭
+				String name =rs.getString("name") ;
+				Date birth= rs.getDate("birth");
+				
+				dto= new MemberDTO(mid, name, job, birth);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return dto;
+	}
+​
+
+DAO update
+
+public void update(MemberDTO dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "Update member set name=?,job=?,birth=? where mid=?"; // ? 순서대로index 1,2,3,4
+		
+		try {
+			
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", USER, PASS);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getJob());
+			pstmt.setDate(3, dto.getBirth());
+			pstmt.setString(4,	dto.getMid());
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+update는 
+
+1. mid로 조회해서 ResultSet형 데이터를  반환
+
+2. ResultSet 데이터에서 각 데이터 get으로 분리 변수 선언
+
+3. DTO형으로 데이터 입력 DTO 생성.
+
+- 1~3번 까지가 selectBymid
+
+4. mid를 제외하고 변경값 수정. 변경하지 않을 값에는 3번 DTO데이터를 사용
+
+MemberDTO odto= dao2.selectbymid("m005"); // 기존 데이터 가져오기
+MemberDTO dto = new MemberDTO("m005", "lee", odto.getJob(), odto.getBirth()); // 수정 하지 않을 값은 기존데이터로 입력
+dao2.update(dto);
+​
+
+​
+
+DAO LIst select
+
+전채 조회용
+
+	public List<MemberDTO> select() {
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		Connection conn =null;
+		PreparedStatement pst = null;
+		String sql = "select * from member";
+		ResultSet rs=null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASS);
+			pst = conn.prepareStatement(sql);
+			
+			rs=pst.executeQuery();
+			while(rs.next()) {
+				String id=rs.getString("mid");
+				String name=rs.getString("name");
+				String job=rs.getString("job");
+				Date birth = rs.getDate("birth");
+				MemberDTO dto = new MemberDTO(mid, name, job, birth);
+				list.add(dto);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pst != null) {
+					pst.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+​
+
+[ 연습 문제 ]
+JDBC
+CRUD 각 메서드 생성
