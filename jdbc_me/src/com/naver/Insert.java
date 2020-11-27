@@ -1,9 +1,6 @@
 package com.naver;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.Scanner;
 
@@ -17,44 +14,28 @@ public class Insert implements Command {
 		String name = sc.nextLine();
 		System.out.println("job을 입력하세요");
 		String job = sc.nextLine();
-		System.out.println("birth는 지금 날짜로");
-	//	String birth = sc.nextLine();
-		Date birth = new Date(Calendar.getInstance().getTimeInMillis());
-
-		MemberDTO odto = SelectBymid.selectBymid(mid);
-		if (odto != null) {
-			System.out.println("중복 id로 입력 실패");
-			return;
-		}
-		Connection conn = null;
-		PreparedStatement pst = null;
-		String sql = "insert into member values (?,?,?,?)";
-		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-			pst = conn.prepareStatement(sql);
-			pst.setString(1,mid);
-			pst.setString(2, name);
-			pst.setString(3, job);
-			pst.setDate(4, birth);
-									
-			pst.executeUpdate();
-					
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-	}
-
+		
+		System.out.println("생년월일을 입력합니다");
+		System.out.println("출생 년도(4자리)를 입력 하세요");
+		int year = sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("출생월를 입력 하세요");
+		int month = sc.nextInt()-1;
+		sc.nextLine();
+		
+		System.out.println("출생일를 입력 하세요");
+		int date = sc.nextInt();
+		sc.nextLine();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(year, month, date);
+		Date birth = new Date(cal.getTimeInMillis()); 
+		
+		MemberDAO dao = new MemberDAO();
+		dao.insert(mid, name, job, birth);
+		
+	}	
 	@Override
 	public String toString() {
 		return "1.insert";

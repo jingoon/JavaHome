@@ -23,9 +23,11 @@ public class MemberDTO implements Serializable {
 		this.job = job;
 		this.birth = birth;
 	}
+	
+	
 	@Override
 	public String toString() {
-		return "MemberDTO [mid=" + mid + ", name=" + name + "]";
+		return "회원정보 [mid=" + mid + ", name=" + name + ", job=" + job + ", birth=" + birth + "]";
 	}
 	@Override
 	public int hashCode() {

@@ -7,6 +7,7 @@ public class End implements Command{
 	@Override
 	public void execute(Scanner sc) {
 		System.out.println("종료 합니다");
+		sc.close();
 		System.exit(0);
 		
 	}

@@ -5,20 +5,17 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MemberDAO {
-	private final String DRIVER = "oracle.jdbc.OracleDriver";
-	private final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private final String USER = "ezen";
-	private final String PASSWORD = "ezen";
+	
+	
 	public MemberDAO() {
 		try {
-			Class.forName(DRIVER);
-			System.out.println("드라이버 연결 성공");
+			Class.forName(Command.DRIVER);
 		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 연결 실패");
 			e.printStackTrace();
 		}
 	}
@@ -31,11 +28,11 @@ public class MemberDAO {
 		}
 		
 		MemberDTO dto = new MemberDTO(mid, name, job, birth);
-		Connection conn = null;
+		Connection conn= null;
 		PreparedStatement pst = null;
 		String sql = "insert into member values (?,?,?,?)";
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Command.URL, Command.USER,Command.PASSWORD);
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, dto.getMid());
 			pst.setString(2, dto.getName());
@@ -45,23 +42,12 @@ public class MemberDAO {
 			int exe=pst.executeUpdate();
 			if(exe==0) {
 				System.out.println("입력 실패");
-			}else {
-				System.out.println("입력 성공");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+			closeAll(null, pst, conn);
 		}
 	}
 
@@ -72,7 +58,7 @@ public class MemberDAO {
 		String sql ="select * from member";
 		ResultSet rs=null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Command.URL, Command.USER, Command.PASSWORD);
 			pst = conn.prepareStatement(sql);
 			
 			rs=pst.executeQuery();
@@ -85,24 +71,11 @@ public class MemberDAO {
 				list.add(dto);
 				
 			}
-			System.out.println("list 생성 성공");
-			
+						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+			closeAll(rs, pst, conn);
 		}
 		
 		return list;
@@ -113,7 +86,7 @@ public class MemberDAO {
 		PreparedStatement pst = null;
 		String sql = "delete from member where mid =?";
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Command.URL, Command.USER, Command.PASSWORD);
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, odto.getMid());
 			int exe =pst.executeUpdate();
@@ -126,16 +99,7 @@ public class MemberDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+			closeAll(null, pst, conn);
 		}
 	}
 	
@@ -146,7 +110,7 @@ public class MemberDAO {
 		String sql = "select * from member where mid=?";
 		ResultSet rs=null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Command.URL, Command.USER, Command.PASSWORD);
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, mid);
 			
@@ -161,57 +125,51 @@ public class MemberDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+			closeAll(rs, pst, conn);
 		}
 		
 		
 		return dto;
 	}
 	
-	public void update(String mid, String name) {// 나이 잡 생일 . 있으면 변경 없으면 그대로 추가 오버라이드
-		MemberDTO odto= selectBymid(mid);
+	public void update(String mid, String name, String job, Date birth) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		String sql ="update member set name=?, job=?, birth=? where mid=?";
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Command.URL, Command.USER, Command.PASSWORD);
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, name);
-			pst.setString(2, odto.getJob());
-			pst.setDate(3, odto.getBirth());
+			pst.setString(2, job);
+			pst.setDate(3, birth);
 			pst.setString(4, mid);
 			int exe =pst.executeUpdate();
 			if(exe==0) {
 				System.out.println("수정 실패");
-			}else {
-				System.out.println("수정 성공");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
+			closeAll(null, pst, conn);
+			
+		}
+	}
+	
+	public void closeAll(ResultSet rs, PreparedStatement pst, Connection conn ) {
+		
+		try {
+			if (rs != null) {
+				rs.close();
 			}
+			if (pst != null) {
+				pst.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	
