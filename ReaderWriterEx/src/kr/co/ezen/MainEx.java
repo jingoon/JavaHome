@@ -7,7 +7,7 @@ public class MainEx {
 
 	public static void main(String[] args) throws Exception {
 		Test t1 = new Test();
-		t1.me1();
+	//	t1.me1();
 	//	t1.me2();
 	//	t1.me3();
 	//	System.out.println("===me4===");
@@ -26,6 +26,8 @@ public class MainEx {
 	//	tm.me8();
 	//	tm.me9();
 	//	tm.me91();
+		tm.parkc();
+		
 		
 	}
 

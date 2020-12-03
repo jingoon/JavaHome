@@ -8,11 +8,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import javax.print.attribute.Size2DSyntax;
 
 public class TestMe {
 	public void me1() {
@@ -30,6 +33,8 @@ public class TestMe {
 				out.write(list.get(i));
 				out.write(System.getProperty("line.separator"));
 			}
+			
+									
 			out.flush();
 
 		} catch (Exception e) {
@@ -304,5 +309,41 @@ public class TestMe {
 			}
 		}
 	}
+	
+	public void parkc() {
+		Reader in = null;
+
+		try {
+
+			in = new FileReader("c:" + File.separator + "test.txt");
+
+			char[] arr = new char[2048];
+			int length = -1;
+
+			while (true) {
+				length = in.read(arr, 0, arr.length);
+				if (length == -1) {
+					break;
+				}
+			}
+			String result = new String(arr);
+			System.out.println(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+		
+	
+		
+
 
 }

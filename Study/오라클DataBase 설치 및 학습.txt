@@ -960,11 +960,6 @@ selectBymid
 JDBC
 CRUD 각 메서드 생성
 
-
-java.sql.SQLException: 부적합한 열 이름
-Date birth=rs.getDate("birth"); 별칭이 있을 때 컬럼명이 아닌 별칭으로 작성
-Date birth=rs.getDate("생일"); 
-
 insert() 만들기
 DB테이블에 입력하기
 delete() 만들기
@@ -977,10 +972,13 @@ jdbc_me 확인
 
 aicd
 트랜젝션
+하나의 수행 단위
+aicd 원자성, 고립성, 지속성
+
+트랜젝션 처리
 하나의 사건이 발생했는데 cud(입력, 수정, 삭제)가 복합적으로 일어나는 상황
 (조회가 빠짐. DB에 직접적으로 연결되어 DB의 데이터에 영향을 주는 상황에서 발생)
 select는 데이터를 출력할 뿐이라서 DB에 영향은 주지 않는다
-트랜젝션 처리
 다 성공시 commit
 하나라도 실패시 rollback
 
@@ -988,8 +986,432 @@ select는 데이터를 출력할 뿐이라서 DB에 영향은 주지 않는다
 트랜젝션 처리는 finally에서
 
 
--------------------------------------------------------------------------------------------
+201126)032-------------------------------------------------------------------------------------------
 
+------ transactionex.sql --
+kim: 0
+lee: 10000
+------------------> transter(kim,lee,10000)
+- kim이 lee에게 1만원을 빌림. 
+ kim balance +10000
+ lee balance -10000
+ ------------------> transter(lee,kim,10000)
+- kim이 lee에게 1만원을 갚음.
+ lee balance +10000
+   ------------------- 전산 오류 or 고장
+ kim balance -10000
+  -------------------- kim의 돈이 빠져나가지 못함
+  ------->트랜젝션 처리 
+  -- 정상이면 commit 실패면 rollback
+  -- 1. conn의 AutoCommit을 수동으로 변경
+  -- 2. 트랜젝션 시작전 boolean 변수를 false로 선언
+  -- 3. 트랜젝션이 끝나면 boolean 변수에 true를 대입
+  -- 4. conn이 닫히기 전 try구문에 if문(true 라면 commit을 false라면 rollback를 실행)
 
+create table account(
+id varchar2(3) primary key,
+balance number
+)
+ 
+ insert into ACCOUNT (id, balance) values ('kim', 0)
+ insert into ACCOUNT (id, balance) values ('lee', 10000)
+ commit
+  
+ select * from ACCOUNT
+-------------------------
 
+TransactionEx
+public class AccountDAO {
 
+	private final String DRIVER ="oracle.jdbc.OracleDriver";
+	private final String URL ="jdbc:oracle:thin:@localhost:1521:xe";
+	private final String USER ="ezen";
+	private final String PASSWORD ="ezen";
+	
+	public AccountDAO() {
+		try {
+			Class.forName(DRIVER);
+			System.out.println("드라이버 로딩 성공");
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패");
+			e.printStackTrace();
+		}
+	}
+	public void transter(String fromId, String toId, int howmuch) {
+		
+		Connection conn =null;
+		PreparedStatement pstmt=null;
+		String sql ="update account set balance = balance + ? where id=?";
+		String sql2 ="update account set balance = balance - ? where id=?"; // fromId와 toId순서가 바뀌면 좋겠다..
+		ResultSet rs=null; // 사용안함. 설명을 위해서 추가
+		// 트랜젝션 처리
+		boolean isok= false; // 트랙젝션의 조건. 중간에 비정상적 종료한다면 기본값 false
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, howmuch);
+			pstmt.setString(2, toId);
+			pstmt.executeUpdate();
+			
+			if(pstmt !=null) {		// sql이 정상수행(!=null) 했다면 여기서 한번 닫아준다.
+				pstmt.close();
+			}
+			System.out.println("곧 전원이 나갑니다");
+			System.out.println(4/0);	// 고장을 표현 exception
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, howmuch);
+			pstmt.setString(2, fromId);
+			pstmt.executeUpdate();
+			
+			isok= true;		// 트랜잭션의 조건 성공적으로 수행했다면 isok = true
+		} catch (Exception e) {
+			e.printStackTrace();// 배포시 요구사항명세서 확인
+		}finally {
+			// commit, rollback은 conn이 가진 기능이므로  connection이 close되기 전에 실행.
+			try {		// 기능에 따라서 try~ catch구문을 분리해서 finally에 작성
+				if (isok) {		// conn의 기능
+					conn.commit(); // 정상 종료라면 true 이므로 commit
+				}else {
+					conn.rollback(); // 중간에 비정상 종료라면 false 이므로 rollback
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {			// close() 기능들
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+}
+
+[연습 문제]
+A->B에게 돈을 전달하는 기능 구현
+트랜젝션 처리
+[문제2]
+멤버쉽 테이블
+아이디, 이름, 포인트 컬럼
+오더 테이블
+아이디, 상품1, 가격 ,  bey
+주문을 넣으면 멤버쉽 테이블의 포인트 컬럼+10 증가
+-- 주문 테이블에 레코드가 추가되면
+-- 회원 테이블의 특정 레코드의 point 컬럼 값이 변한다.
+
+NVL2(조건1,값1,값2)  null이면 값1 아니면 값2 (자동으로 값을 만듦)
+
+---sql----
+create table member10(
+ mid varchar2(10),
+ point number
+ )
+ insert into member10 values ('m001',0)
+ 
+ create table order1(
+ oid varchar2(6) primary key,
+ menu varchar2(3),
+ mid varchar2(6)
+ )
+-------------------
+
+	public void transter2(String oid, String menu, String mid) {
+		Connection conn =null;
+		PreparedStatement pst=null;
+		String sql1="insert into order1 values(?,?,?)";
+		String sql2="update member10 set point= point + 10 where mid=?";
+		ResultSet rs=null; // 필요없음 설명을 위해
+		boolean isok=false;
+		try {
+			conn=DriverManager.getConnection(URL, USER, PASSWORD);
+			pst=conn.prepareStatement(sql1);
+			conn.setAutoCommit(false);
+			pst.setString(1, oid);
+			pst.setString(2, menu);
+			pst.setString(3, mid);
+			
+			pst.executeUpdate();
+	
+			if (sql1 != null) {
+				pst.close();
+			}
+		//	System.out.println("비정상 종료"+4/0);
+			
+			pst=conn.prepareStatement(sql2);
+			pst.setString(1, mid);
+		
+			pst.executeUpdate();
+		
+			isok=true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {				
+				if (isok) {			
+					conn.commit();
+				}else {
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {				 
+				if (rs != null) {
+					rs.close();
+				}
+				if (pst != null) {
+					pst.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+	}
+
+try close의 중복 처리
+private void closeAll(ResultSet rs, PreparedStatement pstmt, Connection conn)
+
+날짜 입력받아서  sql에 저장하기
+ex)
+		Calendar cal = Calendar.getInstance();
+		cal.set(1994, 3-1, 1);
+		long date = cal.getTimeInMillis();
+		Date birth = new Date(date);
+		dao.insert(new MemberDTO("m001", "kim", "a", birth));
+------------------------
+		System.out.println("출생년도를 입력하세요");
+		int year = sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("출생월을 입력하세요");
+		int month = sc.nextInt()-1;
+		sc.nextLine();
+		
+		System.out.println("출생일을 입력하세요");
+		int date = sc.nextInt();
+		sc.nextLine();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(year, month, date);
+		Date birth = new Date(cal.getTimeInMillis());
+
+----------mms2
+
+package com.naver;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+public class MemberDAO {
+	private final String DRIVER="oracle.jdbc.OracleDriver";
+	private final String URL="jdbc:oracle:thin:@localhost:1521:xe";
+	private final String USER="home";
+	private final String PASSWORD="home";
+	public MemberDAO() {
+		try {
+			Class.forName(DRIVER);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void closeAll(ResultSet rs, PreparedStatement pstmt, Connection conn) {
+		
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(MemberDTO dto) { //t 트랜젝션 사용하지 않지만 적용해봄
+		Connection conn =null;
+		PreparedStatement pstmt=null;
+		String sql = "delete from member where mid=?";
+		boolean isok=false;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn.setAutoCommit(false);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getMid());
+			pstmt.executeUpdate();
+			
+			isok=true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (isok) {
+					conn.commit();
+				}else {
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			closeAll(null, pstmt, conn);
+		}
+		
+	}
+	
+	
+	public void update(MemberDTO dto) { //t 트랙젝션 연습용. 사용안함
+		Connection conn =null;
+		PreparedStatement pstmt = null;
+		String sql = "update member set name=? where mid=?";
+		boolean isok=false;//t
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn.setAutoCommit(false);//t
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getMid());
+			
+			pstmt.executeUpdate();
+			
+			isok=true;//t
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {//t
+				if (isok) {
+					conn.commit();
+				}else {
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			closeAll(null, pstmt, conn);
+		}
+	}
+	
+	public List<MemberDTO> select() {
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		Connection conn=null;
+		PreparedStatement pstmt = null;
+		String sql = "select mid,name 이름, job 직업, birth 생일 from member";
+		ResultSet rs=null;
+		boolean isok=false; //t 트랜젝션 연습, 이 메서드에는 사용안함
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn.setAutoCommit(false); //t 오토commit을 끈다
+			pstmt=conn.prepareStatement(sql);
+			
+				
+			rs=pstmt.executeQuery();
+			while (rs.next()) {
+				String mid = rs.getString("mid");
+				String name = rs.getString("이름");
+				String job = rs.getString("직업");
+				Date birth = rs.getDate("생일");
+				MemberDTO dto = new MemberDTO(mid, name, job, birth);
+				list.add(dto);
+			}
+			
+//			if(pstmt !=null) {			//t pstmt를 재사용하기 위해 먼저꺼는 닫아준다.
+//				pstmt.close();
+//			}
+//			pstmt=conn.prepareStatement(sql2);
+			
+			
+			isok=true;//t 정상 종료라면 변경
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (isok) {
+					conn.commit();// 정상종료 commit
+				}else {
+					conn.rollback();// 비정상종료 rollback
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			closeAll(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
+	
+	
+	public void insert(MemberDTO dto) {
+		Connection conn = null;
+		PreparedStatement pstmt=null;
+		String sql="insert into member values (?,?,?,?)";
+		boolean isok=false; //t 트랜젝션처리 학습을 위해 작성
+		try {
+			conn=DriverManager.getConnection(URL, USER, PASSWORD);
+			conn.setAutoCommit(false);//t
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getMid());
+			pstmt.setString(2, dto.getName());
+			pstmt.setString(3, dto.getJob());
+			pstmt.setDate(4, dto.getBirth());
+			pstmt.executeUpdate();
+					
+			
+			isok=true;//t
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {//t 나중에는 이것도 메서드 처리
+				if (isok) {
+					conn.commit();
+				}else {
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			closeAll(null, pstmt, conn);	// 중복되는 close 기능들을 메서드 처리
+		}
+	}
+}
+
+조! 5일 다음주 목요일까지(12/4);
+회원관리 프로그램 . 
+변수를 어떤 이름으로, 프로젝트 네임, 페키지 네임을 어떤식으로 작성할지 예기.
+완성 후 케치부분 어떻게 해야할지
+기능을 나눠서 . 작성 . 
+
+201127)033-------------------------------------------------------------------------------------
+201203)033----------
+jsp서블릿, 스프링프레임워크
+class.forName(풀패키지). instans. 객체 생성. 리플렉트 // 문자열로 인스턴스 만들기.

@@ -3,7 +3,7 @@
  grant connect, resource, dba to ezen
  commit
  
- SELECT *FROM tab;
+ SELECT *FROM tab
 
 
 
